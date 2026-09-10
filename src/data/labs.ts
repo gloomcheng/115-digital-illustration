@@ -150,7 +150,7 @@ export const experiments = [
     title: '用用途選方向',
     action: '同一風格測試繪本頁、貼圖與提案封面。',
     output: '風格取向矩陣',
-    question: '這個方向能不能被觀眾與市場使用？',
+    question: '看的人認得出來嗎？放到貼圖、繪本或商品上，真的有人會用嗎？',
   },
 ]
 

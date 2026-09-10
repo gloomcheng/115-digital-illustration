@@ -1,5 +1,6 @@
 ---
 import { careerDirections, course } from '../data/course'
+import { designEducation, designEducationSources } from '../data/design-education'
 import { weeks } from '../data/weeks'
 import Layout from '../layouts/Layout.astro'
 
@@ -33,9 +34,18 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '')
           <p class="max-w-sm text-sm leading-7 text-blue">不用一次把所有工具學完。每週先做一件小事；做完，你會比較知道下一步要往哪裡走。</p>
         </div>
         <div class="overflow-hidden rounded-2xl border-2 border-ink bg-paper shadow-[8px_8px_0_rgba(13,94,130,.14)]">
-          <div class="hidden grid-cols-[70px_1.45fr_1fr_1.2fr_1fr] border-b-2 border-ink bg-sun px-5 py-4 font-mono text-xs font-bold tracking-[.12em] md:grid"><span>週次</span><span>這週做什麼</span><span>誰帶這段</span><span>這週先想什麼</span><span>做完留下什麼</span></div>
-          {weeks.map((week) => <a href={`${base}/weeks/${week.number}`} class="group grid gap-3 border-b border-ink/15 px-5 py-6 transition-colors last:border-0 hover:bg-sky focus-visible:bg-sky focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-coral/40 md:grid-cols-[70px_1.45fr_1fr_1.2fr_1fr] md:items-start md:gap-5"><div class="font-mono text-sm font-bold text-blue">W{String(week.number).padStart(2, '0')}</div><div><h3 class="text-xl font-extrabold leading-8 group-hover:text-blue">{week.title}</h3>{week.note && <p class="mt-1 font-mono text-xs text-blue">{week.note}</p>}<p class="mt-3 text-sm leading-7 text-ink/80">{week.content}</p><p class="mt-2 text-sm leading-7 text-ink/70 md:hidden">{week.assignment}</p></div><div class="text-sm font-bold text-blue">{week.owner}</div><p class="hidden text-sm leading-7 text-ink/75 md:block">{week.question}</p><p class="hidden text-sm leading-7 text-ink/75 md:block">{week.evidence}</p></a>)}
+          <div class="hidden grid-cols-[70px_1.45fr_1fr_1.2fr_1fr] border-b-2 border-ink bg-sun px-5 py-4 font-mono text-xs font-bold tracking-[.12em] md:grid"><span>週次</span><span>本週課程內容</span><span>誰帶這段</span><span>這週先想什麼</span><span>做完留下什麼</span></div>
+          {weeks.map((week) => <a href={`${base}/weeks/${week.number}`} class="group grid gap-3 border-b border-ink/15 px-5 py-6 transition-colors last:border-0 hover:bg-sky focus-visible:bg-sky focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-coral/40 md:grid-cols-[70px_1.45fr_1fr_1.2fr_1fr] md:items-start md:gap-5"><div class="font-mono text-sm font-bold text-blue">W{String(week.number).padStart(2, '0')}</div><div><h3 class="text-xl font-extrabold leading-8 group-hover:text-blue">{week.title}</h3>{week.note && <p class="mt-1 font-mono text-xs text-blue">{week.note}</p>}<p class="mt-3 font-mono text-xs font-bold leading-6 text-blue">核心概念：{designEducation[week.number].concept}</p><p class="mt-2 text-sm leading-7 text-ink/80">{week.content}</p><p class="mt-2 text-sm leading-7 text-ink/70 md:hidden">{week.assignment}</p></div><div class="text-sm font-bold text-blue">{week.owner}</div><p class="hidden text-sm leading-7 text-ink/75 md:block">{week.question}</p><p class="hidden text-sm leading-7 text-ink/75 md:block">{week.evidence}</p></a>)}
         </div>
+      </div>
+    </section>
+
+    <section class="paper-grid px-5 py-14 sm:px-10 lg:px-10 lg:py-20">
+      <div class="mx-auto max-w-7xl">
+        <p class="font-mono text-xs font-bold tracking-[.18em] text-blue">設計教育的底</p>
+        <h2 class="mt-3 max-w-4xl text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">第一張圖變快，不代表你知道下一張怎麼做。</h2>
+        <p class="mt-6 max-w-3xl text-lg leading-8 text-ink/80">先觀察，再定義問題；再把色彩、比例、質感、構成、文字、符號與媒材放回用途裡。AI 可以先做一版；但它不知道這張圖要讓人先看到什麼、記住什麼、接著做什麼。你自己說不清楚，下一輪就只是在換一張圖碰運氣。</p>
+        <div class="mt-8 flex flex-wrap gap-x-5 gap-y-3 text-sm font-bold text-blue">{designEducationSources.map((source) => <a href={source.url} target="_blank" rel="noreferrer" class="underline decoration-coral decoration-2 underline-offset-4 hover:text-coral">{source.label} ↗</a>)}</div>
       </div>
     </section>
 
@@ -43,7 +53,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '')
       <div class="mx-auto max-w-7xl">
         <p class="font-mono text-xs font-bold tracking-[.18em] text-sun">AI 時代，這些能力往哪裡去</p>
         <h2 class="mt-3 max-w-4xl text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">你不是只在學一套出圖流程。</h2>
-        <p class="mt-6 max-w-3xl text-lg leading-8 text-paper/85">AI 會讓第一張圖變快，但它沒有替你決定誰要看、畫面怎麼說、哪個版本能繼續做。這些判斷會跟著你走進數位媒體、資訊傳播、大眾傳播和設計工作。</p>
+        <p class="mt-6 max-w-3xl text-lg leading-8 text-paper/85">AI 會讓第一張圖變快；但它不知道這張圖要讓人先看到什麼、記住什麼、接著做什麼。這就是數位媒體、資訊傳播、大眾傳播和設計工作每天要處理的事。</p>
         <div class="mt-10 grid gap-5 md:grid-cols-2">
           {careerDirections.map((direction, index) => <article class="rounded-2xl border-2 border-paper/40 bg-paper/10 p-6"><div class="flex items-center justify-between gap-4"><span class="font-mono text-sm font-bold text-sun">0{index + 1}</span><span class="font-mono text-xs text-paper/70">一條可能的路</span></div><h3 class="mt-7 text-2xl font-extrabold">{direction.title}</h3><p class="mt-3 text-base leading-8 text-paper/85">{direction.detail}</p><p class="mt-5 border-t border-paper/20 pt-4 text-sm font-bold leading-7 text-sun">可能接到：{direction.roles}</p><a href={direction.source} target="_blank" rel="noreferrer" class="mt-5 inline-block font-mono text-xs text-paper underline decoration-sun decoration-2 underline-offset-4 hover:text-sun focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-sun/50">看教育與職涯資料 ↗</a></article>)}
         </div>
