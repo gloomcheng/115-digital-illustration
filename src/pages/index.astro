@@ -12,10 +12,10 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '')
   <main>
     <section class="hero-scene relative isolate min-h-[calc(100svh-4.5rem)] overflow-hidden bg-night text-paper">
       <div class="hero-layer-stack absolute inset-0" data-hero-parallax="true" aria-hidden="true">
-        <img src={`${base}/illustrations/hero-sky.png`} alt="" class="hero-image hero-image-fallback absolute inset-0 h-full w-full object-cover" fetchpriority="high" loading="eager" data-hero-layer="fallback" />
-        <img src={`${base}/illustrations/hero-background.png`} alt="" class="hero-layer hero-layer-background absolute inset-0 h-full w-full object-cover" data-hero-layer="background" data-parallax-speed="0.12" data-parallax-x="-0.06" onerror="this.remove()" />
-        <img src={`${base}/illustrations/hero-clouds.png?v=clean-2`} alt="" class="hero-layer hero-layer-clouds absolute inset-0 h-full w-full object-cover" data-hero-layer="clouds" data-parallax-speed="-0.22" data-parallax-x="0.12" onerror="this.remove()" />
-        <img src={`${base}/illustrations/hero-foreground.png?v=clean-2`} alt="" class="hero-layer hero-layer-foreground absolute inset-0 h-full w-full object-cover" data-hero-layer="foreground" data-parallax-speed="0.38" data-parallax-x="-0.2" onerror="this.remove()" />
+        <img src={`${base}/illustrations/hero-sky.webp`} alt="" class="hero-image hero-image-fallback absolute inset-0 h-full w-full object-cover" width="1916" height="821" fetchpriority="high" loading="eager" decoding="async" data-hero-layer="fallback" />
+        <img src={`${base}/illustrations/hero-background.webp`} alt="" class="hero-layer hero-layer-background absolute inset-0 h-full w-full object-cover" width="1891" height="831" fetchpriority="low" loading="eager" decoding="async" data-hero-layer="background" data-parallax-speed="0.12" data-parallax-x="-0.06" onerror="this.remove()" />
+        <img src={`${base}/illustrations/hero-clouds.webp`} alt="" class="hero-layer hero-layer-clouds absolute inset-0 h-full w-full object-cover" width="1891" height="831" fetchpriority="low" loading="eager" decoding="async" data-hero-layer="clouds" data-parallax-speed="-0.22" data-parallax-x="0.12" onerror="this.remove()" />
+        <img src={`${base}/illustrations/hero-foreground.webp`} alt="" class="hero-layer hero-layer-foreground absolute inset-0 h-full w-full object-cover" width="1881" height="836" fetchpriority="low" loading="eager" decoding="async" data-hero-layer="foreground" data-parallax-speed="0.38" data-parallax-x="-0.2" onerror="this.remove()" />
       </div>
       <div class="hero-overlay absolute inset-0" aria-hidden="true"></div>
       <div class="hero-depth hero-depth-clouds absolute inset-0" data-speed="0.18" aria-hidden="true"></div>
@@ -65,7 +65,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '')
         <div class="mt-12 grid gap-8 lg:grid-cols-[minmax(0,1.12fr)_minmax(22rem,.88fr)] lg:items-stretch">
           <figure class="flex min-w-0 flex-col">
             <div class="overflow-hidden rounded-[1.5rem] border-2 border-ink bg-paper">
-              <img src={`${base}/illustrations/rapid-trial.png`} alt="原創插畫：同一角色的多張候選圖在畫桌上比較，經過單一變因實驗後留下下一輪方向。" class="block aspect-[16/9] h-full w-full object-cover" loading="lazy" />
+              <img src={`${base}/illustrations/rapid-trial.webp`} alt="原創插畫：同一角色的多張候選圖在畫桌上比較，經過單一變因實驗後留下下一輪方向。" class="block aspect-[16/9] h-full w-full object-cover" width="1672" height="941" loading="lazy" decoding="async" />
             </div>
             <figcaption class="mt-4 flex flex-wrap items-baseline justify-between gap-3 font-mono text-xs leading-5 text-[#071f34]">
               <span>一次只改一件事；不然你不知道差異從哪裡來。</span>

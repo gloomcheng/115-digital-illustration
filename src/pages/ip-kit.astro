@@ -10,9 +10,14 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '')
   <main class="bg-paper px-5 pb-12 sm:px-10 lg:px-10 lg:pb-20">
     <section class="hero-overlay relative isolate -mx-5 min-h-[min(760px,calc(100svh-5rem))] overflow-hidden bg-night sm:-mx-10 lg:-mx-10">
       <img
-        src={`${base}/illustrations/broker-studio.png`}
+        src={`${base}/illustrations/broker-studio.webp`}
         alt="原創插畫：IP 經紀人工作桌、角色設定、延伸應用物件、視覺聖經與權利來源資料夾。"
         class="absolute inset-0 h-full w-full object-cover object-center"
+        width="1536"
+        height="1024"
+        fetchpriority="high"
+        loading="eager"
+        decoding="async"
       />
       <div class="absolute inset-0 bg-gradient-to-r from-night via-night/90 to-night/15"></div>
       <div class="absolute inset-0 bg-gradient-to-t from-night/80 via-transparent to-night/10"></div>
@@ -28,7 +33,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '')
 
     <div class="mx-auto max-w-7xl">
       <section class="mt-16 grid gap-10 lg:grid-cols-[.9fr_1.1fr] lg:items-start"><div><p class="font-mono text-xs font-bold tracking-[.18em] text-blue">交出去以前，先問自己</p><h2 class="mt-2 text-4xl font-extrabold tracking-[-.06em]">最後要交哪些東西？</h2><div class="mt-8 grid gap-3">{brokerChecklist.map((item, index) => <details class="group flex gap-4 rounded-xl border-2 border-ink bg-sky p-5"><summary class="flex w-full cursor-pointer list-none gap-4 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-coral/40"><span class="font-mono text-sm font-bold text-blue">{String(index + 1).padStart(2, '0')}</span><span><h3 class="font-mono text-sm font-bold group-open:text-blue">{item.title}</h3><p class="mt-2 text-sm leading-7">{item.detail}</p></span></summary></details>)}</div></div><div><p class="font-mono text-xs font-bold tracking-[.18em] text-blue">每次試做都留一筆</p><h2 class="mt-2 text-4xl font-extrabold tracking-[-.06em]">不要只留下最後一張。</h2><div class="mt-8 grid gap-5">{experiments.map((experiment) => <details class="group story-card rounded-2xl border-2 border-ink bg-[#fff0bf] p-6"><summary class="cursor-pointer list-none focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-coral/40"><div class="flex items-center justify-between"><span class="font-mono text-xs font-bold text-blue">第 {experiment.number} 輪</span><span class="font-mono text-xs text-blue">留下：{experiment.output}</span></div><h3 class="mt-5 text-2xl font-extrabold group-open:text-blue">{experiment.title}</h3></summary><p class="mt-3 text-sm leading-7">{experiment.action}</p><p class="mt-4 border-t border-ink/20 pt-4 text-sm font-bold leading-7">問自己：{experiment.question}</p></details>)}</div></div></section>
-      <section class="mt-16 grid gap-8 rounded-2xl border-2 border-ink bg-[#ffd7cc] p-7 md:grid-cols-2 md:p-10"><div><p class="font-mono text-xs font-bold tracking-[.16em]">換一個場景試試</p><h2 class="mt-3 text-3xl font-extrabold tracking-[-.05em]">把角色放到下一個場景</h2><p class="mt-4 text-base leading-8">固定角色的記憶點，只改場景、用途或動作。如果每次都要重新抽一個角色，你還不知道哪些規則真的有效。</p></div><Illustration src="/illustrations/animation-frames.png" alt="原創插畫：同一個角色的五個連續姿勢，展示從靜止到動態的角色一致性測試。" caption="動起來以前，先看看每一格是不是同一個角色。" /></section>
+      <section class="mt-16 grid gap-8 rounded-2xl border-2 border-ink bg-[#ffd7cc] p-7 md:grid-cols-2 md:p-10"><div><p class="font-mono text-xs font-bold tracking-[.16em]">換一個場景試試</p><h2 class="mt-3 text-3xl font-extrabold tracking-[-.05em]">把角色放到下一個場景</h2><p class="mt-4 text-base leading-8">固定角色的記憶點，只改場景、用途或動作。如果每次都要重新抽一個角色，你還不知道哪些規則真的有效。</p></div><Illustration src="/illustrations/animation-frames.webp" alt="原創插畫：同一個角色的五個連續姿勢，展示從靜止到動態的角色一致性測試。" caption="動起來以前，先看看每一格是不是同一個角色。" /></section>
     </div>
   </main>
 </Layout>

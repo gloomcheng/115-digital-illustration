@@ -21,13 +21,13 @@ const illustration = rasterAssets[(week.number - 1) % rasterAssets.length]
 const previous = weeks.find((item) => item.number === week.number - 1)
 const next = weeks.find((item) => item.number === week.number + 1)
 const weekLabel = `W${String(week.number).padStart(2, '0')}`
-const imagePath = `${base}/illustrations/${illustration}.png`
+const imagePath = `${base}/illustrations/${illustration}.webp`
 ---
 
 <Layout title={`${weekLabel} ${week.title}`} description={week.question}>
   <main class="bg-paper">
     <section class="relative isolate min-h-[min(760px,calc(100svh-76px))] overflow-hidden bg-ink text-paper">
-      <img src={imagePath} alt={`第 ${week.number} 週課程插畫：${week.title}`} class="absolute inset-0 h-full w-full object-cover object-center" loading="eager" />
+      <img src={imagePath} alt={`第 ${week.number} 週課程插畫：${week.title}`} class="absolute inset-0 h-full w-full object-cover object-center" fetchpriority="high" loading="eager" decoding="async" />
       <div class="absolute inset-0 bg-[linear-gradient(90deg,rgba(7,31,52,.94)_0%,rgba(7,31,52,.78)_34%,rgba(7,31,52,.2)_72%,rgba(7,31,52,.08)_100%)]"></div>
       <div class="absolute inset-x-0 bottom-0 h-40 bg-[linear-gradient(0deg,rgba(7,31,52,.6),transparent)]"></div>
 
