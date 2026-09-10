@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" role="img" aria-labelledby="title desc">
+  <title id="title">原創動態繪本頁面插畫</title>
+  <desc id="desc">一本打開的繪本有角色、遠景、雲層與提示卡，表示作品會從單張圖長成連續頁面。</desc>
+  <rect width="900" height="600" rx="28" fill="#fffaf0"/>
+  <path d="M75 180 Q220 130 450 195 Q680 130 825 180 V500 Q650 450 450 510 Q250 450 75 500 Z" fill="#fff0bf" stroke="#123d59" stroke-width="6"/>
+  <path d="M450 195 V510" stroke="#123d59" stroke-width="5"/>
+  <path d="M105 310 C200 245 270 340 370 275 C410 250 430 275 450 292" fill="none" stroke="#0d5e82" stroke-width="12" stroke-linecap="round"/>
+  <path d="M450 292 C500 245 585 340 670 270 C735 220 780 270 805 300" fill="none" stroke="#0d5e82" stroke-width="12" stroke-linecap="round"/>
+  <circle cx="290" cy="365" r="53" fill="#ed765d" stroke="#123d59" stroke-width="5"/><circle cx="272" cy="356" r="7" fill="#fffaf0"/><circle cx="308" cy="356" r="7" fill="#fffaf0"/><path d="M272 384 Q290 400 309 383" fill="none" stroke="#fffaf0" stroke-width="5"/>
+  <path d="M560 375 l42 -28 42 28 v66 h-84 z" fill="#cfe7f0" stroke="#123d59" stroke-width="5"/><path d="M560 375 l42 27 42 -27" fill="none" stroke="#123d59" stroke-width="4"/>
+  <g transform="translate(320 63)"><rect width="210" height="70" rx="12" fill="#cfe7f0" stroke="#123d59" stroke-width="5"/><text x="105" y="44" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="18" fill="#123d59">NEXT PAGE?</text></g>
+</svg>

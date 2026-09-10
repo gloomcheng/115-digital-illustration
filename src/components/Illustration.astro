@@ -1,0 +1,16 @@
+---
+interface Props {
+  src: string
+  alt: string
+  caption?: string
+  class?: string
+}
+
+const { src, alt, caption, class: className = '' } = Astro.props
+const base = import.meta.env.BASE_URL.replace(/\/$/, '')
+---
+
+<figure class={className}>
+  <img src={`${base}${src}`} alt={alt} class="h-auto w-full" loading="lazy" />
+  {caption && <figcaption class="mt-3 font-mono text-xs leading-5 text-blue">{caption}</figcaption>}
+</figure>

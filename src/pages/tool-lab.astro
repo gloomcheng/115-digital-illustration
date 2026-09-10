@@ -1,0 +1,44 @@
+---
+import { type ToolStatus, tools } from '../data/labs'
+import Layout from '../layouts/Layout.astro'
+
+const statusLabel: Record<ToolStatus, string> = {
+  free: '直接可用',
+  'free-quota': '有免費額度',
+  'one-time': '限量一次',
+  'optional-gpu': '延伸試試',
+}
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '')
+---
+
+<Layout title="工具怎麼選" description="先用免費工具試做，再決定下一步">
+  <main>
+    <section class="relative isolate min-h-[min(720px,calc(100svh-4.5rem))] overflow-hidden bg-night text-paper">
+      <img src={`${base}/illustrations/tool-studio.png`} alt="原創插畫：AI 工具工作桌、參考圖、變體、提示詞卡、色票與五格動畫分鏡。" class="absolute inset-0 h-full w-full object-cover object-center" fetchpriority="high" loading="eager" />
+      <div class="hero-overlay absolute inset-0" aria-hidden="true"></div>
+      <div class="relative mx-auto flex min-h-[min(720px,calc(100svh-4.5rem))] max-w-7xl items-center px-5 py-20 sm:px-10 lg:px-10 lg:py-24">
+        <div class="max-w-2xl">
+          <p class="font-mono text-xs font-bold tracking-[.18em] text-sun">03 / 工具怎麼選</p>
+          <h1 class="mt-5 max-w-xl text-[clamp(2.75rem,6vw,5.8rem)] font-extrabold leading-[.98] tracking-[-.07em]">免費，不等於<br /><span class="text-sun">永遠不會變。</span></h1>
+          <p class="mt-7 max-w-xl text-lg font-bold leading-9 text-paper sm:text-xl">你一定會需要大量試錯，但不要把作業綁在某個平台永遠免費。每次使用前，先記下今天的額度、權利和替代工具。</p>
+          <a href={`${base}/animation-lab`} class="mt-8 inline-flex rounded-full border-2 border-paper bg-paper px-6 py-3 font-mono text-sm font-bold text-ink shadow-[5px_5px_0_#ed765d] transition-transform hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-sun/70">先做一張動圖：從 PNG 到 APNG ↗</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="paper-grid px-5 py-12 sm:px-10 lg:px-10 lg:py-20">
+      <div class="mx-auto max-w-7xl">
+        <div class="overflow-hidden rounded-2xl border-2 border-ink bg-paper shadow-[8px_8px_0_rgba(13,94,130,.14)]">
+          <div class="hidden grid-cols-[1.05fr_.75fr_1.8fr_1fr] border-b-2 border-ink bg-sun px-6 py-4 font-mono text-xs font-bold tracking-[.12em] md:grid"><span>工具</span><span>現在能不能用</span><span>適合放在哪一步</span><span>條件變了怎麼辦</span></div>
+          {tools.map((tool) => <details class="group border-b border-ink/15 last:border-0"><summary class="grid cursor-pointer list-none gap-4 px-6 py-6 transition-colors hover:bg-sky focus-visible:bg-sky focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-coral/40 md:grid-cols-[1.05fr_.75fr_1.8fr_1fr] md:items-start md:gap-6"><div><h2 class="text-xl font-extrabold group-open:text-blue">{tool.name}</h2></div><div><span class:list={['inline-block rounded-full border-2 border-ink px-3 py-1 font-mono text-xs font-bold', tool.status === 'optional-gpu' ? 'bg-sky' : tool.status === 'one-time' ? 'bg-[#ffd7cc]' : 'bg-[#fff0bf]']}>{statusLabel[tool.status]}</span></div><p class="text-sm leading-7">{tool.role}</p><p class="text-sm leading-7 text-blue">沒有它時：{tool.fallback}</p></summary><div class="grid gap-3 border-t border-ink/15 bg-sky/50 px-6 py-4 md:grid-cols-[1.05fr_.75fr_1.8fr_1fr] md:items-center md:gap-6"><a href={tool.source} target="_blank" rel="noreferrer" class="ink-link font-mono text-[11px] text-blue">看官方條件 ↗</a><span class="hidden md:block"></span><span class="hidden md:block"></span><span class="text-sm leading-7 text-blue">先記下今天的額度與條件，再決定要不要把它放進你的流程。</span></div></details>)}
+        </div>
+        <div class="mt-10 grid gap-6 md:grid-cols-3">
+          <div class="rounded-2xl border-2 border-ink bg-[#ffd7cc] p-6"><p class="font-mono text-xs font-bold">先從不用付費的路線開始</p><h2 class="mt-4 text-2xl font-extrabold">不用付費，也能先做</h2><p class="mt-3 text-sm leading-7">課堂作業不能綁在需要付費的功能上。先用可以進去的工具，做出第一輪。</p></div>
+          <div class="rounded-2xl border-2 border-ink bg-sky p-6"><p class="font-mono text-xs font-bold">先做小圖</p><h2 class="mt-4 text-2xl font-extrabold">先確認方向，再做大的</h2><p class="mt-3 text-sm leading-7">先用小尺寸和低成本版本看方向，確定值得再做大圖、影片或 GPU。</p></div>
+          <div class="rounded-2xl border-2 border-ink bg-[#fff0bf] p-6"><p class="font-mono text-xs font-bold">把失敗留著</p><h2 class="mt-4 text-2xl font-extrabold">額度花掉，也要知道為什麼</h2><p class="mt-3 text-sm leading-7">下一輪要看見是提示詞、模型、參考圖還是使用條件出了問題。</p></div>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>

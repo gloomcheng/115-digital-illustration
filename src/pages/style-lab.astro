@@ -1,0 +1,99 @@
+---
+import { promptParts, styleAxes } from '../data/labs'
+import { styleCatalog } from '../data/styleCatalog'
+import Layout from '../layouts/Layout.astro'
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '')
+const catalogCount = styleCatalog.length
+const categoryLabels: Record<string, string> = {
+  constructed: '幾何構成',
+  editorial: '編輯排版',
+  graphic: '圖像設計',
+  line: '線條表現',
+  narrative: '敘事插畫',
+  'negative-space': '負空間',
+  paint: '繪畫質感',
+  tactile: '材質觸感',
+}
+---
+
+<Layout title="風格怎麼看" description="先看線條、形狀、色彩、材質和空間，再決定一個風格適不適合你的作品">
+  <main class="bg-paper">
+    <section class="relative isolate min-h-[min(760px,calc(100svh-4.5rem))] overflow-hidden bg-night text-paper">
+      <img src={`${base}/illustrations/style-atlas.png`} alt="原創插畫：海岸山城與材質研究板，呈現線條、色彩、材質、空間與用途的觀察線索。" class="absolute inset-0 h-full w-full object-cover object-center" fetchpriority="high" loading="eager" />
+      <div class="hero-overlay absolute inset-0" aria-hidden="true"></div>
+      <div class="relative mx-auto flex min-h-[min(760px,calc(100svh-4.5rem))] max-w-7xl items-center px-5 py-20 sm:px-10 lg:px-10 lg:py-24">
+        <div class="max-w-2xl">
+          <p class="font-mono text-xs font-bold tracking-[.18em] text-sun">02 / 風格怎麼看</p>
+          <h1 class="mt-5 max-w-xl text-5xl font-extrabold leading-[.98] tracking-[-.07em] sm:text-7xl">不要背風格名。<br /><span class="text-sun">先看它怎麼工作。</span></h1>
+          <p class="mt-7 max-w-xl text-lg font-bold leading-8 text-paper sm:text-xl">你會在這裡看到 100 個風格索引，但不用背名字。先看線條、形狀、色彩、材質和空間，再問它適不適合你要做的東西。</p>
+          <p class="mt-8 max-w-md border-l-2 border-sun pl-4 text-sm leading-7 text-paper/85">先說出畫面看得到的東西，再說自己喜不喜歡。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="mx-auto max-w-7xl px-5 pt-10 sm:px-10 lg:px-10">
+      <div class="rounded-2xl border-2 border-ink bg-[#fff0bf] p-6 text-ink sm:p-7">
+        <p class="font-mono text-xs font-bold tracking-[.16em] text-blue">先把詞說清楚</p>
+        <p class="mt-3 max-w-4xl text-base leading-8">這裡用「生活工藝美學」描述工藝如何和日常生活連在一起。只有在談柳宗悅與日本民藝運動時，才使用「日本民藝美學」；這兩個詞不要混成「民藝感」。</p>
+      </div>
+    </section>
+
+    <div class="mx-auto max-w-7xl px-5 py-12 sm:px-10 lg:px-10 lg:py-20">
+      <section>
+        <div class="flex flex-wrap items-end justify-between gap-4">
+          <div><p class="font-mono text-xs font-bold tracking-[.18em] text-blue">看風格的六個地方</p><h2 class="mt-2 text-4xl font-extrabold tracking-[-.06em]">先從畫面上找得到的地方開始。</h2></div>
+          <p class="max-w-md text-sm leading-7 text-blue">你不用背下 100 個名字。先指出一張圖到底差在哪裡，再決定要不要用這個方向。</p>
+        </div>
+        <div class="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+          {styleAxes.map((axis, index) => <details class="group story-card rounded-2xl border-2 border-ink bg-sky p-6"><summary class="cursor-pointer list-none focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-coral/40"><div class="flex items-center justify-between"><span class="font-mono text-sm font-bold text-blue">0{index + 1}</span><span class="font-mono text-xs text-blue">{axis.key}</span></div><h3 class="mt-8 text-2xl font-extrabold group-open:text-blue">{axis.title}</h3><p class="mt-3 text-base font-bold leading-8">{axis.question}</p></summary><p class="mt-4 border-t border-ink/20 pt-4 text-sm leading-7 text-blue">例如：{axis.example}</p><p class="mt-3 font-mono text-xs text-blue">打開後，找一個畫面證據。</p></details>)}
+        </div>
+      </section>
+
+      <section class="mt-20 grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(20rem,.8fr)] lg:items-start">
+        <div><p class="font-mono text-xs font-bold tracking-[.18em] text-blue">把提示詞說清楚</p><h2 class="mt-2 text-4xl font-extrabold tracking-[-.06em]">提示詞不是咒語，是畫面說明。</h2><p class="mt-4 max-w-xl text-lg leading-8 text-blue">你不是在背一串固定句子，而是在告訴工具：畫面裡有誰、正在做什麼、要放在哪裡，最後要用在哪裡。</p><div class="mt-8 grid auto-rows-fr gap-4 sm:grid-cols-2">{promptParts.map((part) => <article class="flex h-full min-h-36 flex-col rounded-xl border-2 border-ink bg-paper p-5"><h3 class="font-mono text-sm font-bold text-blue">{part.title}</h3><p class="mt-3 text-sm leading-7">{part.detail}</p></article>)}</div></div>
+        <details open class="h-full rounded-2xl border-2 border-ink bg-[#ffd7cc] p-7"><summary class="cursor-pointer list-none focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-coral/40"><p class="font-mono text-xs font-bold tracking-[.16em]">現在就試試</p><h3 class="mt-4 text-2xl font-extrabold">同一個主體，三輪各改一件事</h3></summary><ol class="mt-6 grid gap-4 text-sm leading-7"><li><span class="font-mono font-bold text-blue">01</span> 固定主體和用途，只改線條。</li><li><span class="font-mono font-bold text-blue">02</span> 固定主體和線條，只改顏色。</li><li><span class="font-mono font-bold text-blue">03</span> 前面兩個都固定，只改材質。</li></ol><p class="mt-6 border-t border-ink/20 pt-5 text-sm font-bold leading-7">如果三輪同時改了很多東西，你就不知道結果為什麼變。</p></details>
+      </section>
+
+      <section class="mt-24 border-t-2 border-ink pt-12" aria-labelledby="style-catalog-title">
+        <div class="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(18rem,.65fr)] lg:items-end">
+          <div><p class="font-mono text-xs font-bold tracking-[.18em] text-blue">100 個風格索引</p><h2 id="style-catalog-title" class="mt-2 text-4xl font-extrabold tracking-[-.06em]">先挑一個，再說出你看見什麼。</h2><p class="mt-4 max-w-2xl text-lg leading-8 text-blue">每一筆只有觀察線索、分類、問題和來源。它不是可以直接複製的答案；打開一筆，先說出線條、材質或空間怎麼影響畫面。</p></div>
+          <div class="rounded-2xl border-2 border-ink bg-sun p-5 text-ink"><p class="font-mono text-xs font-bold tracking-[.16em]">這一頁怎麼用</p><p class="mt-2 text-3xl font-extrabold">{catalogCount} 筆</p><p class="mt-2 text-sm leading-6">這裡放觀察線索、問題和來源，讓你自己判斷一個方向能不能用。</p></div>
+        </div>
+
+        <div class="mt-10 rounded-2xl border-2 border-ink bg-sky p-5 sm:p-7">
+          <label for="style-filter" class="block text-sm font-extrabold text-ink">找風格：用編號、線條、分類或問題搜尋</label>
+          <div class="mt-3 flex flex-col gap-4 sm:flex-row sm:items-center"><input id="style-filter" type="search" placeholder="例如：線條、材質、003、透視" class="min-h-12 w-full rounded-xl border-2 border-ink bg-paper px-4 text-base text-ink outline-none placeholder:text-blue/70 focus:border-coral focus:ring-4 focus:ring-coral/25" /><p id="style-result-count" class="shrink-0 font-mono text-sm font-bold text-blue" role="status" aria-live="polite">顯示 {catalogCount} / {catalogCount} 筆</p></div>
+          <p class="mt-3 text-xs leading-6 text-blue">先從一個你看得見的詞開始找；找不到時，換個說法再試。</p>
+        </div>
+
+        <div id="style-catalog" class="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+          {styleCatalog.map((entry) => <details class="style-catalog-card group flex h-full flex-col rounded-2xl border-2 border-ink bg-paper p-5 shadow-[6px_6px_0_#d8e9ef]" data-search={`${entry.id} ${entry.signals} ${entry.category} ${categoryLabels[entry.category]} ${entry.teachingQuestion}`}><summary class="flex cursor-pointer list-none flex-1 flex-col focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-coral/40"><div class="flex items-start justify-between gap-4"><span class="font-mono text-sm font-bold text-blue">{entry.id}</span><span class="rounded-full border border-ink px-2 py-1 font-mono text-[.68rem] font-bold text-blue">{categoryLabels[entry.category]}</span></div><p class="mt-5 text-sm font-bold leading-7 text-ink">{entry.signals}</p><p class="mt-auto pt-5 text-xs font-bold text-blue">打開，先看一個問題 ↘</p></summary><div class="mt-5 border-t-2 border-ink/15 pt-4"><p class="font-mono text-[.68rem] font-bold tracking-[.12em] text-blue">打開後先問自己</p><p class="mt-2 text-sm leading-7 text-ink">{entry.teachingQuestion}</p><div class="mt-5 grid gap-2 text-xs font-bold sm:grid-cols-2"><a href={entry.sourceUrl} target="_blank" rel="noreferrer" class="rounded-lg border-2 border-ink px-3 py-2 text-center text-blue underline decoration-coral decoration-2 underline-offset-4 hover:bg-sky focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-coral/40">看來源 ↗</a><a href={entry.licenseUrl} target="_blank" rel="noreferrer" class="rounded-lg border-2 border-ink px-3 py-2 text-center text-blue underline decoration-coral decoration-2 underline-offset-4 hover:bg-sky focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-coral/40">看授權 ↗</a></div><p class="mt-4 text-xs leading-6 text-blue">這筆只提供觀察線索、問題與來源，讓你可以自己判斷。</p></div></details>)}
+        </div>
+        <p id="style-empty" class="mt-8 hidden rounded-xl border-2 border-coral bg-[#ffd7cc] p-5 text-sm font-bold text-ink" role="status">沒有找到。換一個你真的看得到的線索試試，例如線條、材質或空間。</p>
+      </section>
+    </div>
+  </main>
+</Layout>
+
+<script>
+  const input = document.querySelector<HTMLInputElement>('#style-filter')
+  const count = document.querySelector<HTMLElement>('#style-result-count')
+  const empty = document.querySelector<HTMLElement>('#style-empty')
+  const cards = [...document.querySelectorAll<HTMLElement>('.style-catalog-card')]
+
+  if (input && count && empty) {
+    const update = () => {
+      const query = input.value.trim().toLocaleLowerCase()
+      let visible = 0
+      for (const card of cards) {
+        const matches = !query || (card.dataset.search ?? '').toLocaleLowerCase().includes(query)
+        card.hidden = !matches
+        if (matches) visible += 1
+      }
+      count.textContent = `顯示 ${visible} / ${cards.length} 筆`
+      empty.hidden = visible !== 0
+    }
+    input.addEventListener('input', update)
+  }
+</script>

@@ -1,0 +1,74 @@
+---
+import { animationChain, animationSources, animationTools, lineSpecs } from '../data/animation'
+import Layout from '../layouts/Layout.astro'
+---
+
+<Layout title="動圖怎麼做" description="從一張小貼圖開始，學會把 PNG 變成 LINE APNG">
+  <main class="bg-paper pb-12 lg:pb-20">
+    <section class="relative isolate min-h-[min(78svh,48rem)] overflow-hidden bg-night text-paper">
+        <img src={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/illustrations/animation-frames.png`} alt="同一個角色從靜止、抬手到揮手的五個連續動作畫格。" class="absolute inset-0 h-full w-full object-cover object-center" fetchpriority="high" loading="eager" />
+        <div class="absolute inset-0 bg-[linear-gradient(90deg,rgba(7,35,59,.98)_0%,rgba(7,35,59,.9)_28%,rgba(7,35,59,.42)_53%,rgba(7,35,59,.05)_78%,rgba(7,35,59,.18)_100%)]" aria-hidden="true"></div>
+        <div class="absolute inset-x-0 bottom-0 h-2/5 bg-[linear-gradient(0deg,rgba(7,35,59,.7),transparent)]" aria-hidden="true"></div>
+        <div class="relative mx-auto flex min-h-[min(78svh,48rem)] max-w-7xl items-center px-5 py-20 sm:px-10 lg:px-10 lg:py-24">
+          <div class="max-w-xl">
+            <p class="font-mono text-xs font-bold tracking-[.18em] text-sun">04 / 動圖怎麼做</p>
+            <h1 class="mt-4 text-5xl font-extrabold leading-[.98] tracking-[-.07em] sm:text-7xl">先讓人看懂，<br /><span class="text-sun">再讓它動起來。</span></h1>
+            <p class="mt-6 max-w-2xl text-lg font-medium leading-8 text-paper/90">你不用先會動畫軟體。先做一個「收到」：讓角色只動一個地方，把每一格留下，再把 PNG 序列包成 LINE 要的 APNG。</p>
+            <p class="mt-8 font-mono text-xs leading-5 text-paper/70">每一格都留下來，哪裡不對才找得到。</p>
+          </div>
+        </div>
+    </section>
+
+    <div class="mx-auto max-w-7xl px-5 sm:px-10 lg:px-10">
+      <section class="mt-16 rounded-2xl border-2 border-ink bg-night p-6 text-paper shadow-[8px_8px_0_rgba(13,94,130,.18)] sm:p-10">
+        <p class="font-mono text-xs font-bold tracking-[.18em] text-sun">為什麼要照這個順序</p>
+        <h2 class="mt-3 text-3xl font-extrabold sm:text-5xl">每一步都回答一個不同的問題</h2>
+        <div class="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+          {animationChain.map((item) => (
+            <article class="rounded-2xl border border-paper/30 bg-paper/10 p-5">
+              <div class="flex items-center justify-between gap-4"><span class="font-mono text-sm font-bold text-sun">{item.number}</span><span class="h-px flex-1 bg-paper/25"></span></div>
+              <h3 class="mt-5 text-xl font-extrabold">{item.title}</h3>
+              <p class="mt-3 text-sm leading-7 text-paper/80">{item.detail}</p>
+              <p class="mt-5 border-t border-paper/20 pt-4 font-mono text-xs leading-6 text-sun">做完留下：{item.evidence}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="mt-20">
+        <div class="max-w-3xl"><p class="font-mono text-xs font-bold tracking-[.18em] text-blue">交出去前先檢查</p><h2 class="mt-3 text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">為什麼是 APNG，不是 GIF？</h2><p class="mt-5 text-lg leading-8 text-blue">LINE 的動態貼圖用 APNG，副檔名仍是 <code>.png</code>。GIF 可以拿來看概念，但最後交的不是 GIF。</p></div>
+        <div class="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          {lineSpecs.map((spec) => <article class="rounded-xl border-2 border-ink bg-sky p-5"><p class="font-mono text-xs font-bold text-blue">{spec.label}</p><h3 class="mt-3 text-xl font-extrabold">{spec.value}</h3><p class="mt-2 text-sm leading-6 text-blue">{spec.note}</p></article>)}
+        </div>
+      </section>
+
+      <section class="animation-tool-section relative mt-20 overflow-hidden">
+        <div class="animation-tool-depth" data-animation-parallax aria-hidden="true"></div>
+        <div class="animation-tool-layout relative">
+          <div class="animation-tool-intro"><p class="font-mono text-xs font-bold tracking-[.18em] text-blue">每個工具各做哪一步</p><h2 class="mt-3 text-4xl font-extrabold tracking-[-.06em]">工具不用全部學會，先知道誰負責哪一步。</h2></div>
+          <div class="animation-tool-content mt-8">
+            <div class="grid gap-4 sm:grid-cols-2">{animationTools.map((tool) => <article class="story-card flex h-full flex-col rounded-2xl border-2 border-ink bg-paper p-5"><div class="flex items-start justify-between gap-3"><h3 class="text-xl font-extrabold">{tool.name}</h3><span class="rounded-full border border-ink px-2 py-1 font-mono text-[10px] font-bold text-blue">{tool.role}</span></div><p class="mt-3 flex-1 text-sm leading-7">{tool.detail}</p><a class="ink-link mt-4 inline-block font-mono text-xs text-blue" href={tool.url} target="_blank" rel="noreferrer">官方文件 ↗</a></article>)}</div>
+            <aside class="animation-test-panel rounded-2xl border-2 border-ink bg-[#ffd7cc] p-7"><p class="font-mono text-xs font-bold tracking-[.16em]">先做最小版本</p><h3 class="mt-4 text-2xl font-extrabold">先做一張「收到」</h3><ol class="mt-6 grid gap-4 text-sm leading-7"><li><span class="font-mono font-bold text-blue">01</span> 寫出使用情境：對方傳來檔案，我要回覆收到。</li><li><span class="font-mono font-bold text-blue">02</span> 固定角色，只讓手臂和眼睛動。</li><li><span class="font-mono font-bold text-blue">03</span> 先做 5 格 PNG，不要一開始就做 24 張。</li><li><span class="font-mono font-bold text-blue">04</span> 第一格單獨看，還是要像「收到」。</li></ol><p class="mt-6 border-t border-ink/20 pt-5 text-sm font-bold leading-7">先把 5 格做通，再決定要不要擴成 24 張。</p></aside>
+          </div>
+        </div>
+      </section>
+
+      <section class="mt-20 border-t-2 border-ink/15 pt-8"><div class="flex flex-wrap items-baseline justify-between gap-4"><h2 class="text-2xl font-extrabold">規格會更新，送出前請再看一次</h2><span class="font-mono text-xs text-blue">最後核對 2026-09-10</span></div><div class="mt-5 flex flex-wrap gap-x-6 gap-y-3">{animationSources.map((source) => <a class="ink-link font-mono text-xs text-blue" href={source.url} target="_blank" rel="noreferrer">{source.label} ↗</a>)}</div></section>
+    </div>
+  </main>
+</Layout>
+
+<script>
+  const animationMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
+  const updateAnimationDepth = () => {
+    const layer = document.querySelector<HTMLElement>('[data-animation-parallax]')
+    const section = layer?.closest<HTMLElement>('.animation-tool-section')
+    if (!layer || !section || animationMotion.matches) { layer?.style.setProperty('--animation-scroll-shift', '0px'); return }
+    const rect = section.getBoundingClientRect()
+    const progress = Math.min(Math.max((window.innerHeight - rect.top) / Math.max(window.innerHeight + rect.height, 1), 0), 1)
+    layer.style.setProperty('--animation-scroll-shift', `${((progress - 0.5) * 24).toFixed(2)}px`)
+  }
+  updateAnimationDepth()
+  window.addEventListener('scroll', updateAnimationDepth, { passive: true })
+  animationMotion.addEventListener('change', updateAnimationDepth)
+</script>

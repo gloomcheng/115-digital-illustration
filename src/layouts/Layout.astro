@@ -1,0 +1,31 @@
+---
+import '../styles/global.css'
+import SiteFooter from '../components/SiteFooter.astro'
+import SiteHeader from '../components/SiteHeader.astro'
+import { site } from '../data/site'
+
+interface Props {
+  title?: string
+  description?: string
+}
+
+const { title = site.title, description = site.subtitle } = Astro.props
+---
+
+<!doctype html>
+<html lang="zh-Hant" class="bg-paper text-ink antialiased">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <title>{title} — {site.title}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=LINE+Seed+JP:wght@400;700;800&family=Noto+Sans+TC:wght@400;500;700;800&display=swap" rel="stylesheet" />
+  </head>
+  <body class="flex min-h-screen flex-col">
+    <SiteHeader />
+    <div class="min-w-0 flex-1"><slot /></div>
+    <SiteFooter />
+  </body>
+</html>

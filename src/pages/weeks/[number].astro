@@ -1,0 +1,95 @@
+---
+import { weeks } from '../../data/weeks'
+import Layout from '../../layouts/Layout.astro'
+
+export function getStaticPaths() {
+  return weeks.map((week) => ({ params: { number: String(week.number) }, props: { week } }))
+}
+
+const { week } = Astro.props
+const base = import.meta.env.BASE_URL.replace(/\/$/, '')
+const rasterAssets = [
+  'hero-sky',
+  'style-atlas',
+  'tool-studio',
+  'storybook-spread',
+  'rapid-trial',
+  'animation-frames',
+  'broker-studio',
+] as const
+const illustration = rasterAssets[(week.number - 1) % rasterAssets.length]
+const previous = weeks.find((item) => item.number === week.number - 1)
+const next = weeks.find((item) => item.number === week.number + 1)
+const weekLabel = `W${String(week.number).padStart(2, '0')}`
+const imagePath = `${base}/illustrations/${illustration}.png`
+---
+
+<Layout title={`${weekLabel} ${week.title}`} description={week.question}>
+  <main class="bg-paper">
+    <section class="relative isolate min-h-[min(760px,calc(100svh-76px))] overflow-hidden bg-ink text-paper">
+      <img src={imagePath} alt={`第 ${week.number} 週課程插畫：${week.title}`} class="absolute inset-0 h-full w-full object-cover object-center" loading="eager" />
+      <div class="absolute inset-0 bg-[linear-gradient(90deg,rgba(7,31,52,.94)_0%,rgba(7,31,52,.78)_34%,rgba(7,31,52,.2)_72%,rgba(7,31,52,.08)_100%)]"></div>
+      <div class="absolute inset-x-0 bottom-0 h-40 bg-[linear-gradient(0deg,rgba(7,31,52,.6),transparent)]"></div>
+
+      <div class="relative mx-auto flex min-h-[min(760px,calc(100svh-76px))] max-w-7xl items-end px-5 py-12 sm:px-10 sm:py-16 lg:px-12 lg:py-20">
+        <div class="w-full max-w-3xl">
+          <p class="font-mono text-xs font-bold tracking-[.18em] text-[#ffd56a]">{weekLabel} / {week.owner}</p>
+          <h1 class="mt-5 max-w-3xl text-5xl font-extrabold leading-[1.05] tracking-[-.06em] sm:text-7xl lg:text-8xl">{week.title}</h1>
+          <p class="mt-8 max-w-2xl border-l-4 border-coral bg-ink/70 px-5 py-4 text-xl font-bold leading-9 text-paper backdrop-blur-sm sm:text-2xl">{week.question}</p>
+          <p class="mt-5 font-mono text-xs font-bold tracking-[.14em] text-sky">這週用到的視覺 / {illustration.toUpperCase()}</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="mx-auto max-w-5xl px-5 py-16 sm:px-10 lg:px-12 lg:py-24">
+      <div class="grid gap-x-12 gap-y-14 lg:grid-cols-[minmax(0,1fr)_minmax(260px,.62fr)]">
+        <div>
+          <p class="font-mono text-xs font-bold tracking-[.18em] text-blue">本週在學什麼</p>
+          <h2 class="mt-4 text-3xl font-extrabold tracking-[-.04em] sm:text-4xl">這週到底在學什麼？</h2>
+          <p class="mt-5 max-w-2xl text-lg leading-9 text-ink/80">{week.content}</p>
+        </div>
+
+        <aside class="border-l-2 border-coral pl-5 lg:pt-8">
+          <p class="font-mono text-xs font-bold tracking-[.16em] text-blue">這件事會連到哪些工作</p>
+          <p class="mt-3 text-base font-bold leading-8">{week.career}</p>
+          <p class="mt-6 border-t border-ink/15 pt-5 font-mono text-xs font-bold tracking-[.16em] text-blue">這週誰帶你走</p>
+          <p class="mt-3 text-xl font-bold leading-8">{week.owner}</p>
+          {week.note && <p class="mt-2 text-sm font-semibold leading-7 text-ink/70">{week.note}</p>}
+        </aside>
+      </div>
+
+      <div class="mt-14 grid gap-px overflow-hidden border-2 border-ink bg-ink md:grid-cols-3">
+        <article class="bg-sky p-6 sm:p-8">
+          <p class="font-mono text-xs font-bold tracking-[.14em] text-blue">你要做</p>
+          <h3 class="mt-4 text-xl font-extrabold">本週任務</h3>
+          <p class="mt-4 text-lg font-bold leading-8">{week.assignment}</p>
+        </article>
+        <article class="bg-[#fff0bf] p-6 sm:p-8">
+          <p class="font-mono text-xs font-bold tracking-[.14em] text-blue">做完要留下</p>
+          <h3 class="mt-4 text-xl font-extrabold">留下什麼</h3>
+          <p class="mt-4 text-lg font-bold leading-8">{week.evidence}</p>
+        </article>
+        <article class="bg-[#ffd7cc] p-6 sm:p-8">
+          <p class="font-mono text-xs font-bold tracking-[.14em] text-blue">誰帶這段</p>
+          <h3 class="mt-4 text-xl font-extrabold">這段由誰帶</h3>
+          <p class="mt-4 text-lg font-bold leading-8">{week.owner}</p>
+        </article>
+      </div>
+
+      <section class="mt-14 border-y-2 border-ink py-10 sm:py-12">
+        <p class="font-mono text-xs font-bold tracking-[.16em] text-blue">交給下一週之前</p>
+        <h2 class="mt-3 text-3xl font-extrabold tracking-[-.04em]">這週不要求你假裝會所有工具。</h2>
+        <p class="mt-5 max-w-3xl text-lg leading-9">你要交的是一次有跡可循的判斷。工具可以換，額度可以變，結果可以失敗；但問題、改了什麼、做出什麼與下一步，都要留下來。</p>
+      </section>
+
+      <nav class="mt-10 grid gap-5 border-t-2 border-ink pt-7 text-sm font-bold sm:grid-cols-2" aria-label="週次導覽">
+        <div>
+          {previous ? <a href={`${base}/weeks/${previous.number}`} class="ink-link">← {`W${String(previous.number).padStart(2, '0')}`} {previous.title}</a> : <a href={`${base}/course`} class="ink-link">← 回到課程進度</a>}
+        </div>
+        <div class="sm:text-right">
+          {next ? <a href={`${base}/weeks/${next.number}`} class="ink-link">{`W${String(next.number).padStart(2, '0')}`} {next.title} →</a> : <a href={`${base}/ip-kit`} class="ink-link">前往作品怎麼交 →</a>}
+        </div>
+      </nav>
+    </section>
+  </main>
+</Layout>

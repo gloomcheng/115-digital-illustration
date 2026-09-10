@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" role="img" aria-labelledby="title desc">
+  <title id="title">原創快速試誤循環圖</title>
+  <desc id="desc">視覺假設經過生成、比較、記錄失敗與下一輪決策，形成一個可重複的循環。</desc>
+  <rect width="900" height="600" rx="28" fill="#ffd7cc"/>
+  <circle cx="450" cy="300" r="170" fill="#fffaf0" stroke="#123d59" stroke-width="5"/>
+  <path d="M450 102 A198 198 0 0 1 648 300" fill="none" stroke="#0d5e82" stroke-width="18" stroke-linecap="round"/>
+  <path d="M648 300 A198 198 0 0 1 450 498" fill="none" stroke="#ed765d" stroke-width="18" stroke-linecap="round"/>
+  <path d="M450 498 A198 198 0 0 1 252 300" fill="none" stroke="#0d5e82" stroke-width="18" stroke-linecap="round"/>
+  <path d="M252 300 A198 198 0 0 1 450 102" fill="none" stroke="#ed765d" stroke-width="18" stroke-linecap="round"/>
+  <g fill="#123d59"><path d="M648 300 l-28 -17 v34 z"/><path d="M450 498 l-17 -28 h34 z"/><path d="M252 300 l28 -17 v34 z"/><path d="M450 102 l-17 28 h34 z"/></g>
+  <rect x="330" y="238" width="240" height="124" rx="15" fill="#f7c94d" stroke="#123d59" stroke-width="4"/>
+  <text x="450" y="282" text-anchor="middle" font-family="Noto Sans TC, sans-serif" font-size="25" font-weight="700" fill="#123d59">一個變數</text>
+  <text x="450" y="321" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="17" fill="#123d59">change → compare</text>
+  <g font-family="Noto Sans TC, sans-serif" font-size="22" font-weight="700" fill="#123d59" text-anchor="middle"><text x="450" y="62">假設</text><text x="770" y="305">生成</text><text x="450" y="548">比較</text><text x="130" y="305">下一輪</text></g>
+  <g fill="#cfe7f0" stroke="#123d59" stroke-width="3"><rect x="54" y="72" width="75" height="58" rx="8"/><rect x="770" y="72" width="75" height="58" rx="8"/></g>
+  <g fill="#ed765d"><circle cx="78" cy="101" r="8"/><circle cx="102" cy="101" r="8"/><circle cx="794" cy="101" r="8"/><circle cx="818" cy="101" r="8"/></g>
+</svg>

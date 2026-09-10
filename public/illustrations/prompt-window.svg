@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" role="img" aria-labelledby="title desc">
+  <title id="title">原創 visual brief 到圖像的流程插畫</title>
+  <desc id="desc">visual brief 把主體、動作、風格、用途與限制分欄，再交給 AI 工具產生候選圖。</desc>
+  <rect width="900" height="600" rx="28" fill="#fffaf0"/>
+  <rect x="65" y="74" width="360" height="450" rx="18" fill="#cfe7f0" stroke="#123d59" stroke-width="6"/>
+  <rect x="105" y="126" width="280" height="50" rx="9" fill="#fff0bf" stroke="#123d59" stroke-width="3"/><rect x="105" y="198" width="280" height="50" rx="9" fill="#fff0bf" stroke="#123d59" stroke-width="3"/><rect x="105" y="270" width="280" height="50" rx="9" fill="#ffd7cc" stroke="#123d59" stroke-width="3"/><rect x="105" y="342" width="280" height="50" rx="9" fill="#ffd7cc" stroke="#123d59" stroke-width="3"/><rect x="105" y="414" width="280" height="50" rx="9" fill="#fff0bf" stroke="#123d59" stroke-width="3"/>
+  <g font-family="JetBrains Mono, monospace" font-size="19" fill="#123d59" font-weight="700"><text x="137" y="158">SUBJECT</text><text x="137" y="230">ACTION</text><text x="137" y="302">STYLE</text><text x="137" y="374">USE CASE</text><text x="137" y="446">CONSTRAINTS</text></g>
+  <path d="M465 300 H570" stroke="#ed765d" stroke-width="12" stroke-linecap="round"/><path d="M570 300 l-28 -20 v40 z" fill="#ed765d"/>
+  <rect x="610" y="128" width="220" height="345" rx="18" fill="#cfe7f0" stroke="#123d59" stroke-width="6"/>
+  <circle cx="720" cy="245" r="72" fill="#f7c94d" stroke="#123d59" stroke-width="5"/><circle cx="694" cy="232" r="10" fill="#123d59"/><circle cx="746" cy="232" r="10" fill="#123d59"/><path d="M690 272 Q720 298 750 272" fill="none" stroke="#ed765d" stroke-width="8"/>
+  <path d="M660 375 Q720 322 780 375" fill="none" stroke="#0d5e82" stroke-width="10" stroke-linecap="round"/><text x="720" y="430" text-anchor="middle" font-family="Noto Sans TC, sans-serif" font-size="22" font-weight="700" fill="#123d59">candidate image</text>
+</svg>

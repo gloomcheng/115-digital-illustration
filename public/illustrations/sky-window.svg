@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 650" role="img" aria-labelledby="title desc">
+  <title id="title">原創天空與遠景插畫</title>
+  <desc id="desc">暖色夕光穿過藍色雲層，照亮遠方城市與一扇正在打開的窗。</desc>
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#74b7d0"/><stop offset=".62" stop-color="#cce7e7"/><stop offset="1" stop-color="#ffd69b"/></linearGradient>
+    <linearGradient id="light" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff7c7" stop-opacity=".8"/><stop offset="1" stop-color="#fff7c7" stop-opacity="0"/></linearGradient>
+  </defs>
+  <rect width="1000" height="650" fill="url(#sky)"/>
+  <circle cx="735" cy="150" r="74" fill="#ffe29a"/>
+  <path d="M560 0 L940 0 L815 390 L445 390 Z" fill="url(#light)"/>
+  <path d="M0 170 C130 110 210 215 330 154 C435 100 505 190 608 138 C735 74 825 205 1000 120 V270 C835 320 710 230 585 294 C440 365 320 232 186 300 C100 345 53 288 0 310 Z" fill="#e9f4ee" opacity=".8"/>
+  <path d="M0 270 C130 214 225 330 346 262 C470 191 555 323 690 257 C805 202 893 313 1000 245 V370 C860 414 747 346 626 402 C505 458 390 341 256 408 C145 464 80 398 0 430 Z" fill="#fff5d8" opacity=".75"/>
+  <path d="M0 500 L160 390 L255 455 L355 338 L500 470 L640 362 L760 455 L880 330 L1000 430 V650 H0 Z" fill="#6d9db2" opacity=".75"/>
+  <path d="M0 550 L140 488 L220 530 L340 438 L455 534 L590 462 L710 535 L835 447 L1000 520 V650 H0 Z" fill="#315e77" opacity=".82"/>
+  <g fill="#123d59" opacity=".8">
+    <path d="M76 546 h42 v-61 h20 v61 h34 v-98 h25 v98 h34 v-44 h24 v44 h32 v-76 h24 v76 h35 v-119 h28 v119 h35 v-60 h20 v60 h35 v-90 h28 v90 h35 v-130 h28 v130 h39 v-62 h24 v62 h35 v-104 h23 v104 h36 v-75 h27 v75 h42 v-120 h26 v120 h39 v-50 h24 v50 h40 v-92 h28 v92 h55 v104 H76 Z"/>
+  </g>
+  <g fill="none" stroke="#fffaf0" stroke-width="10">
+    <path d="M70 70 V585 H930 V70"/>
+    <path d="M500 70 V585 M70 360 H930"/>
+  </g>
+  <path d="M0 620 H1000" stroke="#ed765d" stroke-width="8" opacity=".8"/>
+</svg>

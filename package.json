@@ -1,0 +1,26 @@
+{
+  "name": "115-digital-illustration",
+  "type": "module",
+  "version": "0.0.1",
+  "private": true,
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "dev:background": "astro dev --background",
+    "build": "astro build",
+    "typecheck": "astro check",
+    "lint": "biome check ."
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.10",
+    "@tailwindcss/vite": "^4.3.3",
+    "astro": "^7.2.9",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^5.9.3"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.5.11"
+  }
+}

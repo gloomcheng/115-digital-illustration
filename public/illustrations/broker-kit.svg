@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" role="img" aria-labelledby="title desc">
+  <title id="title">原創 IP 經紀人工作包插畫</title>
+  <desc id="desc">一份 IP 工作包包含角色卡、觀眾、用途、風格規則與權利來源。</desc>
+  <rect width="900" height="600" rx="28" fill="#cfe7f0"/>
+  <path d="M85 165 h245 l35 45 h450 v260 H85 Z" fill="#f7c94d" stroke="#123d59" stroke-width="6"/>
+  <path d="M85 165 h245 l35 45 H85 Z" fill="#ed765d" stroke="#123d59" stroke-width="6"/>
+  <rect x="186" y="250" width="228" height="174" rx="12" fill="#fffaf0" stroke="#123d59" stroke-width="5" transform="rotate(-8 300 337)"/>
+  <circle cx="300" cy="313" r="43" fill="#ffe29a" stroke="#123d59" stroke-width="4" transform="rotate(-8 300 337)"/><circle cx="285" cy="310" r="6" fill="#123d59"/><circle cx="317" cy="310" r="6" fill="#123d59"/><path d="M283 336 Q301 352 320 335" fill="none" stroke="#ed765d" stroke-width="5" transform="rotate(-8 300 337)"/>
+  <text x="300" y="389" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="18" fill="#123d59" transform="rotate(-8 300 337)">CHARACTER</text>
+  <rect x="460" y="240" width="265" height="190" rx="12" fill="#fffaf0" stroke="#123d59" stroke-width="5" transform="rotate(6 590 335)"/>
+  <g stroke="#0d5e82" stroke-width="8" stroke-linecap="round"><path d="M500 291 H682"/><path d="M500 333 H635"/><path d="M500 375 H665"/></g>
+  <g fill="#ed765d"><circle cx="500" cy="291" r="10"/><circle cx="500" cy="333" r="10"/><circle cx="500" cy="375" r="10"/></g>
+  <text x="606" y="466" text-anchor="middle" font-family="Noto Sans TC, sans-serif" font-size="23" font-weight="700" fill="#123d59">Audience / Use / Rights</text>
+  <path d="M748 110 l55 28 -21 26 -55 -28 z" fill="#ed765d" stroke="#123d59" stroke-width="5"/><path d="M780 154 l-57 86" stroke="#123d59" stroke-width="10" stroke-linecap="round"/><path d="M724 240 l-34 38" stroke="#123d59" stroke-width="10" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" role="img" aria-labelledby="title desc">
+  <title id="title">原創風格觀察圖</title>
+  <desc id="desc">同一個角色被放在線條、形狀、色彩與材質的觀察格中，用來比較風格而不是背風格名稱。</desc>
+  <rect width="900" height="600" rx="28" fill="#fffaf0"/>
+  <rect x="36" y="36" width="828" height="528" rx="20" fill="#cfe7f0" stroke="#123d59" stroke-width="5"/>
+  <path d="M66 188 H834 M66 340 H834 M342 66 V534 M618 66 V534" stroke="#123d59" stroke-width="3" opacity=".35"/>
+  <g font-family="Noto Sans TC, sans-serif" fill="#123d59" font-weight="700" font-size="22">
+    <text x="91" y="105">線條</text><text x="367" y="105">形狀</text><text x="643" y="105">色彩</text>
+    <text x="91" y="257">材質</text><text x="367" y="257">空間</text><text x="643" y="257">用途</text>
+    <text x="91" y="410" font-size="18">穩定 / 顫抖</text><text x="367" y="410" font-size="18">圓 / 尖</text><text x="643" y="410" font-size="18">限制色盤</text>
+    <text x="91" y="462" font-size="18">粗 / 細</text><text x="367" y="462" font-size="18">平面 / 透視</text><text x="643" y="462" font-size="18">貼圖 / 繪本</text>
+  </g>
+  <g fill="none" stroke="#ed765d" stroke-width="8" stroke-linecap="round">
+    <path d="M92 138 C120 115 150 165 180 137 S237 131 270 151"/>
+    <path d="M367 139 l35 -32 37 32 -37 32 z"/><circle cx="477" cy="139" r="27"/>
+  </g>
+  <g>
+    <circle cx="698" cy="138" r="29" fill="#ed765d"/><circle cx="759" cy="138" r="29" fill="#f7c94d"/><circle cx="820" cy="138" r="29" fill="#315e77"/>
+  </g>
+  <path d="M92 294 C122 260 161 314 199 282 C235 253 270 299 285 318" fill="none" stroke="#123d59" stroke-width="11" stroke-linecap="round"/>
+  <g transform="translate(418 292)">
+    <path d="M0 36 C0 4 22 -14 53 -14 C83 -14 106 5 106 36 V93 H0 Z" fill="#ffe29a" stroke="#123d59" stroke-width="5"/>
+    <circle cx="30" cy="35" r="7" fill="#123d59"/><circle cx="76" cy="35" r="7" fill="#123d59"/><path d="M35 65 Q53 78 73 65" fill="none" stroke="#ed765d" stroke-width="5"/>
+  </g>
+  <g fill="#fff0bf" stroke="#123d59" stroke-width="3"><rect x="706" y="276" width="70" height="70" rx="10"/><rect x="790" y="276" width="38" height="70" rx="7"/></g>
+</svg>

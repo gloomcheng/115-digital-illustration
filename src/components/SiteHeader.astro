@@ -1,0 +1,28 @@
+---
+import { site } from '../data/site'
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '')
+const currentPath = Astro.url.pathname.replace(base, '') || '/'
+---
+
+<header class="sticky top-0 z-50 border-b-2 border-ink/15 bg-paper/95 backdrop-blur">
+  <div class="mx-auto flex max-w-7xl items-center justify-between gap-5 px-5 py-4 lg:px-10">
+    <a href={`${base}/`} class="flex min-w-0 items-center gap-3 text-ink">
+      <span class="grid h-11 w-11 shrink-0 place-items-center rounded-full border-2 border-ink bg-sun font-mono text-sm font-bold">{site.year}</span>
+      <span class="min-w-0"><span class="block truncate text-sm font-bold sm:text-base">{site.title}</span><span class="block font-mono text-[10px] tracking-[.14em] text-blue">{site.semester} / AI 工具與作品</span></span>
+    </a>
+    <nav aria-label="主要導覽" class="hidden items-center gap-5 text-sm font-bold lg:flex">
+      {site.nav.map((item) => {
+        const href = `${base}${item.href}`
+        const active = item.href === '/' ? currentPath === '/' : currentPath.startsWith(item.href)
+        return <a href={href} class:list={['border-b-2 pb-1', active ? 'border-coral text-ink' : 'border-transparent text-blue hover:border-sun']}>{item.label}</a>
+      })}
+    </nav>
+    <details class="relative lg:hidden">
+      <summary class="cursor-pointer list-none rounded-full border-2 border-ink px-4 py-2 font-mono text-xs font-bold text-ink">MENU</summary>
+      <nav aria-label="行動版主要導覽" class="absolute right-0 top-12 z-50 grid min-w-52 gap-1 rounded-lg border-2 border-ink bg-paper p-3 text-sm font-bold shadow-[6px_6px_0_#0d5e82]">
+        {site.nav.map((item) => <a href={`${base}${item.href}`} class="rounded px-3 py-2 text-blue hover:bg-sun hover:text-ink">{item.label}</a>)}
+      </nav>
+    </details>
+  </div>
+</header>
