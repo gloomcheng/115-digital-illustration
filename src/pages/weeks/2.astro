@@ -51,8 +51,55 @@ const designLesson = designEducation[2]
     </section>
 
     <section class="mx-auto max-w-6xl px-5 py-16 sm:px-10 lg:px-12 lg:py-24">
+      <p class="font-mono text-xs font-bold tracking-[.18em] text-blue">為什麼每次都不一樣</p>
+      <h2 class="mt-4 max-w-4xl text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">每次長不一樣，因為起點都是噪點</h2>
+      <p data-reading class="mt-6 max-w-3xl text-lg leading-9 text-ink/80">四張長不一樣不是機器壞掉。生成圖不是畫出來的，是從一整張雜訊洗出來的。模型先擲一把骰子決定雜訊長什麼樣，再照你的句子一遍一遍洗掉雜訊，狐狸才浮現。骰子每次不一樣，狐狸的燈光動作就不一樣。</p>
+      <p data-reading class="mt-4 max-w-3xl text-lg leading-9 text-ink/80">骰子有編號，叫做種子。同一個編號配同一個句子，洗出來的圖一模一樣；換編號，圖就換。所以控制有一半在骰子手上，不在你手上，下一節分工作時記住這件事。</p>
+      <figure class="mt-8 rounded-2xl border-2 border-ink bg-paper p-4">
+        <svg viewBox="0 0 670 400" class="h-auto w-full" role="img" aria-label="示意圖：同一句話配不同的雜訊起點，洗出不同的圖；固定種子，圖就不變。">
+          <title>從噪點洗出圖像的示意圖</title>
+          <desc>同一句狐狸描述，配 7 號雜訊洗出圖 A，配 48 號雜訊洗出圖 B。固定種子則結果不變。</desc>
+          <defs>
+            <filter id="noiseA" x="0" y="0" width="100%" height="100%">
+              <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7" stitchTiles="stitch" />
+              <feColorMatrix type="saturate" values="0" />
+            </filter>
+            <filter id="noiseB" x="0" y="0" width="100%" height="100%">
+              <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="48" stitchTiles="stitch" />
+              <feColorMatrix type="saturate" values="0" />
+            </filter>
+          </defs>
+          <text x="335" y="28" text-anchor="middle" font-size="15" font-weight="bold" fill="#0d5a82">同一句話：一隻狐狸站在雨後的夜市門口回頭看</text>
+          <rect x="70" y="55" width="150" height="90" fill="#fffdf6" stroke="#0f2a3d" stroke-width="2" filter="url(#noiseA)" />
+          <text x="145" y="162" text-anchor="middle" font-size="13" fill="#0d5a82">雜訊起點 A（7 號骰子）</text>
+          <path d="M232 100 h28 m-9 -9 l9 9 -9 9" stroke="#0f2a3d" stroke-width="2" fill="none" />
+          <circle cx="325" cy="100" r="34" fill="#ffd56a" stroke="#0f2a3d" stroke-width="2" />
+          <rect x="260" y="55" width="130" height="90" fill="#fffdf6" stroke="#0f2a3d" stroke-width="2" filter="url(#noiseA)" opacity="0.35" />
+          <text x="325" y="162" text-anchor="middle" font-size="13" fill="#0d5a82">洗三次</text>
+          <path d="M402 100 h28 m-9 -9 l9 9 -9 9" stroke="#0f2a3d" stroke-width="2" fill="none" />
+          <circle cx="495" cy="100" r="34" fill="#ffd56a" stroke="#0f2a3d" stroke-width="2" />
+          <circle cx="484" cy="92" r="5" fill="#0f2a3d" />
+          <path d="M505 118 q14 6 22 -4" stroke="#0f2a3d" stroke-width="2" fill="none" />
+          <text x="495" y="162" text-anchor="middle" font-size="13" fill="#0d5a82">圖 A</text>
+          <rect x="70" y="200" width="150" height="90" fill="#fffdf6" stroke="#0f2a3d" stroke-width="2" filter="url(#noiseB)" />
+          <text x="145" y="307" text-anchor="middle" font-size="13" fill="#0d5a82">雜訊起點 B（48 號骰子）</text>
+          <path d="M232 245 h28 m-9 -9 l9 9 -9 9" stroke="#0f2a3d" stroke-width="2" fill="none" />
+          <rect x="268" y="208" width="114" height="74" rx="14" fill="#7fb6d9" stroke="#0f2a3d" stroke-width="2" />
+          <rect x="260" y="200" width="130" height="90" fill="#fffdf6" stroke="#0f2a3d" stroke-width="2" filter="url(#noiseB)" opacity="0.35" />
+          <text x="325" y="307" text-anchor="middle" font-size="13" fill="#0d5a82">洗三次</text>
+          <path d="M402 245 h28 m-9 -9 l9 9 -9 9" stroke="#0f2a3d" stroke-width="2" fill="none" />
+          <rect x="438" y="208" width="114" height="74" rx="14" fill="#7fb6d9" stroke="#0f2a3d" stroke-width="2" />
+          <rect x="452" y="222" width="30" height="20" rx="4" fill="#ffd56a" stroke="#0f2a3d" stroke-width="2" />
+          <text x="495" y="307" text-anchor="middle" font-size="13" fill="#0d5a82">圖 B</text>
+          <text x="335" y="368" text-anchor="middle" font-size="14" font-weight="bold" fill="#0d5a82">固定種子，同一句話，洗出同一張圖</text>
+        </svg>
+        <figcaption class="mt-3 font-mono text-xs leading-6 text-blue">示意圖：同一句話配不同的雜訊起點，洗出不同的圖；固定種子，圖就不變</figcaption>
+      </figure>
+    </section>
+
+    <section class="mx-auto max-w-6xl px-5 py-16 sm:px-10 lg:px-12 lg:py-24">
       <p class="font-mono text-xs font-bold tracking-[.18em] text-blue">02 / 誰做的要分清楚</p>
-      <h2 class="mt-4 max-w-4xl text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">同一句話下次長不一樣，控制就不在你手上</h2>
+      <h2 class="mt-4 max-w-4xl text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">骰子歸模型，三件事歸你</h2>
       <p data-reading class="mt-6 max-w-3xl text-lg leading-9 text-ink/80">同一個描述按第二次，狐狸的燈光和動作細節又換了。會變的那一段是模型決定的，不算你的。你決定的只有三件事：用哪一句話生成，留下哪一張，下一輪改哪一欄。這三件事的紀錄就是人類投入的證明，下週起放進工作檔案。</p>
     </section>
 
