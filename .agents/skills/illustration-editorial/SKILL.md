@@ -14,6 +14,13 @@ Keep this skill and internal audit records in English. Write student-facing
 narrative in Taiwan Traditional Chinese. Keep code, identifiers, and code
 comments in English.
 
+Sync note: ported 2026-09-20 from `the-llm-editorial` (gloomcheng/the-llm).
+Ported: reader-first arc, dynamic perturbation, anti-scaffolding, narrative
+evidence, paragraph continuity, window audits, figure-decision rule, language
+discipline. Intentionally not ported: paper archetypes, MathML notation, and
+the author-name transliteration rule (replaced here by the living-artist rule
+in Visual and rights checks).
+
 ## Start with the visible problem
 
 - Open with a concrete object, visual mismatch, tool output, failed attempt, or
@@ -22,6 +29,15 @@ comments in English.
 - Keep one teaching spine in every lesson:
 
   `learner question → one visual hypothesis → one changed variable → output → selection reason → next experiment`
+
+- Follow the reader arc behind the spine: **Why** (the visible dilemma) →
+  **How it works** (the changed variable and its effect) → **What it means**
+  (where the result goes next: the next unit, the handover package, or a
+  rights consequence). The final "next experiment" must name a destination,
+  not just another try.
+- Treat the spine as dynamic perturbation: a visual choice is understood only
+  when the reader sees what changes when one variable changes. Show base
+  output versus altered output side by side, with the changed variable named.
 
 - Explain what changed between versions. A prompt or tool is not a cause by
   itself. Name the subject, action, composition, style property, use case, or
@@ -49,6 +65,29 @@ comments in English.
   scripts, storyboards, and camera language. Show how the two lines connect.
 - A visual explanation must remain understandable in nearby prose. The image
   is evidence, not a replacement for the explanation.
+
+## Anti-scaffolding discipline
+
+- Never use `WHY`, `HOW`, `WHAT`, `第一部分`, `第二部分`, movement, or act
+  labels as section headings. Never number a first part when no second part
+  exists, and never put decorative numbered badges into headings.
+- Every heading must name a concrete visual decision, comparison, or rights
+  question in substantive Traditional Chinese (e.g. 「換了視角，先看到什麼」
+  instead of 「第二部分 · 機制」).
+- Never end a heading with `。`. Colons, commas, `？`, and `！` may appear
+  inside a heading where rhetorical; a terminal period may not.
+
+## Narrative and evidence
+
+- Build the causal chain: what the previous approach could do, where it
+  failed, what changed, what the change costs, and what remains unsolved.
+  Do not merge all earlier attempts into one defective predecessor.
+- Never invent motives, conversations, or chronology for people in examples.
+  Keep documented tool outputs and constructed classroom cases apart.
+- Attach sources to the claims they support. A rights claim needs its ruling
+  reference or article number; a tool fact needs `checkedAt`, source URL,
+  quota, and fallback. A source list at the end does not substantiate a
+  causal claim.
 
 ## Two-paragraph window audit
 
@@ -127,6 +166,8 @@ source_or_boundary: <source to verify or illustrative-only boundary>
   properties, an ordered workflow, a before/after state, or a comparison across
   candidates. Label the actual object, changed variable, output, and selection
   criterion. Show direction where sequence matters.
+- Name the case's actual terms on every arrow, column, and comparison cell.
+  A figure whose labels only make sense with the heading is decorative.
 - Explain the figure in adjacent prose: where to start, what changed, what the
   reader should compare, and why one output is carried forward. Reject unlabeled
   decorative graphics.
@@ -153,6 +194,14 @@ Read the copy once as a student and once as an editor. Remove:
   student, tool, teacher, or audience can be named;
 - prompt strings presented as magic spells, and conclusions not supported by an
   observed output or a cited source.
+- Remove AI conversational crutches that invent the reader's thoughts, such as
+  「讀者很自然會問」, 「你可能會好奇」, and 「我們不禁要問」. State the
+  visual conflict or decision directly.
+- Remove pseudo-poetic headings and juvenile simplifications. A heading must
+  name the decision; body copy must keep cause and effect explicit even when
+  the sentences are short.
+- Insert half-width spaces between Chinese and English (e.g. `W01 單元`,
+  `AI 工具`). Do not join them without spacing.
 
 Vary sentence length, but keep technical cause and effect explicit. Prefer a
 plain verb and a named actor. End when the student has the next experiment and
@@ -168,5 +217,9 @@ does not establish editorial acceptance. The final review reports:
 - prerequisite gaps and the local repair;
 - forward and backward window pass count plus concrete failures;
 - case, diagram, output, and rights consistency;
+- anti-scaffolding pass: no scaffolding tags, no badge clutter, no heading
+  ending with `。`;
+- language pass: no invented reader thoughts, half-width CJK-English spacing;
+- evidence pass: every rights claim and tool fact carries its source;
 - target-reader, technical, and developmental-editor judgments;
 - checks run, checks deferred, and the next owner.
