@@ -33,7 +33,7 @@ const toolStatusLabel = {
       <div class="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(18rem,.7fr)] lg:items-start">
         <div>
           <p class="font-mono text-xs font-bold tracking-[.18em] text-blue">先把問題拆開</p>
-          <h2 class="mt-4 text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">先找出卡住的那一段。</h2>
+          <h2 class="mt-4 text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">先找出卡住的那一段</h2>
           <p class="mt-6 text-lg leading-9 text-ink/80">同一個作品會先整理想法，再生成候選，接著修尺寸、清圖層、排版，最後才交檔案。你先把工作排成一列，再看哪一段需要文字工具、哪一段需要圖片工具、哪一段必須自己檢查。</p>
           <div class="mt-8 grid gap-3 sm:grid-cols-2">
             <article class="rounded-xl border-2 border-ink bg-sky p-5"><p class="font-mono text-xs font-bold text-blue">01 / 說清楚</p><h3 class="mt-3 text-xl font-extrabold">把想法變成畫面說明</h3><p class="mt-2 text-sm leading-7">主體、動作、構圖、風格、用途與限制。</p></article>
@@ -52,7 +52,7 @@ const toolStatusLabel = {
     <section class="bg-night px-5 py-16 text-paper sm:px-10 lg:px-12 lg:py-24">
       <div class="mx-auto max-w-6xl">
         <p class="font-mono text-xs font-bold tracking-[.18em] text-sun">01 / 一個小實驗</p>
-        <h2 class="mt-3 max-w-4xl text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">同一個需求，讓工具各做一段。</h2>
+        <h2 class="mt-3 max-w-4xl text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">同一個需求，讓工具各做一段</h2>
         <p class="mt-6 max-w-3xl text-lg leading-8 text-paper/85">桌上只放同一個需求。先讓文字工具找缺口，再讓圖片工具生成，接著用編修工具處理一個問題，最後把檔案交給同學打開。每一段都記下輸入和輸出，回頭才知道哪裡真的改變了作品。</p>
 
         <div class="mt-10 rounded-2xl border-2 border-paper/40 bg-paper/10 p-6 sm:p-8">
@@ -78,7 +78,7 @@ const toolStatusLabel = {
     <section class="paper-grid px-5 py-16 sm:px-10 lg:px-12 lg:py-24">
       <div class="mx-auto max-w-6xl">
         <p class="font-mono text-xs font-bold tracking-[.18em] text-blue">02 / 免費帳號會在哪裡卡住？</p>
-        <h2 class="mt-3 max-w-4xl text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">額度用完時，你要知道下一步去哪裡。</h2>
+        <h2 class="mt-3 max-w-4xl text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">額度用完時，你要知道下一步去哪裡</h2>
         <p class="mt-6 max-w-3xl text-lg leading-8 text-ink/80">免費帳號會卡在額度、速度、輸出尺寸或功能。開始前先把今天看到的條件截圖，作品做到一半卡住時，拿這張紀錄找替代工具，不要靠印象猜。</p>
         <div class="mt-10 overflow-hidden rounded-2xl border-2 border-ink bg-paper">
           <div class="hidden grid-cols-[1.1fr_.8fr_1.6fr_1fr] border-b-2 border-ink bg-sun px-5 py-4 font-mono text-xs font-bold tracking-[.12em] md:grid"><span>工具</span><span>狀態</span><span>適合做什麼</span><span>替代路線</span></div>
@@ -90,17 +90,17 @@ const toolStatusLabel = {
     <section class="bg-[#ffd7cc] px-5 py-16 sm:px-10 lg:px-12 lg:py-24">
       <div class="mx-auto max-w-6xl">
         <p class="font-mono text-xs font-bold tracking-[.18em] text-blue">03 / 動圖先做小</p>
-        <h2 class="mt-3 max-w-4xl text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">先做五格，看看動作能不能成立。</h2>
+        <h2 class="mt-3 max-w-4xl text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">先做五格，看看動作能不能成立</h2>
         <p class="mt-6 max-w-3xl text-lg leading-8 text-ink/80">LINE 動圖先從五格開始。Krita 把每格畫出來，Photopea 處理尺寸和透明背景，APNG Assembler 把 PNG 序列封裝起來；完整規格和送審流程放在<a href={`${base}/animation-lab`} class="font-bold text-blue underline decoration-coral decoration-2 underline-offset-4">動圖實驗室</a>。</p>
         <div class="mt-10 grid gap-4 md:grid-cols-2 xl:grid-cols-4">{animationTools.map((tool) => <article class="rounded-xl border-2 border-ink bg-paper p-5"><p class="font-mono text-xs font-bold text-blue">{tool.role}</p><h3 class="mt-3 text-xl font-extrabold">{tool.name}</h3><p class="mt-3 text-sm leading-7">{tool.detail}</p><a href={tool.url} target="_blank" rel="noreferrer" class="mt-4 inline-block font-mono text-xs font-bold text-blue underline decoration-coral decoration-2 underline-offset-4">官方文件 ↗</a></article>)}</div>
-        <div class="mt-10 rounded-2xl border-2 border-ink bg-paper p-6 sm:p-8"><p class="font-mono text-xs font-bold tracking-[.16em] text-blue">動圖的第一個檢查</p><h3 class="mt-3 text-2xl font-extrabold">靜止時也要看得懂。</h3><p class="mt-4 max-w-3xl text-base leading-8">LINE 動態貼圖的第一格會被當成靜態預覽。先檢查第一格能不能說出動作和情緒，再檢查它怎麼動；不然你只是把一張不清楚的圖做成會動。</p><div class="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-sm font-bold text-blue">{animationSources.slice(0, 2).map((source) => <a href={source.url} target="_blank" rel="noreferrer" class="underline decoration-coral decoration-2 underline-offset-4 hover:text-coral">{source.label} ↗</a>)}</div></div>
+        <div class="mt-10 rounded-2xl border-2 border-ink bg-paper p-6 sm:p-8"><p class="font-mono text-xs font-bold tracking-[.16em] text-blue">動圖的第一個檢查</p><h3 class="mt-3 text-2xl font-extrabold">靜止時也要看得懂</h3><p class="mt-4 max-w-3xl text-base leading-8">LINE 動態貼圖的第一格會被當成靜態預覽。先檢查第一格能不能說出動作和情緒，再檢查它怎麼動；不然你只是把一張不清楚的圖做成會動。</p><div class="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-sm font-bold text-blue">{animationSources.slice(0, 2).map((source) => <a href={source.url} target="_blank" rel="noreferrer" class="underline decoration-coral decoration-2 underline-offset-4 hover:text-coral">{source.label} ↗</a>)}</div></div>
       </div>
     </section>
 
     <section class="bg-night px-5 py-16 text-paper sm:px-10 lg:px-12 lg:py-24">
       <div class="mx-auto max-w-5xl">
         <p class="font-mono text-xs font-bold tracking-[.18em] text-sun">本週作業 / TOOL EXPERIMENT CARD</p>
-        <h2 class="mt-3 text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">這週請交一張能重跑的實驗卡。</h2>
+        <h2 class="mt-3 text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">這週請交一張能重跑的實驗卡</h2>
         <ol class="mt-10 grid gap-4 md:grid-cols-2">
           <li class="rounded-xl border-2 border-paper/30 bg-paper/10 p-5"><span class="font-mono text-xs font-bold text-sun">01</span><h3 class="mt-3 text-xl font-extrabold">固定一個需求</h3><p class="mt-2 text-sm leading-7 text-paper/80">同一個主體、動作、構圖與用途，至少做四張候選。</p></li>
           <li class="rounded-xl border-2 border-paper/30 bg-paper/10 p-5"><span class="font-mono text-xs font-bold text-sun">02</span><h3 class="mt-3 text-xl font-extrabold">比較兩個工具</h3><p class="mt-2 text-sm leading-7 text-paper/80">記錄額度、速度、輸出格式與哪一個地方需要人工修。</p></li>

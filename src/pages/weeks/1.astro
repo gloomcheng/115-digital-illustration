@@ -39,11 +39,11 @@ const designLesson = designEducation[1]
     <section class="bg-night px-5 py-16 text-paper sm:px-10 lg:px-12 lg:py-24">
       <div class="mx-auto max-w-6xl">
         <p class="font-mono text-xs font-bold tracking-[.18em] text-sun">01 / 合授分工</p>
-        <h2 class="mt-3 max-w-4xl text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">兩位老師，帶你把同一個作品接起來。</h2>
+        <h2 class="mt-3 max-w-4xl text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">兩位老師，帶你把同一個作品接起來</h2>
         <p data-reading class="mt-6 max-w-3xl text-lg leading-8 text-paper/85">這張觀察表接下來會交給兩段課程使用。前半段，你跟著 AI 工具這一段學觀察、提示詞與快速試誤；故事、腳本、分鏡與鏡頭語言由另一位老師帶。到了後半段，你會拿著分鏡條件回來，把角色、場景與版面做成可以繼續使用的資產。</p>
         <div class="mt-10 grid gap-5 md:grid-cols-2">
-          <article class="rounded-2xl border-2 border-paper/40 bg-paper/10 p-6"><p class="font-mono text-xs font-bold text-sun">AI 工具這一段</p><h3 class="mt-4 text-2xl font-extrabold">把觀察做成可以比較的畫面。</h3><p class="mt-3 text-base leading-8 text-paper/85">觀察、風格拆解、提示詞、角色與場景資產、快速試誤、版本整理與作品交付。</p></article>
-          <article class="rounded-2xl border-2 border-paper/40 bg-paper/10 p-6"><p class="font-mono text-xs font-bold text-coral">故事與分鏡這一段</p><h3 class="mt-4 text-2xl font-extrabold">把故事變成畫面條件。</h3><p class="mt-3 text-base leading-8 text-paper/85">故事腳本、分鏡與鏡頭語言。你要把收到的條件讀懂，再轉成可以拿來做圖、拿來討論的畫面說明。</p></article>
+          <article class="rounded-2xl border-2 border-paper/40 bg-paper/10 p-6"><p class="font-mono text-xs font-bold text-sun">AI 工具這一段</p><h3 class="mt-4 text-2xl font-extrabold">把觀察做成可以比較的畫面</h3><p class="mt-3 text-base leading-8 text-paper/85">觀察、風格拆解、提示詞、角色與場景資產、快速試誤、版本整理與作品交付。</p></article>
+          <article class="rounded-2xl border-2 border-paper/40 bg-paper/10 p-6"><p class="font-mono text-xs font-bold text-coral">故事與分鏡這一段</p><h3 class="mt-4 text-2xl font-extrabold">把故事變成畫面條件</h3><p class="mt-3 text-base leading-8 text-paper/85">故事腳本、分鏡與鏡頭語言。你要把收到的條件讀懂，再轉成可以拿來做圖、拿來討論的畫面說明。</p></article>
         </div>
       </div>
     </section>
@@ -53,7 +53,7 @@ const designLesson = designEducation[1]
         <div class="grid gap-8 rounded-2xl border-2 border-ink bg-[#ffd7cc] p-7 md:grid-cols-[minmax(0,1fr)_minmax(18rem,.7fr)] md:items-center md:p-10">
           <div>
           <p class="font-mono text-xs font-bold tracking-[.16em] text-blue">台灣設計教育 / 觀察方法</p>
-            <h2 class="mt-3 text-3xl font-extrabold tracking-[-.05em] sm:text-4xl">{designLesson.concept}</h2>
+            <h2 class="mt-3 text-3xl font-extrabold tracking-[-.05em] sm:text-4xl">{designLesson.concept.replace(/。$/, '')}</h2>
             <p data-reading data-reading-source="designLesson.eli5" class="mt-5 text-lg leading-9">{designLesson.eli5}</p>
             <p data-reading class="mt-4 text-base leading-8">你會先觀察，再把觀察轉成畫面，拿出來討論，最後把紀錄留給下一次。</p>
           </div>
@@ -68,7 +68,7 @@ const designLesson = designEducation[1]
     <section class="bg-[#fff0bf] px-5 py-16 sm:px-10 lg:px-12 lg:py-24">
       <div class="mx-auto max-w-6xl">
         <p class="font-mono text-xs font-bold tracking-[.18em] text-blue">02 / 觀察要留下來</p>
-        <h2 class="mt-3 max-w-4xl text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">看見、做出來、拿出來說。</h2>
+        <h2 class="mt-3 max-w-4xl text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">看見、做出來、拿出來說</h2>
         <div class="mt-10 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
           <article class="rounded-xl border-2 border-ink bg-paper p-5"><p class="font-mono text-xs font-bold text-coral">01 / 看</p><h3 class="mt-3 text-xl font-extrabold">先記下眼前的東西</h3><p class="mt-3 text-sm leading-7">形狀、比例、材質、顏色、結構和使用方式。每個詞都要找得到畫面上的位置。</p></article>
           <article class="rounded-xl border-2 border-ink bg-paper p-5"><p class="font-mono text-xs font-bold text-coral">02 / 分</p><h3 class="mt-3 text-xl font-extrabold">把一個感覺拆開</h3><p class="mt-3 text-sm leading-7">「舒服」可能來自圓形、低彩度或留白。先找出是哪一個地方，再替它取名字。</p></article>
@@ -81,7 +81,7 @@ const designLesson = designEducation[1]
     <section class="bg-night px-5 py-16 text-paper sm:px-10 lg:px-12 lg:py-24">
       <div class="mx-auto max-w-5xl">
         <p class="font-mono text-xs font-bold tracking-[.18em] text-sun">03 / 第一次課堂實驗</p>
-        <h2 class="mt-3 text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">先觀察一個你每天都看得到的東西。</h2>
+        <h2 class="mt-3 text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">先觀察一個你每天都看得到的東西</h2>
         <p data-reading class="mt-6 max-w-3xl text-lg leading-8 text-paper/85">拿你的水壺、書包、鞋子或教室裡的一張椅子。這次先做觀察，不生成圖，也不搜尋風格。把「我看到什麼」和「我猜它可以怎麼用」分開。</p>
         <ol class="mt-10 grid gap-4 md:grid-cols-2">
           <li class="rounded-xl border-2 border-paper/30 bg-paper/10 p-5"><span class="font-mono text-xs font-bold text-sun">01</span><h3 class="mt-3 text-xl font-extrabold">先寫看到的</h3><p class="mt-2 text-sm leading-7 text-paper/80">形狀、大小、材質、顏色、磨損、接縫、拿取方式。「很有設計感」留到後面，先把眼前的東西寫出來。</p></li>
@@ -95,7 +95,7 @@ const designLesson = designEducation[1]
     <section class="paper-grid px-5 py-16 sm:px-10 lg:px-12 lg:py-24">
       <div class="mx-auto max-w-5xl">
         <p class="font-mono text-xs font-bold tracking-[.18em] text-blue">04 / 作業與檔案規範</p>
-        <h2 class="mt-3 text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">把今天看見的東西整理成一頁。</h2>
+        <h2 class="mt-3 text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">把今天看見的東西整理成一頁</h2>
         <div class="mt-8 grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(18rem,.8fr)] lg:items-start">
           <div class="rounded-2xl border-2 border-ink bg-paper p-6">
             <p class="font-mono text-xs font-bold text-blue">建議的資料夾</p>

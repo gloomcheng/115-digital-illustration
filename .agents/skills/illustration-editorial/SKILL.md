@@ -197,6 +197,12 @@ Read the copy once as a student and once as an editor. Remove:
 - Remove AI conversational crutches that invent the reader's thoughts, such as
   「讀者很自然會問」, 「你可能會好奇」, and 「我們不禁要問」. State the
   visual conflict or decision directly.
+- Never diagnose the reader (「你還分不清」, 「你還不知道」). Name the
+  decision and its consequence instead.
+- Never use travel metaphors for starting work (「出發前」). Name the action:
+  動手前, 註冊完, 生成前.
+- Never leave audit-trail jargon (「查閱」) in learner copy. Attach the source
+  link in a source note instead.
 - Remove pseudo-poetic headings and juvenile simplifications. A heading must
   name the decision; body copy must keep cause and effect explicit even when
   the sentences are short.

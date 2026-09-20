@@ -27,6 +27,8 @@ jobs:
         run: bun install --frozen-lockfile
       - name: Run Biome
         run: bun run lint
+      - name: Run AI prose guard
+        run: bun run check:ai-prose
       - name: Run Astro typecheck
         run: bun run typecheck
 

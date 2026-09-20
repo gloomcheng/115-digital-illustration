@@ -25,7 +25,7 @@ const categoryLabels: Record<string, string> = {
       <div class="relative mx-auto flex min-h-[min(760px,calc(100svh-4.5rem))] max-w-7xl items-center px-5 py-20 sm:px-10 lg:px-10 lg:py-24">
         <div class="max-w-2xl">
           <p class="font-mono text-xs font-bold tracking-[.18em] text-sun">02 / 風格怎麼看</p>
-          <h1 class="mt-5 max-w-xl text-5xl font-extrabold leading-[.98] tracking-[-.07em] sm:text-7xl">不要背風格名。<br /><span class="text-sun">先看它怎麼工作。</span></h1>
+          <h1 class="mt-5 max-w-xl text-5xl font-extrabold leading-[.98] tracking-[-.07em] sm:text-7xl">不要背風格名。<br /><span class="text-sun">先看它怎麼工作</span></h1>
           <p class="mt-7 max-w-xl text-lg font-bold leading-8 text-paper sm:text-xl">你會在這裡看到 100 個風格索引，但不用背名字。先看線條、形狀、色彩、材質和空間，再問它適不適合你要做的東西。</p>
           <p class="mt-8 max-w-md border-l-2 border-sun pl-4 text-sm leading-7 text-paper/85">先說出畫面看得到的東西，再說自己喜不喜歡。</p>
         </div>
@@ -42,7 +42,7 @@ const categoryLabels: Record<string, string> = {
     <div class="mx-auto max-w-7xl px-5 py-12 sm:px-10 lg:px-10 lg:py-20">
       <section>
         <div class="flex flex-wrap items-end justify-between gap-4">
-          <div><p class="font-mono text-xs font-bold tracking-[.18em] text-blue">看風格的六個地方</p><h2 class="mt-2 text-4xl font-extrabold tracking-[-.06em]">先從畫面上找得到的地方開始。</h2></div>
+          <div><p class="font-mono text-xs font-bold tracking-[.18em] text-blue">看風格的六個地方</p><h2 class="mt-2 text-4xl font-extrabold tracking-[-.06em]">先從畫面上找得到的地方開始</h2></div>
           <p class="max-w-md text-sm leading-7 text-blue">你不用背下 100 個名字。先指出一張圖到底差在哪裡，再決定要不要用這個方向。</p>
         </div>
         <div class="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
@@ -51,13 +51,13 @@ const categoryLabels: Record<string, string> = {
       </section>
 
       <section class="mt-20 grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(20rem,.8fr)] lg:items-start">
-        <div><p class="font-mono text-xs font-bold tracking-[.18em] text-blue">把提示詞說清楚</p><h2 class="mt-2 text-4xl font-extrabold tracking-[-.06em]">提示詞不是咒語，是畫面說明。</h2><p class="mt-4 max-w-xl text-lg leading-8 text-blue">你不是在背一串固定句子，而是在告訴工具：畫面裡有誰、正在做什麼、要放在哪裡，最後要用在哪裡。</p><div class="mt-8 grid auto-rows-fr gap-4 sm:grid-cols-2">{promptParts.map((part) => <article class="flex h-full min-h-36 flex-col rounded-xl border-2 border-ink bg-paper p-5"><h3 class="font-mono text-sm font-bold text-blue">{part.title}</h3><p class="mt-3 text-sm leading-7">{part.detail}</p></article>)}</div></div>
+        <div><p class="font-mono text-xs font-bold tracking-[.18em] text-blue">把提示詞說清楚</p><h2 class="mt-2 text-4xl font-extrabold tracking-[-.06em]">提示詞不是咒語，是畫面說明</h2><p class="mt-4 max-w-xl text-lg leading-8 text-blue">你不是在背一串固定句子，而是在告訴工具：畫面裡有誰、正在做什麼、要放在哪裡，最後要用在哪裡。</p><div class="mt-8 grid auto-rows-fr gap-4 sm:grid-cols-2">{promptParts.map((part) => <article class="flex h-full min-h-36 flex-col rounded-xl border-2 border-ink bg-paper p-5"><h3 class="font-mono text-sm font-bold text-blue">{part.title}</h3><p class="mt-3 text-sm leading-7">{part.detail}</p></article>)}</div></div>
         <details open class="h-full rounded-2xl border-2 border-ink bg-[#ffd7cc] p-7"><summary class="cursor-pointer list-none focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-coral/40"><p class="font-mono text-xs font-bold tracking-[.16em]">現在就試試</p><h3 class="mt-4 text-2xl font-extrabold">同一個主體，三輪各改一件事</h3></summary><ol class="mt-6 grid gap-4 text-sm leading-7"><li><span class="font-mono font-bold text-blue">01</span> 固定主體和用途，只改線條。</li><li><span class="font-mono font-bold text-blue">02</span> 固定主體和線條，只改顏色。</li><li><span class="font-mono font-bold text-blue">03</span> 前面兩個都固定，只改材質。</li></ol><p class="mt-6 border-t border-ink/20 pt-5 text-sm font-bold leading-7">如果三輪同時改了很多東西，你就不知道結果為什麼變。</p></details>
       </section>
 
       <section class="mt-24 border-t-2 border-ink pt-12" aria-labelledby="style-catalog-title">
         <div class="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(18rem,.65fr)] lg:items-end">
-          <div><p class="font-mono text-xs font-bold tracking-[.18em] text-blue">100 個風格索引</p><h2 id="style-catalog-title" class="mt-2 text-4xl font-extrabold tracking-[-.06em]">先挑一個，再說出你看見什麼。</h2><p class="mt-4 max-w-2xl text-lg leading-8 text-blue">每一筆只有觀察線索、分類、問題和來源。它不是可以直接複製的答案；打開一筆，先說出線條、材質或空間怎麼影響畫面。</p></div>
+          <div><p class="font-mono text-xs font-bold tracking-[.18em] text-blue">100 個風格索引</p><h2 id="style-catalog-title" class="mt-2 text-4xl font-extrabold tracking-[-.06em]">先挑一個，再說出你看見什麼</h2><p class="mt-4 max-w-2xl text-lg leading-8 text-blue">每一筆只有觀察線索、分類、問題和來源。它不是可以直接複製的答案；打開一筆，先說出線條、材質或空間怎麼影響畫面。</p></div>
           <div class="rounded-2xl border-2 border-ink bg-sun p-5 text-ink"><p class="font-mono text-xs font-bold tracking-[.16em]">這一頁怎麼用</p><p class="mt-2 text-3xl font-extrabold">{catalogCount} 筆</p><p class="mt-2 text-sm leading-6">這裡放觀察線索、問題和來源，讓你自己判斷一個方向能不能用。</p></div>
         </div>
 

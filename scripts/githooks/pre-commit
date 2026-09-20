@@ -1,10 +1,10 @@
 #!/bin/sh
-# Pre-commit gate: run the same lint check CI runs.
-# If it fails, the commit is blocked. Fix first, then commit again.
+# Pre-commit gate: run the same lint and prose checks CI runs.
+# If either fails, the commit is blocked. Fix first, then commit again.
 # One-time setup on each machine: git config core.hooksPath scripts/githooks
-bun run lint
+bun run lint && bun run check:ai-prose
 status=$?
 if [ $status -ne 0 ]; then
-  echo "pre-commit: lint failed. Fix it first, then commit again."
+  echo "pre-commit: checks failed. Fix it first, then commit again."
   exit $status
 fi

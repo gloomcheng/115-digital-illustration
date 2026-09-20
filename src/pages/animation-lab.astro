@@ -12,7 +12,7 @@ import Layout from '../layouts/Layout.astro'
         <div class="relative mx-auto flex min-h-[min(78svh,48rem)] max-w-7xl items-center px-5 py-20 sm:px-10 lg:px-10 lg:py-24">
           <div class="max-w-xl">
             <p class="font-mono text-xs font-bold tracking-[.18em] text-sun">04 / 動圖怎麼做</p>
-            <h1 class="mt-4 text-5xl font-extrabold leading-[.98] tracking-[-.07em] sm:text-7xl">先讓人看懂，<br /><span class="text-sun">再讓它動起來。</span></h1>
+            <h1 class="mt-4 text-5xl font-extrabold leading-[.98] tracking-[-.07em] sm:text-7xl">先讓人看懂，<br /><span class="text-sun">再讓它動起來</span></h1>
             <p class="mt-6 max-w-2xl text-lg font-medium leading-8 text-paper/90">你不用先會動畫軟體。先做一個「收到」：讓角色只動一個地方，把每一格留下，再把 PNG 序列包成 LINE 要的 APNG。</p>
             <p class="mt-8 font-mono text-xs leading-5 text-paper/70">每一格都留下來，哪裡不對才找得到。</p>
           </div>
@@ -45,7 +45,7 @@ import Layout from '../layouts/Layout.astro'
       <section class="animation-tool-section relative mt-20 overflow-hidden">
         <div class="animation-tool-depth" data-animation-parallax aria-hidden="true"></div>
         <div class="animation-tool-layout relative">
-          <div class="animation-tool-intro"><p class="font-mono text-xs font-bold tracking-[.18em] text-blue">每個工具各做哪一步</p><h2 class="mt-3 text-4xl font-extrabold tracking-[-.06em]">工具不用全部學會，先知道誰負責哪一步。</h2></div>
+          <div class="animation-tool-intro"><p class="font-mono text-xs font-bold tracking-[.18em] text-blue">每個工具各做哪一步</p><h2 class="mt-3 text-4xl font-extrabold tracking-[-.06em]">工具不用全部學會，先知道誰負責哪一步</h2></div>
           <div class="animation-tool-content mt-8">
             <div class="grid gap-4 sm:grid-cols-2">{animationTools.map((tool) => <article class="story-card flex h-full flex-col rounded-2xl border-2 border-ink bg-paper p-5"><div class="flex items-start justify-between gap-3"><h3 class="text-xl font-extrabold">{tool.name}</h3><span class="rounded-full border border-ink px-2 py-1 font-mono text-[10px] font-bold text-blue">{tool.role}</span></div><p class="mt-3 flex-1 text-sm leading-7">{tool.detail}</p><a class="ink-link mt-4 inline-block font-mono text-xs text-blue" href={tool.url} target="_blank" rel="noreferrer">官方文件 ↗</a></article>)}</div>
             <aside class="animation-test-panel rounded-2xl border-2 border-ink bg-[#ffd7cc] p-7"><p class="font-mono text-xs font-bold tracking-[.16em]">先做最小版本</p><h3 class="mt-4 text-2xl font-extrabold">先做一張「收到」</h3><ol class="mt-6 grid gap-4 text-sm leading-7"><li><span class="font-mono font-bold text-blue">01</span> 寫出使用情境：對方傳來檔案，我要回覆收到。</li><li><span class="font-mono font-bold text-blue">02</span> 固定角色，只讓手臂和眼睛動。</li><li><span class="font-mono font-bold text-blue">03</span> 先做 5 格 PNG，不要一開始就做 24 張。</li><li><span class="font-mono font-bold text-blue">04</span> 第一格單獨看，還是要像「收到」。</li></ol><p class="mt-6 border-t border-ink/20 pt-5 text-sm font-bold leading-7">先把 5 格做通，再決定要不要擴成 24 張。</p></aside>

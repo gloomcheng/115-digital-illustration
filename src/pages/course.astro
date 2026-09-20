@@ -29,7 +29,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '')
         <div class="mb-8 flex flex-col gap-3 border-b-2 border-ink pb-5 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <p class="font-mono text-xs font-bold tracking-[.18em] text-blue">每週要做什麼</p>
-            <h2 class="mt-2 text-3xl font-extrabold tracking-[-.05em] text-ink sm:text-4xl">每週都做一段，最後把它們接成一個作品。</h2>
+            <h2 class="mt-2 text-3xl font-extrabold tracking-[-.05em] text-ink sm:text-4xl">每週都做一段，最後把它們接成一個作品</h2>
           </div>
           <p class="max-w-sm text-sm leading-7 text-blue">先做眼前這一段，再看它把哪個問題帶到下一週。你留下的紀錄，就是下一次修改的起點。</p>
         </div>
@@ -43,7 +43,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '')
     <section class="paper-grid px-5 py-14 sm:px-10 lg:px-10 lg:py-20">
       <div class="mx-auto max-w-7xl">
         <p class="font-mono text-xs font-bold tracking-[.18em] text-blue">設計教育的底</p>
-        <h2 class="mt-3 max-w-4xl text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">第一張圖變快，不代表你知道下一張怎麼做。</h2>
+        <h2 class="mt-3 max-w-4xl text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">第一張圖變快，不代表你知道下一張怎麼做</h2>
         <p class="mt-6 max-w-3xl text-lg leading-8 text-ink/80">先看畫面，再說出問題在哪裡。接著把色彩、比例、質感、構成、文字、符號與媒材逐一改動。AI 可以先做一版；但它不知道這張圖要讓人先看到什麼、記住什麼、接著做什麼。你自己說不清楚，下一輪就只是在換一張圖碰運氣。</p>
         <div class="mt-8 flex flex-wrap gap-x-5 gap-y-3 text-sm font-bold text-blue">{designEducationSources.map((source) => <a href={source.url} target="_blank" rel="noreferrer" class="underline decoration-coral decoration-2 underline-offset-4 hover:text-coral">{source.label} ↗</a>)}</div>
       </div>
@@ -52,7 +52,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '')
     <section class="bg-night px-5 py-16 text-paper sm:px-10 lg:px-10 lg:py-24">
       <div class="mx-auto max-w-7xl">
         <p class="font-mono text-xs font-bold tracking-[.18em] text-sun">AI 時代，這些能力往哪裡去</p>
-        <h2 class="mt-3 max-w-4xl text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">你不是只在學一套出圖流程。</h2>
+        <h2 class="mt-3 max-w-4xl text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">你不是只在學一套出圖流程</h2>
         <p class="mt-6 max-w-3xl text-lg leading-8 text-paper/85">AI 先把第一張圖做出來，桌上就會多出一個要處理的問題：這張圖要讓人先看到什麼、記住什麼、接著做什麼。你要從這裡開始改畫面、記錄理由，再把它接到角色、場景和作品交付。</p>
         <div class="mt-10 grid gap-5 md:grid-cols-2">
           {careerDirections.map((direction, index) => <article class="rounded-2xl border-2 border-paper/40 bg-paper/10 p-6"><div class="flex items-center justify-between gap-4"><span class="font-mono text-sm font-bold text-sun">0{index + 1}</span><span class="font-mono text-xs text-paper/70">一條可能的路</span></div><h3 class="mt-7 text-2xl font-extrabold">{direction.title}</h3><p class="mt-3 text-base leading-8 text-paper/85">{direction.detail}</p><p class="mt-5 border-t border-paper/20 pt-4 text-sm font-bold leading-7 text-sun">可能接到：{direction.roles}</p><a href={direction.source} target="_blank" rel="noreferrer" class="mt-5 inline-block font-mono text-xs text-paper underline decoration-sun decoration-2 underline-offset-4 hover:text-sun focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-sun/50">看教育與職涯資料 ↗</a></article>)}
