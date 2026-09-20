@@ -1,0 +1,137 @@
+---
+import { designEducation, designEducationSources } from '../../data/design-education'
+import Layout from '../../layouts/Layout.astro'
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '')
+const designLesson = designEducation[2]
+---
+
+<Layout title="W02 人工智慧與數位插畫" description="第一次盲生成：同一句話跑四張，找出模型替你做的那一段。">
+  <main class="bg-paper">
+    <section class="relative isolate min-h-[min(720px,calc(100svh-76px))] overflow-hidden bg-ink text-paper">
+      <img src={`${base}/illustrations/style-atlas.webp`} alt="原創插畫：海岸山城與材質研究板，呈現線條、色彩、材質、空間與用途的觀察線索。" class="absolute inset-0 h-full w-full object-cover object-center" width="1536" height="1024" fetchpriority="high" loading="eager" decoding="async" />
+      <div class="absolute inset-0 bg-[linear-gradient(90deg,rgba(7,31,52,.96)_0%,rgba(7,31,52,.84)_35%,rgba(7,31,52,.24)_78%,rgba(7,31,52,.08)_100%)]"></div>
+      <div class="relative mx-auto flex min-h-[min(720px,calc(100svh-76px))] max-w-7xl items-end px-5 py-14 sm:px-10 sm:py-20 lg:px-12">
+        <div class="max-w-3xl">
+          <p class="font-mono text-xs font-bold tracking-[.18em] text-sun">W02 / AI 工具</p>
+          <h1 class="mt-5 text-5xl font-extrabold leading-[.98] tracking-[-.07em] sm:text-7xl">人工智慧與數位插畫</h1>
+          <p data-reading class="mt-8 max-w-2xl border-l-4 border-coral bg-ink/75 px-5 py-4 text-xl font-bold leading-9 text-paper sm:text-2xl">AI 生成圖像到底替我們做了哪一段工作？</p>
+          <p data-reading class="mt-6 max-w-2xl text-lg leading-8 text-paper/85">桌上有四張狐狸，沒有一張是你畫的。有一張是你選的。這週就回答：你選的那一張，到底哪一段算你的。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="mx-auto max-w-6xl px-5 py-16 sm:px-10 lg:px-12 lg:py-24">
+      <div class="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(18rem,.7fr)] lg:items-start">
+        <div>
+          <p class="font-mono text-xs font-bold tracking-[.18em] text-blue">先看一個會發生的場景</p>
+          <h2 class="mt-4 text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">四張都不一樣，先問模型替你做了哪段</h2>
+          <p data-reading class="mt-6 text-lg leading-9 text-ink/80">假設小林輸入一句話，一隻狐狸站在雨後的夜市門口回頭看，按下生成跑出四張。燈不一樣，動作不一樣，有一張狐狸甚至站反了。小林留下最順眼的，刪掉另外三張。老師只問一句：這四張裡面，哪一段是你做的，哪一段是模型替你做的。</p>
+          <p data-reading class="mt-4 text-lg leading-9 text-ink/80">這一題先不用急著答。做完這週的盲生成，你要能指出模型補了什麼、猜錯什麼，以及你改了哪一欄。答得出來，刪掉的三張才有價值。</p>
+        </div>
+        <aside class="rounded-2xl border-2 border-ink bg-[#fff0bf] p-6 shadow-[8px_8px_0_rgba(13,94,130,.14)]">
+          <p class="font-mono text-xs font-bold tracking-[.16em] text-blue">本週先回答</p>
+          <p class="mt-4 text-2xl font-extrabold leading-9">模型補了什麼？<br />哪裡猜錯了？<br />下一輪只改哪一欄？</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="bg-night px-5 py-16 text-paper sm:px-10 lg:px-12 lg:py-24">
+      <div class="mx-auto max-w-6xl">
+        <p class="font-mono text-xs font-bold tracking-[.18em] text-sun">01 / 盲生成只做一件事</p>
+        <h2 class="mt-3 max-w-4xl text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">先不給風格名，讓模型自己猜</h2>
+        <p data-reading class="mt-6 max-w-3xl text-lg leading-8 text-paper/85">盲生成就是先不給風格名，只寫主體和動作。你寫一隻狐狸站在雨後的夜市門口回頭看，不寫電影感也不寫可愛。四張生出來，每一張多出來的東西都是模型自己猜的，這些猜測就是你要檢查的清單。</p>
+        <ol class="mt-10 grid gap-4 md:grid-cols-2">
+          <li class="rounded-xl border-2 border-paper/30 bg-paper/10 p-5"><span class="font-mono text-xs font-bold text-sun">01</span><h3 class="mt-3 text-xl font-extrabold">說清楚，但只說主體和動作</h3><p class="mt-2 text-sm leading-7 text-paper/80">一句話，四張都用同一句。風格名先收起來，這輪要看的是模型，不是你的形容詞。</p></li>
+          <li class="rounded-xl border-2 border-paper/30 bg-paper/10 p-5"><span class="font-mono text-xs font-bold text-sun">02</span><h3 class="mt-3 text-xl font-extrabold">四張全留下</h3><p class="mt-2 text-sm leading-7 text-paper/80">順眼的和怪的都留。刪掉的就沒證據，下一輪只能憑印象猜。</p></li>
+          <li class="rounded-xl border-2 border-paper/30 bg-paper/10 p-5"><span class="font-mono text-xs font-bold text-sun">03</span><h3 class="mt-3 text-xl font-extrabold">圈出差異</h3><p class="mt-2 text-sm leading-7 text-paper/80">燈光、動作、視線，一張一張寫模型補了什麼、猜錯什麼。</p></li>
+          <li class="rounded-xl border-2 border-paper/30 bg-paper/10 p-5"><span class="font-mono text-xs font-bold text-sun">04</span><h3 class="mt-3 text-xl font-extrabold">下一輪只改一欄</h3><p class="mt-2 text-sm leading-7 text-paper/80">改視線就只改視線，不要連風格一起換，不然不知道是哪個字有用。</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="mx-auto max-w-6xl px-5 py-16 sm:px-10 lg:px-12 lg:py-24">
+      <p class="font-mono text-xs font-bold tracking-[.18em] text-blue">02 / 誰做的要分清楚</p>
+      <h2 class="mt-4 max-w-4xl text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">同一句話下次長不一樣，控制就不在你手上</h2>
+      <p data-reading class="mt-6 max-w-3xl text-lg leading-9 text-ink/80">同一個描述按第二次，狐狸的燈光和動作細節又換了。會變的那一段是模型決定的，不算你的。你決定的只有三件事：用哪一句話生成，留下哪一張，下一輪改哪一欄。這三件事的紀錄就是人類投入的證明，下週起放進工作檔案。</p>
+    </section>
+
+    <section class="bg-[#ffd7cc] px-5 py-16 sm:px-10 lg:px-12 lg:py-24">
+      <div class="mx-auto max-w-6xl">
+        <p class="font-mono text-xs font-bold tracking-[.18em] text-blue">03 / 對照才有證據</p>
+        <h2 class="mt-3 max-w-4xl text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">對照系統表：輸出、加了什麼、猜錯什麼、改哪欄</h2>
+        <p data-reading class="mt-6 max-w-3xl text-lg leading-8 text-ink/80">系統表只有四欄，每張輸出填一行。輸出寫圖幾，加了什麼寫模型自己補的，猜錯什麼寫和你腦中不一樣的地方，下一輪改哪欄寫只改的那一個。假設圖二加了燈籠，狐狸卻站成正面，下一輪就只補視線方向。</p>
+        <div class="mt-8 block overflow-x-auto rounded-2xl border-2 border-ink bg-paper">
+          <table class="w-full min-w-[38rem] text-left text-sm leading-7">
+            <caption class="px-5 py-2 font-mono text-xs leading-6 text-blue">假設四張狐狸，填兩行長這樣</caption>
+            <thead>
+              <tr class="bg-sun">
+                <th class="border border-ink/20 p-3">輸出</th>
+                <th class="border border-ink/20 p-3">模型加了什麼</th>
+                <th class="border border-ink/20 p-3">猜錯什麼</th>
+                <th class="border border-ink/20 p-3">下一輪改哪欄</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="border border-ink/20 p-3 font-bold">圖一</td>
+                <td class="border border-ink/20 p-3">雨滴和路燈</td>
+                <td class="border border-ink/20 p-3">狐狸站反了，沒回頭</td>
+                <td class="border border-ink/20 p-3">只補視線方向</td>
+              </tr>
+              <tr>
+                <td class="border border-ink/20 p-3 font-bold">圖二</td>
+                <td class="border border-ink/20 p-3">攤販和招牌</td>
+                <td class="border border-ink/20 p-3">夜市門口不見了</td>
+                <td class="border border-ink/20 p-3">只補場景位置</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="mx-auto max-w-6xl px-5 py-16 sm:px-10 lg:px-12 lg:py-24">
+      <p class="font-mono text-xs font-bold tracking-[.18em] text-blue">04 / 定稿前多一道手續</p>
+      <h2 class="mt-4 max-w-4xl text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">完稿上傳反向圖搜一次，撞到就重畫</h2>
+      <p data-reading class="mt-6 max-w-3xl text-lg leading-9 text-ink/80">打開反向圖搜，把定稿上傳一次。看到相同構圖、有名角色或浮水印殘影，就是撞到，回去重畫，不要微調混過去。沒撞到，把搜尋截圖和修改理由一起留進工作檔案，這就是你這週的投入證明。</p>
+    </section>
+
+    <section class="bg-night px-5 py-16 text-paper sm:px-10 lg:px-12 lg:py-24">
+      <div class="mx-auto max-w-5xl">
+        <p class="font-mono text-xs font-bold tracking-[.18em] text-sun">本週作業 / BLIND EXPERIMENT CARD</p>
+        <h2 class="mt-3 text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">這週請交一張盲生成實驗卡</h2>
+        <ol class="mt-10 grid gap-4 md:grid-cols-2">
+          <li class="rounded-xl border-2 border-paper/30 bg-paper/10 p-5"><span class="font-mono text-xs font-bold text-sun">01</span><h3 class="mt-3 text-xl font-extrabold">固定一句話</h3><p class="mt-2 text-sm leading-7 text-paper/80">同一個主體和動作，不放風格名，四張都用它。</p></li>
+          <li class="rounded-xl border-2 border-paper/30 bg-paper/10 p-5"><span class="font-mono text-xs font-bold text-sun">02</span><h3 class="mt-3 text-xl font-extrabold">四張全留</h3><p class="mt-2 text-sm leading-7 text-paper/80">候選和失敗都留，刪掉就沒證據。</p></li>
+          <li class="rounded-xl border-2 border-paper/30 bg-paper/10 p-5"><span class="font-mono text-xs font-bold text-sun">03</span><h3 class="mt-3 text-xl font-extrabold">寫系統表</h3><p class="mt-2 text-sm leading-7 text-paper/80">輸出、加了什麼、猜錯什麼、下一輪改哪欄，四欄填滿。</p></li>
+          <li class="rounded-xl border-2 border-paper/30 bg-paper/10 p-5"><span class="font-mono text-xs font-bold text-sun">04</span><h3 class="mt-3 text-xl font-extrabold">反查加理由</h3><p class="mt-2 text-sm leading-7 text-paper/80">反向圖搜截圖加修改理由，留進工作檔案。</p></li>
+        </ol>
+        <div class="mt-10 border-l-4 border-sun bg-paper/10 px-5 py-4 text-base leading-8 text-paper/85">提交：原始提示詞、四張輸出、對照系統表、修改理由、反查截圖。下週拆解風格時，從系統表的下一輪改哪欄開始。</div>
+      </div>
+    </section>
+
+    <section class="paper-grid px-5 py-16 sm:px-10 lg:px-12 lg:py-24">
+      <div class="mx-auto max-w-6xl">
+        <div class="grid gap-8 rounded-2xl border-2 border-ink bg-[#ffd7cc] p-7 md:grid-cols-[minmax(0,1fr)_minmax(18rem,.7fr)] md:items-center md:p-10">
+          <div>
+            <p class="font-mono text-xs font-bold tracking-[.16em] text-blue">台灣設計教育 / 先看現場</p>
+            <h2 class="mt-3 text-3xl font-extrabold tracking-[-.05em] sm:text-4xl">{designLesson.concept}</h2>
+            <p class="mt-5 text-lg leading-9">{designLesson.eli5}</p>
+            <p class="mt-4 text-base leading-8">先看模型交出什麼，再決定你要問它什麼。順序反過來，問題就問錯地方。</p>
+          </div>
+          <figure class="rounded-2xl border-2 border-ink bg-paper p-4">
+            <img src={`${base}${designLesson.visual}`} alt={designLesson.visualAlt} class="h-auto w-full" loading="lazy" decoding="async" />
+            <figcaption class="mt-3 font-mono text-xs leading-6 text-blue">{designLesson.visualAlt}</figcaption>
+          </figure>
+        </div>
+        <div class="mt-10 border-t-2 border-ink pt-8"><p class="font-mono text-xs font-bold tracking-[.16em] text-blue">本週參考</p><div class="mt-4 flex flex-wrap gap-x-5 gap-y-3 text-sm font-bold text-blue">{designEducationSources.map((source) => <a href={source.url} target="_blank" rel="noreferrer" class="underline decoration-coral decoration-2 underline-offset-4 hover:text-coral">{source.label} ↗</a>)}</div></div>
+      </div>
+    </section>
+
+    <nav class="mx-auto grid max-w-5xl gap-5 border-t-2 border-ink px-5 py-10 text-sm font-bold sm:grid-cols-2 sm:px-10 lg:px-12" aria-label="週次導覽">
+      <a href={`${base}/weeks/1`} class="ink-link">← W01 課程介紹與作業規範</a>
+      <a href={`${base}/weeks/3`} class="ink-link sm:text-right">W03 插畫藝術的風格類型 →</a>
+    </nav>
+  </main>
+</Layout>

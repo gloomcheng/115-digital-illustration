@@ -4,7 +4,7 @@ import { weeks } from '../../data/weeks'
 import Layout from '../../layouts/Layout.astro'
 
 export function getStaticPaths() {
-  const dedicatedLessons = new Set([1, 5])
+  const dedicatedLessons = new Set([1, 2, 5])
   return weeks
     .filter((week) => !dedicatedLessons.has(week.number))
     .map((week) => ({ params: { number: String(week.number) }, props: { week } }))
