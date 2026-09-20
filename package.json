@@ -11,7 +11,9 @@
     "dev:background": "astro dev --background",
     "build": "astro build",
     "typecheck": "astro check",
-    "lint": "biome check ."
+    "lint": "biome check .",
+    "check:reading-windows": "node scripts/reading-window-harness.mjs",
+    "quality": "npm run check:reading-windows && npm run typecheck && npm run build"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.10",

@@ -18,7 +18,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '')
           <p class="font-mono text-xs font-bold tracking-[.18em] text-sun">這學期 / 課程進度</p>
           <p class="mt-5 max-w-xl text-lg font-bold leading-8 text-paper/90">{course.title}</p>
           <h1 class="mt-3 text-5xl font-extrabold leading-[.98] tracking-[-.07em] text-paper sm:text-7xl lg:text-8xl">這學期怎麼走<br /><span class="text-sun">每週做什麼</span></h1>
-          <p class="mt-7 max-w-xl text-base leading-8 text-paper/85 sm:text-lg">你會先從一張圖開始，慢慢學會怎麼看風格、怎麼挑工具、怎麼把做壞的地方記下來。故事、分鏡和鏡頭語言，會和另一位老師一起接上。</p>
+          <p class="mt-7 max-w-xl text-base leading-8 text-paper/85 sm:text-lg">第一週先從一個你每天看得到的物件開始。接著把它變成畫面、角色和場景，再把故事老師的分鏡條件接進來。每一週都會留下下一個人可以繼續使用的東西。</p>
           <a href={`${base}/animation-lab`} class="mt-7 inline-flex items-center border-b-2 border-sun pb-1 font-mono text-sm font-bold text-paper transition-colors hover:text-sun focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-sun/50">先看看動圖怎麼接進作品 ↗</a>
         </div>
       </div>
@@ -29,9 +29,9 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '')
         <div class="mb-8 flex flex-col gap-3 border-b-2 border-ink pb-5 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <p class="font-mono text-xs font-bold tracking-[.18em] text-blue">每週要做什麼</p>
-            <h2 class="mt-2 text-3xl font-extrabold tracking-[-.05em] text-ink sm:text-4xl">每週都留下一點，讓你知道自己怎麼走到這裡。</h2>
+            <h2 class="mt-2 text-3xl font-extrabold tracking-[-.05em] text-ink sm:text-4xl">每週都做一段，最後把它們接成一個作品。</h2>
           </div>
-          <p class="max-w-sm text-sm leading-7 text-blue">不用一次把所有工具學完。每週先做一件小事；做完，你會比較知道下一步要往哪裡走。</p>
+          <p class="max-w-sm text-sm leading-7 text-blue">先做眼前這一段，再看它把哪個問題帶到下一週。你留下的紀錄，就是下一次修改的起點。</p>
         </div>
         <div class="overflow-hidden rounded-2xl border-2 border-ink bg-paper shadow-[8px_8px_0_rgba(13,94,130,.14)]">
           <div class="hidden grid-cols-[70px_1.45fr_1fr_1.2fr_1fr] border-b-2 border-ink bg-sun px-5 py-4 font-mono text-xs font-bold tracking-[.12em] md:grid"><span>週次</span><span>本週課程內容</span><span>誰帶這段</span><span>這週先想什麼</span><span>做完留下什麼</span></div>
@@ -44,7 +44,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '')
       <div class="mx-auto max-w-7xl">
         <p class="font-mono text-xs font-bold tracking-[.18em] text-blue">設計教育的底</p>
         <h2 class="mt-3 max-w-4xl text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">第一張圖變快，不代表你知道下一張怎麼做。</h2>
-        <p class="mt-6 max-w-3xl text-lg leading-8 text-ink/80">先觀察，再定義問題；再把色彩、比例、質感、構成、文字、符號與媒材放回用途裡。AI 可以先做一版；但它不知道這張圖要讓人先看到什麼、記住什麼、接著做什麼。你自己說不清楚，下一輪就只是在換一張圖碰運氣。</p>
+        <p class="mt-6 max-w-3xl text-lg leading-8 text-ink/80">先看畫面，再說出問題在哪裡。接著把色彩、比例、質感、構成、文字、符號與媒材逐一改動。AI 可以先做一版；但它不知道這張圖要讓人先看到什麼、記住什麼、接著做什麼。你自己說不清楚，下一輪就只是在換一張圖碰運氣。</p>
         <div class="mt-8 flex flex-wrap gap-x-5 gap-y-3 text-sm font-bold text-blue">{designEducationSources.map((source) => <a href={source.url} target="_blank" rel="noreferrer" class="underline decoration-coral decoration-2 underline-offset-4 hover:text-coral">{source.label} ↗</a>)}</div>
       </div>
     </section>
@@ -53,7 +53,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '')
       <div class="mx-auto max-w-7xl">
         <p class="font-mono text-xs font-bold tracking-[.18em] text-sun">AI 時代，這些能力往哪裡去</p>
         <h2 class="mt-3 max-w-4xl text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">你不是只在學一套出圖流程。</h2>
-        <p class="mt-6 max-w-3xl text-lg leading-8 text-paper/85">AI 會讓第一張圖變快；但它不知道這張圖要讓人先看到什麼、記住什麼、接著做什麼。這就是數位媒體、資訊傳播、大眾傳播和設計工作每天要處理的事。</p>
+        <p class="mt-6 max-w-3xl text-lg leading-8 text-paper/85">AI 先把第一張圖做出來，桌上就會多出一個要處理的問題：這張圖要讓人先看到什麼、記住什麼、接著做什麼。你要從這裡開始改畫面、記錄理由，再把它接到角色、場景和作品交付。</p>
         <div class="mt-10 grid gap-5 md:grid-cols-2">
           {careerDirections.map((direction, index) => <article class="rounded-2xl border-2 border-paper/40 bg-paper/10 p-6"><div class="flex items-center justify-between gap-4"><span class="font-mono text-sm font-bold text-sun">0{index + 1}</span><span class="font-mono text-xs text-paper/70">一條可能的路</span></div><h3 class="mt-7 text-2xl font-extrabold">{direction.title}</h3><p class="mt-3 text-base leading-8 text-paper/85">{direction.detail}</p><p class="mt-5 border-t border-paper/20 pt-4 text-sm font-bold leading-7 text-sun">可能接到：{direction.roles}</p><a href={direction.source} target="_blank" rel="noreferrer" class="mt-5 inline-block font-mono text-xs text-paper underline decoration-sun decoration-2 underline-offset-4 hover:text-sun focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-sun/50">看教育與職涯資料 ↗</a></article>)}
         </div>

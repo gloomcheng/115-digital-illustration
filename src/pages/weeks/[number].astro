@@ -4,7 +4,10 @@ import { weeks } from '../../data/weeks'
 import Layout from '../../layouts/Layout.astro'
 
 export function getStaticPaths() {
-  return weeks.map((week) => ({ params: { number: String(week.number) }, props: { week } }))
+  const dedicatedLessons = new Set([1, 5])
+  return weeks
+    .filter((week) => !dedicatedLessons.has(week.number))
+    .map((week) => ({ params: { number: String(week.number) }, props: { week } }))
 }
 
 const { week } = Astro.props
@@ -80,7 +83,7 @@ const imagePath = `${base}/illustrations/${illustration}.webp`
 
       <section class="mt-14 grid gap-8 rounded-2xl border-2 border-ink bg-[#ffd7cc] p-7 md:grid-cols-[minmax(0,1fr)_minmax(18rem,.7fr)] md:items-center md:p-10">
         <div>
-          <p class="font-mono text-xs font-bold tracking-[.16em] text-blue">台灣設計教育 / ELI5</p>
+          <p class="font-mono text-xs font-bold tracking-[.16em] text-blue">台灣設計教育 / 先看一件事</p>
           <h2 class="mt-3 text-3xl font-extrabold tracking-[-.05em] sm:text-4xl">{designLesson.concept}</h2>
           <p class="mt-5 text-lg leading-9">{designLesson.eli5}</p>
         </div>

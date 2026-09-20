@@ -41,7 +41,7 @@ export const styleAxes = [
 
 export const promptParts = [
   { title: '主體', detail: '主體是誰；先限制數量、身分與識別點。' },
-  { title: '動作', detail: '主體在做什麼；不要只寫情緒形容詞。' },
+  { title: '動作', detail: '把主體正在做的事情寫出來，讓畫面有可以被檢查的變化。' },
   { title: '構圖', detail: '主體放在哪裡，前景、背景與留白怎麼分配。' },
   { title: '風格語法', detail: '用線條、形狀、色彩、材質與空間描述風格。' },
   { title: '使用情境', detail: '說明要做成繪本頁、貼圖、封面或提案圖。' },
@@ -150,7 +150,7 @@ export const experiments = [
     title: '用用途選方向',
     action: '同一風格測試繪本頁、貼圖與提案封面。',
     output: '風格取向矩陣',
-    question: '看的人認得出來嗎？放到貼圖、繪本或商品上，真的有人會用嗎？',
+    question: '縮小之後還認得出來嗎？放到貼圖、繪本或商品上，哪個地方會先失效？',
   },
 ]
 
