@@ -1,6 +1,7 @@
 #!/bin/sh
 # Pre-commit gate: run the same lint check CI runs.
 # If it fails, the commit is blocked. Fix first, then commit again.
+# One-time setup on each machine: git config core.hooksPath scripts/githooks
 bun run lint
 status=$?
 if [ $status -ne 0 ]; then

@@ -25,17 +25,6 @@
 
 前 8 週先把畫面拆開來看，也習慣留下每次試錯。第 9–10 週接上故事、分鏡和鏡頭語言。第 11–16 週把分鏡轉成角色、場景和版面，最後整理成作品交接包。第 17–18 週再到展演和數位圖書館看看，作品離開課堂後會遇到什麼。
 
-## 想自己架站或改網站
-
-```bash
-bun install --frozen-lockfile
-bun run dev
-```
-
-開啟 `http://localhost:4321/115-digital-illustration/`。送出前先跑 `bun run quality`，把檢查、型別、建置一次驗完。
-
-只設一次：`git config core.hooksPath scripts/githooks`，之後每次 commit 前會自動先跑排版檢查，不過就送不出去。
-
 ## 授權
 
 網站原始碼採 MIT License。課程作品、參考圖片、生成輸出與工具條款，依各自來源與授權規則處理。
