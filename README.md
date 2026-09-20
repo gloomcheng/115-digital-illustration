@@ -34,6 +34,8 @@ bun run dev
 
 開啟 `http://localhost:4321/115-digital-illustration/`。送出前先跑 `bun run quality`，把檢查、型別、建置一次驗完。
 
+只設一次：`git config core.hooksPath scripts/githooks`，之後每次 commit 前會自動先跑排版檢查，不過就送不出去。
+
 ## 授權
 
 網站原始碼採 MIT License。課程作品、參考圖片、生成輸出與工具條款，依各自來源與授權規則處理。
