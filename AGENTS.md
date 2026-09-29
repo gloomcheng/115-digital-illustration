@@ -61,12 +61,21 @@ From the repository root:
 bun install --frozen-lockfile
 bun run typecheck
 bun run build
+bun run quality
 ```
+
+Run `bun run quality` (reading windows, AI-prose guard, typecheck, build)
+before reporting a change complete. `bun run check:reading-windows` audits every
+dedicated week page listed inside `scripts/reading-window-harness.mjs`; add a
+page there once its reading path is marked with `data-reading`.
 
 Before reporting a website change complete, verify:
 
 - the official course name and `115` identity remain visible;
 - all 18 supplied week topics remain unchanged in meaning;
+- every factual claim on a lesson page carries a numbered footnote resolving to a
+  source that returns a page, and the claim is recorded in
+  `reference/source-audit-*.md`;
 - the co-teaching boundary is visible;
 - every new route returns a page rather than a 404;
 - diagrams render, have `alt` text, and do not depend on an external image host;

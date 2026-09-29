@@ -2,7 +2,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 
 /**
- * Audits the explicitly marked reading paragraphs in W01.
+ * Audits the explicitly marked reading paragraphs in the dedicated week pages.
  *
  * The source page contains cards, labels, captions, and navigation as well as
  * the main reading path. `data-reading` makes that path explicit so the audit
@@ -11,12 +11,16 @@ import path from 'node:path'
  * requires independent human or model forward and backward questions.
  */
 
-const PAGE_PATH = path.resolve('src/pages/weeks/1.astro')
-const DATA_PATH = path.resolve('src/data/design-education.ts')
+// Dedicated lesson pages. A page is audited only once its reading path is
+// marked with `data-reading`; add the page here when it is marked.
+const PAGES = [
+  { page: 'src/pages/weeks/1.astro', data: 'src/data/design-education.ts', key: 1, label: 'W01' },
+  { page: 'src/pages/weeks/2.astro', data: 'src/data/design-education.ts', key: 2, label: 'W02' },
+]
 const STOP_WORDS = new Set(['這個', '這一', '一個', '可以', '不是', '也會', '以及', '下一'])
 const CONNECTIVE_PATTERNS = [
-  /^(答案|這門課|這張|這個|接下來|下次|下週|你會|先用|先把|拿)/,
-  /(接著|回到|因此|所以|同一張|同一個|這週|這種觀察)/,
+  /^(答案|這門課|這張|這個|接下來|下次|下週|你會|先用|先把|拿|先看|先確認|先說|因為|所以|但|而)/,
+  /(接著|回到|因此|所以|同一張|同一個|這週|這種觀察|同一頭牛|同一批材料)/,
 ]
 
 function stripMarkup(value) {
@@ -28,17 +32,19 @@ function stripMarkup(value) {
     .trim()
 }
 
-function dynamicReadingValues() {
-  if (!fs.existsSync(DATA_PATH)) return {}
-  const source = fs.readFileSync(DATA_PATH, 'utf8')
-  const lessonOne = source.match(/1:\s*\{([\s\S]*?)\n\s*\},\n\s*2:/)?.[1]
-  const eli5 = lessonOne?.match(/eli5:\s*'([^']+)'/)?.[1]
+function dynamicReadingValues(dataPath, key) {
+  if (!fs.existsSync(dataPath)) return {}
+  const source = fs.readFileSync(dataPath, 'utf8')
+  const next = Object.keys(PAGES).length > 0 ? String(key + 1) : ''
+  const body = source.match(
+    new RegExp(`\\n\\s*${key}:\\s*\\{([\\s\\S]*?)\\n\\s*\\},\\n\\s*${next}:`)
+  )?.[1]
+  const eli5 = body?.match(/eli5:\s*'([^']+)'/)?.[1]
   return eli5 ? { 'designLesson.eli5': eli5 } : {}
 }
 
-function collectParagraphs(source) {
+function collectParagraphs(source, dynamicValues) {
   const paragraphs = []
-  const dynamicValues = dynamicReadingValues()
   const paragraphPattern = /<p\b([^>]*)>([\s\S]*?)<\/p>/g
   for (const match of source.matchAll(paragraphPattern)) {
     const attributes = match[1]
@@ -48,10 +54,7 @@ function collectParagraphs(source) {
     const text = stripMarkup(rawText ?? match[2])
     if (!text || text.length < 12) continue
     const before = source.slice(0, match.index)
-    paragraphs.push({
-      text,
-      line: before.split('\n').length,
-    })
+    paragraphs.push({ text, line: before.split('\n').length })
   }
   return paragraphs
 }
@@ -114,20 +117,19 @@ function auditWindows(paragraphs) {
   return findings
 }
 
-function run() {
-  console.log('Running two-paragraph reading-window audit for digital illustration W01...')
-  if (!fs.existsSync(PAGE_PATH)) {
-    console.error(`Missing ${PAGE_PATH}.`)
+function auditPage(target) {
+  const pagePath = path.resolve(target.page)
+  if (!fs.existsSync(pagePath)) {
+    console.error(`Missing ${pagePath}.`)
     process.exit(1)
   }
-
-  const source = fs.readFileSync(PAGE_PATH, 'utf8')
-  const paragraphs = collectParagraphs(source)
+  const source = fs.readFileSync(pagePath, 'utf8')
+  const paragraphs = collectParagraphs(source, dynamicReadingValues(target.data, target.key))
   const findings = []
   if (/\bELI5\b/.test(source)) {
     findings.push({
-      location: 'W01 page',
-      pair_location: 'W01 page',
+      location: `${target.label} page`,
+      pair_location: `${target.label} page`,
       direction: 'backward',
       expected_continuation_or_missing_premise:
         'The explanation should be readable without a visible ELI5 badge.',
@@ -139,8 +141,8 @@ function run() {
   }
   if (paragraphs.length < 2) {
     findings.push({
-      location: 'W01 page',
-      pair_location: 'W01 page:not-enough-paragraphs',
+      location: `${target.label} page`,
+      pair_location: `${target.label} page:not-enough-paragraphs`,
       direction: 'forward',
       expected_continuation_or_missing_premise:
         'The page should expose at least two marked learner-facing prose paragraphs.',
@@ -152,7 +154,7 @@ function run() {
   findings.push(...auditWindows(paragraphs))
 
   console.log(
-    `  ${path.relative(process.cwd(), PAGE_PATH)}: ${paragraphs.length} marked paragraphs, ${Math.max(0, paragraphs.length - 1)} windows`
+    `  ${path.relative(process.cwd(), pagePath)}: ${paragraphs.length} marked paragraphs, ${Math.max(0, paragraphs.length - 1)} windows`
   )
   for (const finding of findings) {
     console.error(`  ✗ ${finding.location} [${finding.direction}]`)
@@ -164,13 +166,18 @@ function run() {
     console.error(`    repair: ${finding.repair}`)
     console.error(`    source_boundary: ${finding.source_boundary}`)
   }
-  if (findings.length > 0) {
-    console.error(`Reading-window audit failed: ${findings.length} finding(s).`)
-    process.exit(1)
-  }
-  console.log(
-    `✓ Reading-window audit passed: ${Math.max(0, paragraphs.length - 1)} windows are connected without a visible ELI5 label.`
-  )
+  return findings.length
 }
 
-run()
+console.log('Running two-paragraph reading-window audit for digital illustration week pages...')
+let total = 0
+for (const target of PAGES) {
+  total += auditPage(target)
+}
+if (total > 0) {
+  console.error(`Reading-window audit failed: ${total} finding(s).`)
+  process.exit(1)
+}
+console.log(
+  '✓ Reading-window audit passed: every marked window is connected without a visible ELI5 label.'
+)
