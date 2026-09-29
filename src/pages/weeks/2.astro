@@ -1,236 +1,561 @@
 ---
-import { designEducation, designEducationSources } from '../../data/design-education'
+import SourceNote from '../../components/SourceNote.astro'
+import { designEducation } from '../../data/design-education'
 import Layout from '../../layouts/Layout.astro'
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '')
 const designLesson = designEducation[2]
+
+interface Footnote {
+  n: number
+  claim: string
+  label: string
+  url: string
+  note?: string
+}
+
+const footnotes: Footnote[] = [
+  {
+    n: 1,
+    claim: '拉斯科壁畫的年代約為兩萬年前，測定方式仍在修訂',
+    label: '法國文化部・拉斯科：年代如何測定',
+    url: 'https://archeologie.culture.gouv.fr/lascaux/en/dating-figures-lascaux',
+  },
+  {
+    n: 2,
+    claim: '拉斯科黑色線條是錳的氧化物、赭紅來自赤鐵礦，未驗出任何有機色',
+    label: '法國文化部・拉斯科：使用了哪些顏料',
+    url: 'https://archeologie.culture.gouv.fr/lascaux/en/raw-materials',
+  },
+  {
+    n: 3,
+    claim: '拉斯科約有六百個動物形象，馬最多',
+    label: '法國文化部・拉斯科：壁畫中的動物數量',
+    url: 'https://archeologie.culture.gouv.fr/lascaux/en/themes-0',
+  },
+  {
+    n: 4,
+    claim: '1940 年發現、1963 年永久關閉、1983 年 Lascaux II 開放',
+    label: '拉斯科官方網站：洞穴的歷史',
+    url: 'https://lascaux.fr/en/history-of-lascaux/',
+  },
+  {
+    n: 5,
+    claim:
+      '「死者之書」是 1842 年 Lepsius 取名的現代統稱，古埃及人稱「日間現世之咒語」；已知約 192 則咒語，無單一抄本收錄全部',
+    label:
+      '百科條目：Book of the Dead（可對照大都會博物館以 Book of Coming Forth by Day 為名的館藏記錄）',
+    url: 'https://en.wikipedia.org/wiki/Book_of_the_Dead',
+  },
+  {
+    n: 6,
+    claim: '大英博物館阿尼 Papyrus 的書寫部分基本完整、沒有缺角；後來被切成三十七張分裱',
+    label: '百科條目：Papyrus of Ani',
+    url: 'https://en.wikipedia.org/wiki/Papyrus_of_Ani',
+  },
+  {
+    n: 7,
+    claim: '《凱爾經》約完成於 800 年、340 張小牛皮共 680 頁、牛皮用量約 185 張',
+    label: '都柏林聖三一學院圖書館：《凱爾經》',
+    url: 'https://www.tcd.ie/library/research-collections/book-of-kells.php',
+  },
+  {
+    n: 8,
+    claim: '《凱爾經》的顏料：藍草、雌黃、紅丹，紫色來自地衣',
+    label: '都柏林聖三一學院：揭開《凱爾經》的顏料之謎',
+    url: 'https://t4hosting.tcd.ie/news_events/articles/2024/uncovering-the-mysteries-of-the-book-of-kells/',
+  },
+  {
+    n: 9,
+    claim: '《凱爾經》書頁每年只翻動數次、全書四冊平時陳列兩冊、須付費預約限時入場',
+    label: '都柏林聖三一學院：《凱爾經》觀看方式與門票',
+    url: 'https://www.tcd.ie/visitors/book-of-kells',
+  },
+  {
+    n: 10,
+    claim: '透視法由 Brunelleschi 約在 1420 年前後系統化，Alberti 於 1435 年寫入《論畫》',
+    label: 'essentialvermeer：透視法的歷史',
+    url: 'https://www.essentialvermeer.com/technique/perspective/history.html',
+  },
+  {
+    n: 11,
+    claim: '貝里公爵讓 1340–1416、查理五世之弟、收藏十五部祈禱書；林堡兄弟製作，約 1412–1416 年',
+    label: '大都會藝術博物館：Patronage of Jean de Berry (1340–1416)',
+    url: 'https://www.metmuseum.org/essays/patronage-of-jean-de-berry-1340-1416',
+  },
+  {
+    n: 12,
+    claim:
+      '九月頁分兩次完成（背景約 1438–1442、下半由 Jean Colombe 補），Colombe 於 1485–1486 年補完；全書編號 MS 65',
+    label: '百科條目：Très Riches Heures du Duc de Berry',
+    url: 'https://en.wikipedia.org/wiki/Tr%C3%A8s_Riches_Heures_du_Duc_de_Berry',
+  },
+  {
+    n: 13,
+    claim:
+      '2025 年 6 月 7 日至 10 月 5 日尚蒂伊修復後特展，26 張月曆頁並排展出，為 1956 與 2004 年後第三次公開',
+    label: '展覽報導：Le Château de Chantilly',
+    url: 'https://saltertonartsreview.com/2025/07/les-tres-riches-heures-du-duc-de-berry-le-chateau-de-chantilly',
+  },
+  {
+    n: 14,
+    claim:
+      '科隆大教堂 1248 年動工、約 1473 年因經費與朝聖收入銳減停工、1842 年重啟撥款、1880 年完工',
+    label: '科隆大教堂官方：建造史',
+    url: 'https://www.colognecathedral.de/history.html',
+  },
+  {
+    n: 15,
+    claim: '杜勒《犀牛》為 1515 年木刻，圖上印有 1515 與 Rhinocerus 字樣',
+    label: '大都會藝術博物館：The Rhinoceros, 1515',
+    url: 'https://www.metmuseum.org/art/collection/search/356497',
+  },
+  {
+    n: 16,
+    claim: '歐洲已逾千年沒有犀牛，杜勒只能依據一份匿名文字描述與一幅草稿作畫',
+    label: '大英博物館藏品（Google Arts & Culture）：Rhinoceros',
+    url: 'https://artsandculture.google.com/asset/rhinoceros-albrecht-d%C3%BCrer/VQE7S6K8Yxg5Zw?hl=en',
+  },
+  {
+    n: 17,
+    claim:
+      '《啟示錄四騎士》為 1498 年木刻，四騎士順序為死亡、饑荒、戰爭、瘟疫，各持枯枝、天平、劍、弓',
+    label: '大都會藝術博物館：The Four Horsemen, from The Apocalypse, 1498',
+    url: 'https://www.metmuseum.org/art/collection/search/336215',
+  },
+  {
+    n: 18,
+    claim: '《啟示錄》中蒼白馬的騎士名字叫死亡；持弓者騎的是白馬，兩者是不同的騎士',
+    label: '大都會藝術博物館典藏說明（引《啟示錄》第六章經文）',
+    url: 'https://www.metmuseum.org/art/collection/search/336215',
+  },
+  {
+    n: 19,
+    claim: '《野兔》為 1502 年水彩與體彩，收藏於維也納奧爾貝蒂那美術館',
+    label: '奧爾貝蒂那美術館：Albrecht Dürer',
+    url: 'https://www.albertina.at/en/press/exhibitions/albrecht-duerer',
+  },
+  {
+    n: 20,
+    claim: '杜勒 13 歲自畫像完成於 1484 年，媒材為銀尖筆，同藏於奧爾貝蒂那',
+    label: '百科條目：Albrecht Dürer',
+    url: 'https://en.wikipedia.org/wiki/Albrecht_D%C3%BCrer',
+  },
+  {
+    n: 21,
+    claim: '中世紀放棄古典寫實是為了與異教羅馬文化劃清視覺距離，不是因為相信人有原罪',
+    label: '課程教材：Art Before the Renaissance（引 Dr Nancy Ross〈The Image in Medieval Art〉）',
+    url: 'https://art109textbook.wordpress.com/new-online-textbook-2-2/chapter-1-the-proto-renaissance/art-before-the-renaissance-home',
+  },
+  {
+    n: 22,
+    claim: '學界對「自然主義是中世紀的缺失」這個預設有明確批評（Meyer Schapiro 論點轉述）',
+    label: 'University of Chicago：Naturalism and Medieval Art',
+    url: 'https://voices.uchicago.edu/witnessingmedievalevil/2022/03/20/naturalism-and-medieval-art',
+  },
+]
 ---
 
-<Layout title="W02 人工智慧與數位插畫" description="第一次盲生成：同一句話跑四張，找出模型替你做的那一段。">
+<Layout
+  title="W02 插畫與繪本的藝術史"
+  description="插畫的服務對象一路改變，畫法就跟著改變：洞穴壁畫、死者之書、凱爾經、時禱書、杜勒版畫。"
+>
   <main class="bg-paper">
     <section class="relative isolate min-h-[min(720px,calc(100svh-76px))] overflow-hidden bg-ink text-paper">
-      <img src={`${base}/illustrations/style-atlas.webp`} alt="原創插畫：海岸山城與材質研究板，呈現線條、色彩、材質、空間與用途的觀察線索。" class="absolute inset-0 h-full w-full object-cover object-center" width="1536" height="1024" fetchpriority="high" loading="eager" decoding="async" />
-      <div class="absolute inset-0 bg-[linear-gradient(90deg,rgba(7,31,52,.96)_0%,rgba(7,31,52,.84)_35%,rgba(7,31,52,.24)_78%,rgba(7,31,52,.08)_100%)]"></div>
+      <img
+        src={`${base}/illustrations/storybook-spread.webp`}
+        alt="原創插畫：攤在木桌上一本翻開的繪本，跨頁畫的是一條沿海岸的石板小路，小孩與狗走向遠方的燈塔，海面與山脈在日光下。桌上另有書本、放大鏡與貝殼。"
+        class="absolute inset-0 h-full w-full object-cover object-center"
+        width="1536"
+        height="1024"
+        fetchpriority="high"
+        loading="eager"
+        decoding="async"
+      />
+      <div class="absolute inset-0 bg-[linear-gradient(90deg,rgba(7,31,52,.96)_0%,rgba(7,31,52,.86)_35%,rgba(7,31,52,.3)_78%,rgba(7,31,52,.1)_100%)]"></div>
       <div class="relative mx-auto flex min-h-[min(720px,calc(100svh-76px))] max-w-7xl items-end px-5 py-14 sm:px-10 sm:py-20 lg:px-12">
         <div class="max-w-3xl">
-          <p class="font-mono text-xs font-bold tracking-[.18em] text-sun">W02 / AI 工具</p>
-          <h1 class="mt-5 text-5xl font-extrabold leading-[.98] tracking-[-.07em] sm:text-7xl">人工智慧與數位插畫</h1>
-          <p data-reading class="mt-8 max-w-2xl border-l-4 border-coral bg-ink/75 px-5 py-4 text-xl font-bold leading-9 text-paper sm:text-2xl">AI 生成圖像到底替我們做了哪一段工作？</p>
-          <p data-reading class="mt-6 max-w-2xl text-lg leading-8 text-paper/85">桌上有四張狐狸，沒有一張是你畫的。有一張是你選的。這週就回答：你選的那一張，到底哪一段算你的。</p>
+          <p class="font-mono text-xs font-bold tracking-[.18em] text-sun">W02 / 理論課</p>
+          <h1 class="mt-5 text-5xl font-extrabold leading-[.98] tracking-[-.07em] sm:text-7xl">插畫與繪本的藝術史</h1>
+          <p data-reading class="mt-8 max-w-2xl border-l-4 border-coral bg-ink/75 px-5 py-4 text-xl font-bold leading-9 text-paper sm:text-2xl">同一頭牛，為什麼有三種樣子？</p>
+          <p data-reading class="mt-6 max-w-2xl text-lg leading-8 text-paper/85">這週不碰軟體。差別不在牛，在誰要 看它。</p>
         </div>
       </div>
     </section>
 
-    <section class="mx-auto max-w-6xl px-5 py-16 sm:px-10 lg:px-12 lg:py-24">
+    <nav class="border-b-2 border-ink bg-[#fff0bf] px-5 py-5 sm:px-10 lg:px-12" aria-label="本週段落">
+      <p class="font-mono text-xs font-bold tracking-[.16em] text-blue">快速複習</p>
+      <ol class="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-sm font-bold text-ink">
+        <li><a class="ink-link" href="#audience">先決定服務誰</a></li>
+        <li><a class="ink-link" href="#definition">插畫為什麼存在</a></li>
+        <li><a class="ink-link" href="#two-caves">同一批材料，兩條路</a></li>
+        <li><a class="ink-link" href="#sealed">為什麼整個被封起來</a></li>
+        <li><a class="ink-link" href="#book-of-dead">死者之書不是一本書</a></li>
+        <li><a class="ink-link" href="#flat">中世紀為什麼畫扁</a></li>
+        <li><a class="ink-link" href="#kells">凱爾經的規則</a></li>
+        <li><a class="ink-link" href="#plague">瘟疫讓書跨了八十年</a></li>
+        <li><a class="ink-link" href="#durer">版畫讓名字比書更有名</a></li>
+        <li><a class="ink-link" href="#drill">術語與自測</a></li>
+      </ol>
+    </nav>
+
+    <section id="audience" class="mx-auto max-w-6xl px-5 py-16 sm:px-10 lg:px-12 lg:py-24">
       <div class="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(18rem,.7fr)] lg:items-start">
         <div>
-          <p class="font-mono text-xs font-bold tracking-[.18em] text-blue">先看一個會發生的場景</p>
-          <h2 class="mt-4 text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">四張都不一樣，先問模型替你做了哪段</h2>
-          <p data-reading class="mt-6 text-lg leading-9 text-ink/80">假設小林輸入一句話，一隻狐狸站在雨後的夜市門口回頭看，按下生成跑出四張。燈不一樣，動作不一樣，有一張狐狸甚至站反了。小林留下最順眼的，刪掉另外三張。老師只問一句：這四張裡面，哪一段是你做的，哪一段是模型替你做的。</p>
-          <p data-reading class="mt-4 text-lg leading-9 text-ink/80">這一題先不用急著答。做完這週的盲生成，你要能指出模型補了什麼、猜錯什麼，以及你改了哪一欄。答得出來，刪掉的三張才有價值。</p>
+          <p class="font-mono text-xs font-bold tracking-[.18em] text-blue">這一週要學會的判斷</p>
+          <h2 class="mt-4 text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">同一頭牛，可以畫成三種完全不同的樣子</h2>
+          <p data-reading class="mt-6 text-lg leading-9 text-ink/80">先看同一頭牛。放在約兩萬年前的法國岩壁上<SourceNote n={1} />，它是一條深色的線加上一塊赭紅，看得清是牛就夠了。換到西班牙的岩壁上，畫的人利用石面本身的凹凸，畫出會呼吸的體積。換到十五世紀的紙上，它被印成可以買的版畫，賣給一個從沒見過作者的人。</p>
+          <p data-reading class="mt-4 text-lg leading-9 text-ink/80">三種樣子擺在一起，牛沒有變，變的是旁邊那一格：這張圖要給誰看。插畫這門手藝幾乎所有規則都從這裡長出來。這堂課的每一段都在回答同一個問題，而你要帶走的能力只有一個 —— 動筆前先講清楚這張圖在服務誰，線條、色彩、構圖與複製品數量才會有根據。</p>
         </div>
         <aside class="rounded-2xl border-2 border-ink bg-[#fff0bf] p-6 shadow-[8px_8px_0_rgba(13,94,130,.14)]">
           <p class="font-mono text-xs font-bold tracking-[.16em] text-blue">本週先回答</p>
-          <p class="mt-4 text-2xl font-extrabold leading-9">模型補了什麼？<br />哪裡猜錯了？<br />下一輪只改哪一欄？</p>
+          <p class="mt-4 text-2xl font-extrabold leading-9">這張圖服務誰？<br />它要傳達什麼？<br />它能被複製品嗎？</p>
+          <p class="mt-5 border-t-2 border-ink/20 pt-4 text-base leading-7 text-ink/80">三個問題回答完，畫法才有根據。</p>
         </aside>
       </div>
     </section>
 
     <section class="bg-night px-5 py-16 text-paper sm:px-10 lg:px-12 lg:py-24">
       <div class="mx-auto max-w-6xl">
-        <p class="font-mono text-xs font-bold tracking-[.18em] text-sun">01 / 盲生成只做一件事</p>
-        <h2 class="mt-3 max-w-4xl text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">先不給風格名，讓模型自己猜</h2>
-        <p data-reading class="mt-6 max-w-3xl text-lg leading-8 text-paper/85">盲生成就是先不給風格名，只寫主體和動作。你寫一隻狐狸站在雨後的夜市門口回頭看，不寫電影感也不寫可愛。四張生出來，每一張多出來的東西都是模型自己猜的，這些猜測就是你要檢查的清單。</p>
-        <ol class="mt-10 grid gap-4 md:grid-cols-2">
-          <li class="rounded-xl border-2 border-paper/30 bg-paper/10 p-5"><span class="font-mono text-xs font-bold text-sun">01</span><h3 class="mt-3 text-xl font-extrabold">說清楚，但只說主體和動作</h3><p class="mt-2 text-sm leading-7 text-paper/80">一句話，四張都用同一句。風格名先收起來，這輪要看的是模型，不是你的形容詞。</p></li>
-          <li class="rounded-xl border-2 border-paper/30 bg-paper/10 p-5"><span class="font-mono text-xs font-bold text-sun">02</span><h3 class="mt-3 text-xl font-extrabold">四張全留下</h3><p class="mt-2 text-sm leading-7 text-paper/80">順眼的和怪的都留。刪掉的就沒證據，下一輪只能憑印象猜。</p></li>
-          <li class="rounded-xl border-2 border-paper/30 bg-paper/10 p-5"><span class="font-mono text-xs font-bold text-sun">03</span><h3 class="mt-3 text-xl font-extrabold">圈出差異</h3><p class="mt-2 text-sm leading-7 text-paper/80">燈光、動作、視線，一張一張寫模型補了什麼、猜錯什麼。</p></li>
-          <li class="rounded-xl border-2 border-paper/30 bg-paper/10 p-5"><span class="font-mono text-xs font-bold text-sun">04</span><h3 class="mt-3 text-xl font-extrabold">下一輪只改一欄</h3><p class="mt-2 text-sm leading-7 text-paper/80">改視線就只改視線，不要連風格一起換，不然不知道是哪個字有用。</p></li>
-        </ol>
+        <p class="font-mono text-xs font-bold tracking-[.18em] text-sun">這門手藝為什麼長成這樣</p>
+        <h2 class="mt-3 max-w-4xl text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">插畫不是裝飾，它被放在文字旁邊把話講清楚</h2>
+        <p data-reading class="mt-6 max-w-3xl text-lg leading-8 text-paper/85">先確認一件事：插畫不是繪畫的分項。英文裡插畫是 illustration，Adobe Illustrator 這套軟體的名字就是從這個字來的。插畫一開始就擺在文字旁邊，替文字把事情講明白，所以它必須一看就懂，也允許自己提出文字沒寫的觀點。</p>
+        <p data-reading class="mt-4 max-w-3xl text-lg leading-8 text-paper/85">因此插畫通常是一張一張成立的，每張要傳達的東西單獨看得懂，而不是要讀完前後文才明白。它也沒有固定畫風 —— 石頭上、木板上、紙上、螢幕上，線條與色彩的規則會跟著材質和用途一起變。這也是為什麼美術系、視覺傳達、行銷與多媒體的課程都會碰到插畫：它隸屬的從來不是某一個畫派，而是「把事情講清楚」這件事。</p>
+        <div class="mt-10 border-l-4 border-sun bg-paper/10 px-5 py-4 text-base leading-8 text-paper/85">記住：插畫比「繪本」這個詞早得多，比「繪畫」又晚。接下來看的每一段，都是插畫怎麼從裝飾長成獨立技藝的過程。</div>
+      </div>
+    </section>
+
+    <section class="mx-auto max-w-6xl px-5 py-16 sm:px-10 lg:px-12 lg:py-24">
+      <p class="font-mono text-xs font-bold tracking-[.18em] text-blue">最早的畫還沒有文字</p>
+      <h2 class="mt-4 max-w-4xl text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">會動手，就已經會畫</h2>
+      <p data-reading class="mt-6 max-w-3xl text-lg leading-9 text-ink/80">人類先畫畫，後來才有文字。素描課上會說畫得好不好，那是技術判斷；但只要手還能動，就能畫。考古學家找到最早的證據不在洞穴裡，在身體的姿態上：能控制手部動作的人，本來就有把看到的東西留下來的能力。這件事會一直影響後面幾週。你用 AI 生圖，工具替你執行的正是「動手」那一段；工具越好用，你越需要自己負責「決定畫什麼、給誰看」。</p>
+    </section>
+
+    <section id="two-caves" class="bg-[#fff0bf] px-5 py-16 sm:px-10 lg:px-12 lg:py-24">
+      <div class="mx-auto max-w-6xl">
+        <p class="font-mono text-xs font-bold tracking-[.18em] text-blue">第一個分岔點</p>
+        <h2 class="mt-3 max-w-4xl text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">材料一樣，處理方式不同，結果就分岔</h2>
+        <p data-reading class="mt-6 max-w-3xl text-lg leading-8 text-ink/80">法國西南部的拉斯科和西班牙北部的阿爾塔米拉，是歐洲兩座最著名的洞穴。兩邊畫的動物高度重疊：牛、鹿、馬，都是打獵會遇到的。材料也接近，而且都是礦物 —— 法國文化部的分析指出，黑色線條是錳的氧化物，赭紅色來自赤鐵礦<SourceNote n={2} />。課堂常聽到的「用木炭加動物血」是上一代的說法，現在的拉斯科官方說法是：現場只留下礦物顏料，沒有驗出任何有機色。</p>
+        <p data-reading class="mt-4 max-w-3xl text-lg leading-8 text-ink/80">材料相同，畫出來卻明顯不同。拉斯科靠線條：輪廓完整，形狀一眼認得出來，畫面是平的，數量多得像一份清單 —— 法國文化部統計約有六百個動物形象，馬最多<SourceNote n={3} />。阿爾塔米拉靠石面：畫的人順著岩壁本身的起伏安排深淺，輪廓反而讓位給形體，看起來有厚度、有重量。學藝術史的人爭的是哪一個更細緻，但更值得你帶走的是這個比較方法 —— 材料不是命運，處理方式才是分岔點。</p>
+        <figure class="mt-8 rounded-2xl border-2 border-ink bg-paper p-4">
+          <img
+            src={`${base}/illustrations/bull-two-cave.svg`}
+            alt="原創示意圖：左右兩個面板畫同一頭牛。左邊拉斯科，輪廓完整、內部有短線排練，結果是平面而可辨識；右邊阿爾塔米拉，輪廓被岩面隆起取代、明暗沿著岩面分布，結果有體積感。兩邊下方都寫著材料是礦物顏料。"
+            class="h-auto w-full"
+            width="900"
+            height="500"
+            loading="lazy"
+            decoding="async"
+          />
+          <figcaption class="mt-3 font-mono text-xs leading-6 text-blue">示意圖：同一頭牛、同一批材料，兩種處理方式分出兩條路</figcaption>
+        </figure>
+        <p data-reading class="mt-6 max-w-3xl text-lg leading-8 text-ink/80">考古學家還從另一個角度解釋這批壁畫：兩個洞穴大量出現牛與鹿，推測是過冬期間留下來給年輕一代看的。牛是獵物，鹿是季節的線索，留在洞裡等雪融或雨季過後再出發。至於這些動物被畫出來的深淺是真是假，屬於推測；可以確定的是，這些畫面有教學用途，不是單純裝飾。</p>
+      </div>
+    </section>
+
+    <section id="sealed" class="mx-auto max-w-6xl px-5 py-16 sm:px-10 lg:px-12 lg:py-24">
+      <p class="font-mono text-xs font-bold tracking-[.18em] text-blue">一個不能用微調救回來的錯誤</p>
+      <h2 class="mt-4 max-w-4xl text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">拉斯科被整個封起來，因為顏色一碰空氣就不可逆地變了</h2>
+      <p data-reading class="mt-6 max-w-3xl text-lg leading-9 text-ink/80">拉斯科在 1940 年被一名帶著狗散步的小男孩發現，考古團隊隨後大規模挖掘。挖掘本身改變了環境：洞裡原本穩定的溫溼度被打開，錳的氧化物遇到空氣與水氣會變黑變暗，赭紅的赤鐵礦色塊也整片沉下去。這些顏色一旦反應就不可逆，之後再怎麼保護都回不來。</p>
+      <p data-reading class="mt-4 max-w-3xl text-lg leading-9 text-ink/80">1963 年，拉斯科對公眾永久關閉<SourceNote n={4} />。接下來還有一連串教訓：1970 年代洞內出現藻類，館方用抗生素與福馬林處理，反而造成第二次傷害；2009 年在公牛大廳發現碳酸鈣小晶體沉積，之後啟動多年研究計畫。今天要理解原畫，得到原址附近的替代館看複製品。這些進度對一般觀眾不開放，所以「網路上看到的那張拉斯科」幾乎永遠不是原貌。</p>
+      <div class="mt-8 rounded-2xl border-2 border-ink bg-[#ffd7cc] p-6">
+        <p class="font-mono text-xs font-bold tracking-[.16em] text-blue">這件事留給你的工作習慣</p>
+        <p class="mt-3 text-lg leading-8">原始檔案決定了成品能走到哪裡。存成不支援的格式、轉成有損壓縮、還是交付一個你之後打不開的版本，差別跟這個洞穴一樣：出錯時不是不好看而已，是回不來。所以每個階段都留一份原始檔。同一個「要保留」的意圖，在拉斯科變成了封閉，在另一種情況下會變成複製品 —— 限制逼出來的選擇，之後你處理額度不夠或檔案打不開時會再遇到一次。</p>
+      </div>
+    </section>
+
+    <section id="book-of-dead" class="bg-[#ffd7cc] px-5 py-16 sm:px-10 lg:px-12 lg:py-24">
+      <div class="mx-auto max-w-6xl">
+        <p class="font-mono text-xs font-bold tracking-[.18em] text-blue">插畫開始有功能</p>
+        <h2 class="mt-3 max-w-4xl text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">死者之書不是一本書，是同一個用途的數百種版本</h2>
+        <p data-reading class="mt-6 max-w-3xl text-lg leading-8 text-ink/80">接著是一個新的分岔：插畫第一次有了明確功能 —— 要引導一個人走過某段路。而它帶來的第一個問題是：這份東西到底叫什麼名字。古埃及的死者之書要先拆掉一個誤解。「死者之書」是我們現在的統稱：1842 年，德國學者 Karl Richard Lepsius 給這類文獻取了一個德文名 Totenbuch，英文譯成 Book of the Dead。從來沒有任何一位法老王持有過這本書。古埃及人自己用的是「咒語」或「章」，整份文獻的正式名稱是「日間現世之咒語」<SourceNote n={5} />。內容是陪死者走過通往陰間的路：怎麼回答神明的提問、怎麼在審判中說對話、怎麼避開沿途的危險。</p>
+        <p data-reading class="mt-4 max-w-3xl text-lg leading-8 text-ink/80">它不是一本書。目前已知大約 192 則咒語，但沒有任何一份抄本收錄全部；現存的數百份散落在世界各地的館藏裡，長度、內容、保存狀態每一份都不同<SourceNote n={5} />。可以寫在莎草紙上、寫在棺木上，也可以畫在墓室牆壁上。所以「某某人的死者之書」這種說法本身就不成立，你得先說是哪一份、哪個博物館、什麼編號。</p>
+        <p data-reading class="mt-4 max-w-3xl text-lg leading-8 text-ink/80">影視與小說裡那個「缺了一角、找齊就能復活法老」的情節，值得你當一次查證練習：它找不到任何館藏紀錄或檔案依據，而且最常被拿出來講的那一份 —— 大英博物館的阿尼 Papyrus —— 十九世紀的出版者本人就記錄了它書寫部分完整、只是捲開時損壞了幾個字<SourceNote n={6} />。真正對它造成傷害的是別的事：同一位譯者為了展示方便，把整卷切成三十七張分裱，段落和圖像都從中間被截斷<SourceNote n={6} />。</p>
+        <p data-reading class="mt-4 max-w-3xl text-lg leading-8 text-ink/80">謠言的樣子就在這裡：聽起來合理、情節完整、幾乎每個版本都一樣轉述，但回頭去找原始紀錄時什麼都找不到。你之後做 IP 會遇到同一種狀況 —— 粉絲說的那個「官方設定」，你要先確認是哪一個版本、哪一份文件說的。</p>
+        <div class="mt-8 block overflow-x-auto rounded-2xl border-2 border-ink bg-paper">
+          <table class="w-full min-w-[40rem] text-left text-sm leading-7">
+            <caption class="px-5 py-2 font-mono text-xs leading-6 text-blue">三個關於死者之書的常見誤解</caption>
+            <thead>
+              <tr class="bg-sun">
+                <th class="border border-ink/20 p-3">常見說法</th>
+                <th class="border border-ink/20 p-3">實際情況</th>
+                <th class="border border-ink/20 p-3">為什麼會傳開</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="border border-ink/20 p-3 font-bold">死者之書是唯一一本，只有法老王有</td>
+                <td class="border border-ink/20 p-3">同一用途有幾千份版本，有錢有權位的人家才用得起</td>
+                <td class="border border-ink/20 p-3">影視作品喜歡用單一物件代表一個文明</td>
+              </tr>
+              <tr>
+                <td class="border border-ink/20 p-3 font-bold">它是古代埃及人的正式書名</td>
+                <td class="border border-ink/20 p-3">是現代統稱，古埃及人稱「咒語」或「章」</td>
+                <td class="border border-ink/20 p-3">譯者用一個好記的名稱統一打包</td>
+              </tr>
+              <tr>
+                <td class="border border-ink/20 p-3 font-bold">讀它會被詛咒</td>
+                <td class="border border-ink/20 p-3">1920 年代圖坦卡蒙墓的媒體報導；考古上沒有詛咒銘文</td>
+                <td class="border border-ink/20 p-3">1922 年獨家報導，其他報紙為搶版面自己編</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p data-reading class="mt-6 max-w-3xl text-lg leading-8 text-ink/80">從這裡開始，插畫有了明確的功能：服務宗教與死後世界的指引。它也開始留下大量關於當時生活的紀錄 —— 穿著、姿態、飲食、勞動。考古學家靠這些畫面推測真實樣貌，因為別的紀錄都已經爛掉了。</p>
+      </div>
+    </section>
+
+    <section id="flat" class="mx-auto max-w-6xl px-5 py-16 sm:px-10 lg:px-12 lg:py-24">
+      <p class="font-mono text-xs font-bold tracking-[.18em] text-blue">不是畫不好，是另一個目標</p>
+      <h2 class="mt-4 max-w-4xl text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">中世紀為什麼把人畫扁，答案跟流行說法不一樣</h2>
+      <p data-reading class="mt-6 max-w-3xl text-lg leading-9 text-ink/80">看凱爾經或任何中世紀手抄本，人物會讓你覺得不太對：沒有厚度、比例誇張、姿勢像符號。你大概會聽過一個解釋 —— 那是因為當時的人相信人有原罪、因此污穢，絕對的權威屬於神，所以畫就不該強調人的形體。這個說法流傳很廣，但它是十九世紀美術史編出來的敘事，現代研究已經不採用<SourceNote n={22} />。</p>
+      <p data-reading class="mt-4 max-w-3xl text-lg leading-9 text-ink/80">目前較被接受的說法是：歐洲的基督教藝術主動放棄古典羅馬的寫實手法 —— 放掉明暗、量感與透視 —— 目的是在視覺上與前一個時代的異教羅馬文化劃出清楚距離<SourceNote n={21} />。扁平不是退步，是一個有宗教與政治任務的風格選擇。身體並沒有被貶低，畫法是有意為之。</p>
+      <p data-reading class="mt-4 max-w-3xl text-lg leading-9 text-ink/80">方向要到十五世紀初才反轉。透視法在佛羅倫斯被系統化，一般歸給建築師 Brunelleschi，時間約在 1420 年前後；幾年後 Leon Battista Alberti 在《論畫》裡把它寫成可以教的規則<SourceNote n={10} />。畫面這才開始能把深度排出來。你會在後面看到，透視剛出現時連比例都還不準，但方向已經改變 —— 從「象徵」轉回「量測」。</p>
+      <div class="mt-8 grid gap-5 md:grid-cols-2">
+        <div class="rounded-2xl border-2 border-ink bg-sky p-6">
+          <p class="font-mono text-xs font-bold tracking-[.16em] text-blue">中世紀的出發點</p>
+          <p class="mt-3 text-xl font-extrabold">與古典寫實劃清界線</p>
+          <p class="mt-3 text-base leading-8">主動放掉明暗、量感與透視，換取和羅馬異教文化的視覺距離。比例可以為了排版與莊嚴而改變。</p>
+        </div>
+        <div class="rounded-2xl border-2 border-ink bg-[#fff0bf] p-6">
+          <p class="font-mono text-xs font-bold tracking-[.16em] text-blue">十五世紀初之後</p>
+          <p class="mt-3 text-xl font-extrabold">深度可以被排出來</p>
+          <p class="mt-3 text-base leading-8">透視法被系統化並寫成規則，深度與比例變成可以被檢查、可以被教的對象。</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="kells" class="bg-[#fff0bf] px-5 py-16 sm:px-10 lg:px-12 lg:py-24">
+      <div class="mx-auto max-w-6xl">
+        <p class="font-mono text-xs font-bold tracking-[.18em] text-blue">九世紀的手抄本</p>
+        <h2 class="mt-3 max-w-4xl text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">凱爾經的規則：一頁一個世界，而且你看不全</h2>
+        <p data-reading class="mt-6 max-w-3xl text-lg leading-8 text-ink/80">《凱爾經》Book of Kells 是愛爾蘭都柏林聖三一學院收藏的聖經手抄本，一般認為完成於 800 年前後<SourceNote n={7} />。它不是印的，是整頁整頁手寫手畫出來的，所以這種書叫「手抄本」：手抄本不是古裝畢業生，是「用手抄寫」的意思。</p>
+        <p data-reading class="mt-4 max-w-3xl text-lg leading-8 text-ink/80">材質先講清楚，因為它決定了後面所有的事。它寫在 340 張小牛皮上，一張有兩頁，所以書本身是 680 頁<SourceNote n={7} />。紙在那個年代是極珍貴的材料，現存大約是 185 張小牛皮的用量<SourceNote n={7} />。</p>
+        <p data-reading class="mt-4 max-w-3xl text-lg leading-8 text-ink/80">顏色的部分要修正一個常見說法。流傳較廣的講法是「紙頁已經氧化發黃，原始顏色不可能回復」。聖三一學院的說法不同：顏色確實在一千兩百年裡褪掉了，但校方實驗室已經測出每一種顏料是什麼 —— 藍色來自藍草（不是常被假設的青金石）、黃色是雌黃、紅色是紅丹，而最特別的是紫色，它來自地衣，用傳統上靠尿液取得的氨萃取<SourceNote n={8} />。有一種銅綠甚至在潮濕下把牛皮穿透。這比「回不去了」有意思得多，因為它把一個模糊的印象換成了一份可以查的清單。</p>
+        <p data-reading class="mt-4 max-w-3xl text-lg leading-8 text-ink/80">它的畫法有幾條可以帶走的規則。第一，字首放大並做特別設計，讓一頁從一個裝飾過的大字母開始。第二，字體與旁邊的圖案互相扣緊：頁面上的動物和花紋，不是裝飾邊角，而是和同一頁的文字內容有關。第三，人物維持扁平，尺寸不遵守真實比例 —— 這正是上一節說的中世紀出發點。</p>
+        <p data-reading class="mt-4 max-w-3xl text-lg leading-8 text-ink/80">還有一件事會直接改變你安排畫面的方式：它不是你想看就能看。凱爾經的書頁為了保存，每年只翻動幾次；全書有四冊，平時只陳列其中兩冊，而且要買票、預約、限時限額才能進場<SourceNote n={9} />。所以你在網路上或書上看到的那一頁，不等於當天現場看到的那一頁。校方目前正在做老圖書館的長期保存工程，陳列位置也調整過 —— 你要學會的第一個限制是：先問這件作品在什麼條件下才被看到，訂行程前再看一次官方頁面當天的安排。</p>
+        <div class="mt-8 rounded-2xl border-2 border-ink bg-paper p-6">
+          <p class="font-mono text-xs font-bold tracking-[.16em] text-blue">名稱的由來</p>
+          <p class="mt-3 text-base leading-8">「凱爾」不是畫家的名字。這部經卷是以愛爾蘭的凱爾斯修道院（Kells）得名，一般認為與九世紀的修士聖哥倫巴（Columba／Columcille）相關。名字來源和作者身分，是兩件常常被混為一談的事。</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="plague" class="mx-auto max-w-6xl px-5 py-16 sm:px-10 lg:px-12 lg:py-24">
+      <p class="font-mono text-xs font-bold tracking-[.18em] text-blue">手抄本之王</p>
+      <h2 class="mt-4 max-w-4xl text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">畫的人跟出錢的人都在 1416 年過世，一本書跨了七十多年</h2>
+      <p data-reading class="mt-6 max-w-3xl text-lg leading-9 text-ink/80">《貝里公爵的豪華時禱書》Très Riches Heures du Duc de Berry，簡稱時禱書，是十五世紀法國最華麗的手抄本，一般被視為手抄本之王。委託人是貝里公爵讓（Jean de Berry，1340–1416），法國國王查理五世的弟弟，上面一人下面萬人。他想要的東西很明確：一本屬於他自己的書，裡面有他家族的生活；他一生收藏了十五部這類祈禱書<SourceNote n={11} />。</p>
+      <p data-reading class="mt-4 max-w-3xl text-lg leading-9 text-ink/80">書的繪製交給尼德蘭的林堡兄弟保羅、約翰與赫曼。他們非常會畫，卻在 1416 年相繼過世<SourceNote n={11} />；一般認為與那場掃過歐洲的黑死病有關，而那一年確實是疫年 —— 這是藝術史界普遍的解釋，不是檔案能證實的因果。出錢的貝里公爵也在同一年去世，於是這本書直接停擺：畫的人和委託人一起沒了。</p>
+      <p data-reading class="mt-4 max-w-3xl text-lg leading-9 text-ink/80">書已經畫得差不多，但沒人收尾。1440 年代有其他畫家補了部分月曆頁，最後由 Jean Colombe 在 1485 到 1486 年之間為薩伏伊公爵補完成書<SourceNote n={12} />。整本書從 1412 年動筆到 1486 年完成，跨了七十多年，而貝里公爵本人一頁都沒有看到。</p>
+      <div class="mt-8 grid gap-5 md:grid-cols-3">
+        <div class="rounded-2xl border-2 border-ink bg-sky p-5">
+          <p class="font-mono text-xs font-bold tracking-[.16em] text-blue">誰出錢</p>
+          <p class="mt-3 text-lg font-extrabold leading-7">貝里公爵讓</p>
+          <p class="mt-2 text-sm leading-6 text-ink/80">法國國王的弟弟</p>
+        </div>
+        <div class="rounded-2xl border-2 border-ink bg-[#ffd7cc] p-5">
+          <p class="font-mono text-xs font-bold tracking-[.16em] text-blue">誰動手</p>
+          <p class="mt-3 text-lg font-extrabold leading-7">林堡兄弟三人</p>
+          <p class="mt-2 text-sm leading-6 text-ink/80">四年內相繼病逝</p>
+        </div>
+        <div class="rounded-2xl border-2 border-ink bg-[#fff0bf] p-5">
+          <p class="font-mono text-xs font-bold tracking-[.16em] text-blue">誰收尾</p>
+          <p class="mt-3 text-lg font-extrabold leading-7">Jean Colombe</p>
+          <p class="mt-2 text-sm leading-6 text-ink/80">1485–1486 年補完成書</p>
+        </div>
+      </div>
+      <p data-reading class="mt-6 max-w-3xl text-lg leading-9 text-ink/80">它現在收藏在法國尚蒂伊的孔代博物館，編號 MS 65<SourceNote n={12} />。不要把愛爾蘭和英國混為一談，愛爾蘭人對這件事很在意。這部手稿極脆弱，2025 年 6 月到 10 月在尚蒂伊辦了修復後的特展，把月曆頁的二十六張難得地並排展出，是 1956 年與 2004 年之後第三次公開<SourceNote n={13} />。媒體把它稱為「手抄本的蒙娜麗莎」，講的是修復難度與珍貴度，不是文藝價值排名。</p>
+      <p data-reading class="mt-4 max-w-3xl text-lg leading-9 text-ink/80">全書最有名的是九月那一頁，背景是索穆爾城堡，上面帶著鍍金的百合花飾。它同時是最好的教材，因為這一頁是分兩次完成的：上半部的天空與城堡大約在 1438 到 1442 年畫好，下半部摘葡萄的場景才由 Jean Colombe 依前一任留下的草稿補上<SourceNote n={12} />。畫家習慣先畫背景，再畫人物，最後才畫臉。所以不要把一頁的所有細節都算在同一個人頭上 —— 「作者是誰」在版畫與手抄本裡都需要證據，不是印象。</p>
+    </section>
+
+    <section class="bg-night px-5 py-16 text-paper sm:px-10 lg:px-12 lg:py-24">
+      <div class="mx-auto max-w-6xl">
+        <p class="font-mono text-xs font-bold tracking-[.18em] text-sun">同一本書裡，畫法比前一本更細</p>
+        <h2 class="mt-3 max-w-4xl text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">同一個顏色名稱，會指向完全不同的東西</h2>
+        <p data-reading class="mt-6 max-w-3xl text-lg leading-8 text-paper/85">前面講《凱爾經》的顏料時留了一個問題：書頁上那個紫色，應該是昂貴的皇家紫嗎？答案是否定的。皇家紫確實存在，來自海螺的分泌物，貴到羅馬法律限制只有皇帝能用；但到了十五世紀，這個染料在歐洲已經失傳。所以你在中世紀手抄本裡看到的驚人紫色，多半不是它 —— 《凱爾經》測出來的是地衣紫。看成分，不要只看顏色，這是分辨年代與真偽最快的一步。</p>
+        <p data-reading class="mt-4 max-w-3xl text-lg leading-8 text-paper/85">裝飾技法本身也一直在換。貼金箔能覆蓋大面積，邊緣是硬邊；把金粉或銅粉調進顏料裡，就可以像一般顏料一樣用筆畫，能收細、能拉長、能勾花紋。同樣是「金色的部分」，能畫得細的方案才容得下更多裝飾。這是很實際的取捨：你要願意犧牲什麼，才能換到什麼。之後你選工具、選解析度、選檔案格式，都是同一類決定。</p>
+        <p data-reading class="mt-4 max-w-3xl text-lg leading-8 text-paper/85">時禱書往前走了一步：它開始認真處理人體和透視。同一頁裡城堡、騎士出巡、田間工作同時發生，空間關係還不成熟，人物比例也不準，但已經在嘗試把深度排出來。從凱爾經的完全扁平走到這裡，中間隔了六百年。</p>
+      </div>
+    </section>
+
+    <section id="durer" class="mx-auto max-w-6xl px-5 py-16 sm:px-10 lg:px-12 lg:py-24">
+      <p class="font-mono text-xs font-bold tracking-[.18em] text-blue">插畫開始獨立</p>
+      <h2 class="mt-4 max-w-4xl text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">版畫能大量複製品，於是作者的名字比書更有名</h2>
+      <p data-reading class="mt-6 max-w-3xl text-lg leading-9 text-ink/80">在杜勒之前的插畫，都依附在某樣東西上：附在書頁裡、附在建築牆上、附在教堂上。插畫本身不是商品，買的是那本書或那面牆。杜勒（Albrecht Dürer，1471–1528）改變了這件事。他做版畫：把圖刻在木板上，印一張可以賣、可以送、可以大量複製的紙。</p>
+      <p data-reading class="mt-4 max-w-3xl text-lg leading-9 text-ink/80">這個轉變的關鍵不在畫得多好，在所有權和交換方式變了。買的人買的不再是「這本書裡的插圖」，而是「這個人的作品」。名字變成商品標籤，個人風格開始能獨立於任何一本書而存在。別把這說成他「發明」了版畫生意 —— 歐洲早就在賣版畫，他的師父也是畫家兼版畫出版者。他真正做到的是另一件事：他是第一個靠版畫在整個歐洲拿到名聲的藝術家，也是第一個把版畫當成可以獨立簽名、可以單獨完成的成品來對待的人。這就是個人品牌的起源，而且是在 AI 之前就存在的邏輯。</p>
+      <div class="mt-8 block overflow-x-auto rounded-2xl border-2 border-ink bg-paper">
+        <table class="w-full min-w-[46rem] text-left text-sm leading-7">
+          <caption class="px-5 py-2 font-mono text-xs leading-6 text-blue">他的幾件代表作，各自示範了一件不同的事</caption>
+          <thead>
+            <tr class="bg-sun">
+              <th class="border border-ink/20 p-3">作品</th>
+              <th class="border border-ink/20 p-3">年代</th>
+              <th class="border border-ink/20 p-3">媒材</th>
+              <th class="border border-ink/20 p-3">這件示範了什麼</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="border border-ink/20 p-3 font-bold">《野兔》</td>
+              <td class="border border-ink/20 p-3">1502<SourceNote n={19} /></td>
+              <td class="border border-ink/20 p-3">水彩與體彩</td>
+              <td class="border border-ink/20 p-3">觀察可以細到什麼程度：毛髮、眼神、鬍鬚都畫得出來</td>
+            </tr>
+            <tr>
+              <td class="border border-ink/20 p-3 font-bold">《犀牛》</td>
+              <td class="border border-ink/20 p-3">1515<SourceNote n={15} /></td>
+              <td class="border border-ink/20 p-3">木刻版畫</td>
+              <td class="border border-ink/20 p-3">他從沒看過活的犀牛<SourceNote n={16} />，只靠描述和轉手得到的草圖，畫出來的樣子卻被相信了兩三百年</td>
+            </tr>
+            <tr>
+              <td class="border border-ink/20 p-3 font-bold">《啟示錄四騎士》</td>
+              <td class="border border-ink/20 p-3">1498<SourceNote n={17} /></td>
+              <td class="border border-ink/20 p-3">木刻版畫</td>
+              <td class="border border-ink/20 p-3">木刻能承載的細節極限，也讓宗教題目第一次大量進入市面</td>
+            </tr>
+            <tr>
+              <td class="border border-ink/20 p-3 font-bold">13 歲自畫像</td>
+              <td class="border border-ink/20 p-3">1484<SourceNote n={20} /></td>
+              <td class="border border-ink/20 p-3">銀尖筆</td>
+              <td class="border border-ink/20 p-3">他很早就在經營自己的形象，這點他自己毫不掩飾</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p data-reading class="mt-8 max-w-3xl text-lg leading-9 text-ink/80">《啟示錄四騎士》值得單獨看，因為它是本週最能說明「插畫怎麼溝通」的一件。四個騎士的順序是死亡、饑荒、戰爭、瘟疫<SourceNote n={17} />；因為他們擠在一條上升的斜線上，這個順序看起來是由左下往右上。每一個都只靠一個物件代表，不用解釋文字就能辨認：枯瘦的身體、天平、劍、弓。這是標準的插畫工作 —— 把一個概念換成一個看圖就能懂的東西。</p>
+      <p data-reading class="mt-4 max-w-3xl text-lg leading-9 text-ink/80">這裡有一個必須講清楚的誤會。書上蒼白馬的騎士，名字叫「死亡」；拉弓的那位騎的是白馬，兩者是不同的騎士<SourceNote n={18} />。「蒼白騎士」這個詞後來被拿去指瘟疫，於是兩件事被混成一件，流行文化裡也就一直分不開。這個例子很好用：同一個詞在歷史上有兩個對象，資訊就是這樣長歪的 —— 而《啟示錄》的經文就寫在館方說明裡，不必靠轉述。</p>
+      <div class="mt-8 rounded-2xl border-2 border-ink bg-[#fff0bf] p-6">
+        <p class="font-mono text-xs font-bold tracking-[.16em] text-blue">這一段和你之後的作業有關</p>
+        <p class="mt-3 text-lg leading-8">《犀牛》就是現在生成式 AI 的祖先問題：沒有第一手觀察，只有一份描述和一個已經不對的草圖，工具照著做，結果卻被當成真的好幾百年<SourceNote n={16} />。你用 AI 生圖時會遇到一樣的事 —— 模型沒有看過你的主體，它只有你給的文字和它猜的。差異是，你有機會在過程中拆開看它哪裡猜錯了。</p>
       </div>
     </section>
 
     <section class="bg-[#fff0bf] px-5 py-16 sm:px-10 lg:px-12 lg:py-24">
       <div class="mx-auto max-w-6xl">
-        <p class="font-mono text-xs font-bold tracking-[.18em] text-blue">先選工具再生成</p>
-        <h2 class="mt-3 max-w-4xl text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">生圖工具先看額度和用途</h2>
-        <p data-reading class="mt-6 max-w-3xl text-lg leading-8 text-ink/80">盲生成一次要跑四張，額度不夠跑不完。先看下表挑兩個：一個主力，一個額度用完換。免費跟能商用是兩件事，條款寫了才算，詳細工具卡在第五週。工具挑好，看下一節為什麼同一句話每次長不一樣。</p>
-        <div class="mt-8 block overflow-x-auto rounded-2xl border-2 border-ink bg-paper">
-          <table class="w-full min-w-[44rem] text-left text-sm leading-7">
-            <caption class="px-5 py-2 font-mono text-xs leading-6 text-blue">這週生圖用的工具：免費條件和用完的路</caption>
-            <thead>
-              <tr class="bg-sun">
-                <th class="border border-ink/20 p-3">工具</th>
-                <th class="border border-ink/20 p-3">免費條件</th>
-                <th class="border border-ink/20 p-3">這週用它做什麼</th>
-                <th class="border border-ink/20 p-3">額度用完</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="border border-ink/20 p-3 font-bold"><a href="https://chatgpt.com/" target="_blank" rel="noreferrer" class="text-blue underline decoration-coral decoration-2 underline-offset-4 hover:text-coral">ChatGPT Free ↗</a></td>
-                <td class="border border-ink/20 p-3">免費但有額度，圖片生成另有上限</td>
-                <td class="border border-ink/20 p-3">同一句話生第一輪四張，對話裡追改</td>
-                <td class="border border-ink/20 p-3">換 Google AI Studio</td>
-              </tr>
-              <tr>
-                <td class="border border-ink/20 p-3 font-bold"><a href="https://aistudio.google.com/" target="_blank" rel="noreferrer" class="text-blue underline decoration-coral decoration-2 underline-offset-4 hover:text-coral">Google AI Studio ↗</a></td>
-                <td class="border border-ink/20 p-3">免費但有額度</td>
-                <td class="border border-ink/20 p-3">同一句話換模型再跑一次，比兩家差在哪</td>
-                <td class="border border-ink/20 p-3">換回 ChatGPT Free</td>
-              </tr>
-              <tr>
-                <td class="border border-ink/20 p-3 font-bold"><a href="https://designer.microsoft.com/" target="_blank" rel="noreferrer" class="text-blue underline decoration-coral decoration-2 underline-offset-4 hover:text-coral">Microsoft Designer ↗</a></td>
-                <td class="border border-ink/20 p-3">免費但有額度</td>
-                <td class="border border-ink/20 p-3">瀏覽器裡快速看方向</td>
-                <td class="border border-ink/20 p-3">先看方向，細修後面再說</td>
-              </tr>
-              <tr>
-                <td class="border border-ink/20 p-3 font-bold"><a href="https://firefly.adobe.com/" target="_blank" rel="noreferrer" class="text-blue underline decoration-coral decoration-2 underline-offset-4 hover:text-coral">Adobe Firefly ↗</a></td>
-                <td class="border border-ink/20 p-3">免費但有額度，每日上限</td>
-                <td class="border border-ink/20 p-3">生成加填補一起試</td>
-                <td class="border border-ink/20 p-3">換 Microsoft Designer</td>
-              </tr>
-              <tr>
-                <td class="border border-ink/20 p-3 font-bold"><a href="https://ideogram.ai/" target="_blank" rel="noreferrer" class="text-blue underline decoration-coral decoration-2 underline-offset-4 hover:text-coral">Ideogram ↗</a></td>
-                <td class="border border-ink/20 p-3">免費但有額度</td>
-                <td class="border border-ink/20 p-3">字要進圖、海報排版時用它</td>
-                <td class="border border-ink/20 p-3">換 Microsoft Designer</td>
-              </tr>
-              <tr>
-                <td class="border border-ink/20 p-3 font-bold"><a href="https://leonardo.ai/" target="_blank" rel="noreferrer" class="text-blue underline decoration-coral decoration-2 underline-offset-4 hover:text-coral">Leonardo ↗</a></td>
-                <td class="border border-ink/20 p-3">免費但有額度，每日 token</td>
-                <td class="border border-ink/20 p-3">角色要反覆試做到像時用它</td>
-                <td class="border border-ink/20 p-3">換 Ideogram</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <p class="mt-4 text-xs leading-6 text-blue">申請從工具名連結進去。動手前先看免費額度，截圖留進工作檔案。各工具免費條件以官網為準，官網文件連結在第五週工具卡。</p>
-      </div>
-    </section>
-
-    <section class="mx-auto max-w-6xl px-5 py-16 sm:px-10 lg:px-12 lg:py-24">
-      <p class="font-mono text-xs font-bold tracking-[.18em] text-blue">為什麼每次都不一樣</p>
-      <h2 class="mt-4 max-w-4xl text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">每次長不一樣，因為起點都是噪點</h2>
-      <p data-reading class="mt-6 max-w-3xl text-lg leading-9 text-ink/80">四張長不一樣不是機器壞掉。生成圖不是畫出來的，是從一整張雜訊洗出來的。模型先擲一把骰子決定雜訊長什麼樣，再照你的句子一遍一遍洗掉雜訊，狐狸才浮現。骰子每次不一樣，狐狸的燈光動作就不一樣。</p>
-      <p data-reading class="mt-4 max-w-3xl text-lg leading-9 text-ink/80">骰子有編號，叫做種子。同一個編號配同一個句子，洗出來的圖一模一樣；換編號，圖就換。所以控制有一半在骰子手上，不在你手上，下一節分工作時記住這件事。</p>
-      <figure class="mt-8 rounded-2xl border-2 border-ink bg-paper p-4">
-        <svg viewBox="0 0 670 400" class="h-auto w-full" role="img" aria-label="示意圖：同一句話配不同的雜訊起點，洗出不同的圖；固定種子，圖就不變。">
-          <title>從噪點洗出圖像的示意圖</title>
-          <desc>同一句狐狸描述，配 7 號雜訊洗出圖 A，配 48 號雜訊洗出圖 B。固定種子則結果不變。</desc>
-          <defs>
-            <filter id="noiseA" x="0" y="0" width="100%" height="100%">
-              <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7" stitchTiles="stitch" />
-              <feColorMatrix type="saturate" values="0" />
-            </filter>
-            <filter id="noiseB" x="0" y="0" width="100%" height="100%">
-              <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="48" stitchTiles="stitch" />
-              <feColorMatrix type="saturate" values="0" />
-            </filter>
-          </defs>
-          <text x="335" y="28" text-anchor="middle" font-size="15" font-weight="bold" fill="#0d5a82">同一句話：一隻狐狸站在雨後的夜市門口回頭看</text>
-          <rect x="70" y="55" width="150" height="90" fill="#fffdf6" stroke="#0f2a3d" stroke-width="2" filter="url(#noiseA)" />
-          <text x="145" y="162" text-anchor="middle" font-size="13" fill="#0d5a82">雜訊起點 A（7 號骰子）</text>
-          <path d="M232 100 h28 m-9 -9 l9 9 -9 9" stroke="#0f2a3d" stroke-width="2" fill="none" />
-          <circle cx="325" cy="100" r="34" fill="#ffd56a" stroke="#0f2a3d" stroke-width="2" />
-          <rect x="260" y="55" width="130" height="90" fill="#fffdf6" stroke="#0f2a3d" stroke-width="2" filter="url(#noiseA)" opacity="0.35" />
-          <text x="325" y="162" text-anchor="middle" font-size="13" fill="#0d5a82">洗三次</text>
-          <path d="M402 100 h28 m-9 -9 l9 9 -9 9" stroke="#0f2a3d" stroke-width="2" fill="none" />
-          <circle cx="495" cy="100" r="34" fill="#ffd56a" stroke="#0f2a3d" stroke-width="2" />
-          <circle cx="484" cy="92" r="5" fill="#0f2a3d" />
-          <path d="M505 118 q14 6 22 -4" stroke="#0f2a3d" stroke-width="2" fill="none" />
-          <text x="495" y="162" text-anchor="middle" font-size="13" fill="#0d5a82">圖 A</text>
-          <rect x="70" y="200" width="150" height="90" fill="#fffdf6" stroke="#0f2a3d" stroke-width="2" filter="url(#noiseB)" />
-          <text x="145" y="307" text-anchor="middle" font-size="13" fill="#0d5a82">雜訊起點 B（48 號骰子）</text>
-          <path d="M232 245 h28 m-9 -9 l9 9 -9 9" stroke="#0f2a3d" stroke-width="2" fill="none" />
-          <rect x="268" y="208" width="114" height="74" rx="14" fill="#7fb6d9" stroke="#0f2a3d" stroke-width="2" />
-          <rect x="260" y="200" width="130" height="90" fill="#fffdf6" stroke="#0f2a3d" stroke-width="2" filter="url(#noiseB)" opacity="0.35" />
-          <text x="325" y="307" text-anchor="middle" font-size="13" fill="#0d5a82">洗三次</text>
-          <path d="M402 245 h28 m-9 -9 l9 9 -9 9" stroke="#0f2a3d" stroke-width="2" fill="none" />
-          <rect x="438" y="208" width="114" height="74" rx="14" fill="#7fb6d9" stroke="#0f2a3d" stroke-width="2" />
-          <rect x="452" y="222" width="30" height="20" rx="4" fill="#ffd56a" stroke="#0f2a3d" stroke-width="2" />
-          <text x="495" y="307" text-anchor="middle" font-size="13" fill="#0d5a82">圖 B</text>
-          <text x="335" y="368" text-anchor="middle" font-size="14" font-weight="bold" fill="#0d5a82">固定種子，同一句話，洗出同一張圖</text>
-        </svg>
-        <figcaption class="mt-3 font-mono text-xs leading-6 text-blue">示意圖：同一句話配不同的雜訊起點，洗出不同的圖；固定種子，圖就不變</figcaption>
-      </figure>
-    </section>
-
-    <section class="mx-auto max-w-6xl px-5 py-16 sm:px-10 lg:px-12 lg:py-24">
-      <p class="font-mono text-xs font-bold tracking-[.18em] text-blue">筆畫為什麼總是錯的</p>
-      <h2 class="mt-4 max-w-4xl text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">中文字會糊掉，字型底稿能修好</h2>
-      <p data-reading class="mt-6 max-w-3xl text-lg leading-9 text-ink/80">噪點解釋了每次不一樣，但沒解釋另一件事：AI 圖裡糊掉的中文字，多一筆少一筆，招牌變成外星文。</p>
-      <p data-reading class="mt-4 max-w-3xl text-lg leading-9 text-ink/80">先說一個誤會：模型不是一顆像素接著一顆畫，它是整張一起洗很多遍。字會錯有三個原因。第一，認字的編碼器以英文為主，中文字會被切碎或當成沒看過。第二，模型學的是紋理長什麼樣，不是筆順規則，糊一點人類就認不出來了。第三，圖先被壓小再畫，細筆畫在壓縮裡就糊掉了。</p>
-      <p data-reading class="mt-4 max-w-3xl text-lg leading-9 text-ink/80">字型檔修得好，道理和描圖一樣。先把要寫的字用字型印一張底稿，連位置一起交給模型，模型照著填，不用背幾千個中文字的筆畫。底稿是人給的，所以這一筆算人的。算法和三件事一樣，看下一節。</p>
-    </section>
-
-    <section class="mx-auto max-w-6xl px-5 py-16 sm:px-10 lg:px-12 lg:py-24">
-      <p class="font-mono text-xs font-bold tracking-[.18em] text-blue">02 / 誰做的要分清楚</p>
-      <h2 class="mt-4 max-w-4xl text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">骰子歸模型，三件事歸你</h2>
-      <p data-reading class="mt-6 max-w-3xl text-lg leading-9 text-ink/80">同一個描述按第二次，狐狸的燈光和動作細節又換了。會變的那一段是模型決定的，不算你的。你決定的只有三件事：用哪一句話生成，留下哪一張，下一輪改哪一欄。這三件事的紀錄就是人類投入的證明，下週起放進工作檔案。</p>
-    </section>
-
-    <section class="mx-auto max-w-6xl px-5 py-16 sm:px-10 lg:px-12 lg:py-24">
-      <p class="font-mono text-xs font-bold tracking-[.18em] text-blue">新工具的精準從哪裡來</p>
-      <h2 class="mt-4 max-w-4xl text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">只改指定的部分，其餘留住</h2>
-      <p data-reading class="mt-6 max-w-3xl text-lg leading-9 text-ink/80">ChatGPT 圖像這類新工具改得準，是約束給夠了。模型同時看著原圖和你的指令，改的地方重算，不改的地方留住。框起來、指出來、手繪一張底稿，都是把改哪欄變具體，機器就不用猜了。</p>
-      <p data-reading class="mt-4 max-w-3xl text-lg leading-9 text-ink/80">以 ChatGPT 圖像為例，官方說生成圖帶 C2PA 資料和隱形浮水印。你的 AI 圖天生有標記，這類標記就是透明度規定的機器可讀標示，交接包要註明圖有沒有這種標記。這是付費工具，不在免費主路徑，能不能商用看條款。</p>
-      <p class="mt-4 text-xs leading-6 text-blue">出處：<a href="https://openai.com/zh-Hant/index/introducing-chatgpt-images-2-5/" target="_blank" rel="noreferrer" class="font-bold text-blue underline decoration-coral decoration-2 underline-offset-4 hover:text-coral">OpenAI 官方公告</a>；付費工具條款以官網為準。</p>
-    </section>
-
-    <section class="bg-[#ffd7cc] px-5 py-16 sm:px-10 lg:px-12 lg:py-24">
-      <div class="mx-auto max-w-6xl">
-        <p class="font-mono text-xs font-bold tracking-[.18em] text-blue">03 / 對照才有證據</p>
-        <h2 class="mt-3 max-w-4xl text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">對照系統表：輸出、加了什麼、猜錯什麼、改哪欄</h2>
-        <p data-reading class="mt-6 max-w-3xl text-lg leading-8 text-ink/80">系統表只有四欄，每張輸出填一行。輸出寫圖幾，加了什麼寫模型自己補的，猜錯什麼寫和你腦中不一樣的地方，下一輪改哪欄寫只改的那一個。假設圖二加了燈籠，狐狸卻站成正面，下一輪就只補視線方向。</p>
-        <div class="mt-8 block overflow-x-auto rounded-2xl border-2 border-ink bg-paper">
-          <table class="w-full min-w-[38rem] text-left text-sm leading-7">
-            <caption class="px-5 py-2 font-mono text-xs leading-6 text-blue">假設四張狐狸，填兩行長這樣</caption>
-            <thead>
-              <tr class="bg-sun">
-                <th class="border border-ink/20 p-3">輸出</th>
-                <th class="border border-ink/20 p-3">模型加了什麼</th>
-                <th class="border border-ink/20 p-3">猜錯什麼</th>
-                <th class="border border-ink/20 p-3">下一輪改哪欄</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="border border-ink/20 p-3 font-bold">圖一</td>
-                <td class="border border-ink/20 p-3">雨滴和路燈</td>
-                <td class="border border-ink/20 p-3">狐狸站反了，沒回頭</td>
-                <td class="border border-ink/20 p-3">只補視線方向</td>
-              </tr>
-              <tr>
-                <td class="border border-ink/20 p-3 font-bold">圖二</td>
-                <td class="border border-ink/20 p-3">攤販和招牌</td>
-                <td class="border border-ink/20 p-3">夜市門口不見了</td>
-                <td class="border border-ink/20 p-3">只補場景位置</td>
-              </tr>
-            </tbody>
-          </table>
+        <p class="font-mono text-xs font-bold tracking-[.18em] text-blue">複習用</p>
+        <h2 class="mt-3 max-w-4xl text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">五個時期，一張表看完</h2>
+        <p data-reading class="mt-6 max-w-3xl text-lg leading-8 text-ink/80">先看箭頭方向：從最左邊的岩壁一路走到最右邊的印刷市場。箭頭指的是服務對象的改變，不是畫技的好壞。每一張卡片上方是那個時期的畫在哪裡，下方是它服務誰、以及因此採用的畫法關鍵詞。</p>
+        <div class="mt-6 block overflow-x-auto rounded-2xl border-2 border-ink bg-paper p-4">
+          <img
+            src={`${base}/illustrations/history-timeline.svg`}
+            alt="原創示意圖：橫向時間軸由左到右五個節點。洞穴壁畫約西元前 20000 年，服務對象是過冬的獵人，畫法是深色線描輪廓；死者之書起於西元前 1550 年，服務對象是死者與神，畫法是儀式程序與神明形象；凱爾經約 800 年，服務對象是神與修士，畫法是扁平、金箔、字首放大；時禱書 1412 到 1486 年，服務對象是貝里公爵本人，畫法是泥金精細、人體與透視初試；杜勒版畫 1498 年，服務對象是買版畫的市場，畫法是可大量複製、作者比書更有名。"
+            class="h-auto w-full min-w-[56rem]"
+            width="1000"
+            height="430"
+            loading="lazy"
+            decoding="async"
+          />
         </div>
       </div>
     </section>
 
-    <section class="mx-auto max-w-6xl px-5 py-16 sm:px-10 lg:px-12 lg:py-24">
-      <p class="font-mono text-xs font-bold tracking-[.18em] text-blue">04 / 定稿前多一道手續</p>
-      <h2 class="mt-4 max-w-4xl text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">完稿上傳反向圖搜一次，撞到就重畫</h2>
-      <p data-reading class="mt-6 max-w-3xl text-lg leading-9 text-ink/80">打開反向圖搜，把定稿上傳一次。看到相同構圖、有名角色或浮水印殘影，就是撞到，回去重畫，不要微調混過去。沒撞到，把搜尋截圖和修改理由一起留進工作檔案，這就是你這週的投入證明。</p>
+    <section id="drill" class="mx-auto max-w-6xl px-5 py-16 sm:px-10 lg:px-12 lg:py-24">
+      <p class="font-mono text-xs font-bold tracking-[.18em] text-blue">複習用</p>
+      <h2 class="mt-4 max-w-4xl text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">術語對照表：名詞先定義，再往下讀會順很多</h2>
+      <div class="mt-8 block overflow-x-auto rounded-2xl border-2 border-ink bg-paper">
+        <table class="w-full min-w-[42rem] text-left text-sm leading-7">
+          <caption class="px-5 py-2 font-mono text-xs leading-6 text-blue">本週會出現的名詞</caption>
+          <thead>
+            <tr class="bg-sun">
+              <th class="border border-ink/20 p-3">名詞</th>
+              <th class="border border-ink/20 p-3">英文</th>
+              <th class="border border-ink/20 p-3">一句話</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="border border-ink/20 p-3 font-bold">插畫</td>
+              <td class="border border-ink/20 p-3">illustration</td>
+              <td class="border border-ink/20 p-3">擺在文字旁邊、把話講清楚的圖</td>
+            </tr>
+            <tr>
+              <td class="border border-ink/20 p-3 font-bold">死者之書</td>
+              <td class="border border-ink/20 p-3">Book of the Dead</td>
+              <td class="border border-ink/20 p-3">引導死者通過審判的咒語集，現代統稱，不是書名</td>
+            </tr>
+            <tr>
+              <td class="border border-ink/20 p-3 font-bold">莎草紙</td>
+              <td class="border border-ink/20 p-3">papyrus</td>
+              <td class="border border-ink/20 p-3">把蘆葦髓壓平曬乾製成的書寫材料</td>
+            </tr>
+            <tr>
+              <td class="border border-ink/20 p-3 font-bold">手抄本</td>
+              <td class="border border-ink/20 p-3">manuscript</td>
+              <td class="border border-ink/20 p-3">整本用手抄寫的書，每一頁都算獨立藝術品</td>
+            </tr>
+            <tr>
+              <td class="border border-ink/20 p-3 font-bold">泥金裝飾</td>
+              <td class="border border-ink/20 p-3">enluminure</td>
+              <td class="border border-ink/20 p-3">用畫上去的金粉或銅粉裝飾書頁</td>
+            </tr>
+            <tr>
+              <td class="border border-ink/20 p-3 font-bold">時禱書</td>
+              <td class="border border-ink/20 p-3">Très Riches Heures</td>
+              <td class="border border-ink/20 p-3">貴族私人祈禱用，按月份頁記錄一年</td>
+            </tr>
+            <tr>
+              <td class="border border-ink/20 p-3 font-bold">版畫</td>
+              <td class="border border-ink/20 p-3">print / woodcut</td>
+              <td class="border border-ink/20 p-3">刻在木板上印出來的圖，可以大量複製品</td>
+            </tr>
+            <tr>
+              <td class="border border-ink/20 p-3 font-bold">透視法</td>
+              <td class="border border-ink/20 p-3">linear perspective</td>
+              <td class="border border-ink/20 p-3">用數學把深度排到平面上的方法，十五世紀初系統化</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 class="mt-14 text-3xl font-extrabold tracking-[-.04em] sm:text-4xl">自己測一次：四題</h3>
+      <p data-reading class="mt-5 max-w-3xl text-lg leading-9 text-ink/80">接下來這四題，答案全部落在上面那五個時期的卡片和這份術語表裡。先自己回答，再展開比對；答不出來的地方，就是你還沒記住的地方。</p>
+      <div class="mt-8 space-y-4">
+        <details class="group rounded-2xl border-2 border-ink bg-sky p-6">
+          <summary class="cursor-pointer text-lg font-extrabold leading-8">死者之書為什麼不能當成一本書來談？</summary>
+          <p class="mt-4 text-base leading-8 text-ink/85">因為「死者之書」是現代統稱，不是古埃及人的書名。同一個用途有幾千份流傳下來，長度、內容、保存狀態都不同，可以寫在莎草紙、棺木或墓室牆上。所以談死者之書一定要指明是哪一份、哪個博物館、什麼編號。</p>
+        </details>
+        <details class="group rounded-2xl border-2 border-ink bg-[#fff0bf] p-6">
+          <summary class="cursor-pointer text-lg font-extrabold leading-8">拉斯科和阿爾塔米拉用的是同一批材料，為什麼結果差那麼多？</summary>
+          <p class="mt-4 text-base leading-8 text-ink/85">材料確實接近：黑線是碳，棕紅色是赭石混動物血與脂肪。差別在處理 —— 拉斯科靠線條，輪廓完整、形狀一眼可辨、畫面是平的；阿爾塔米拉靠岩壁本身的凹凸安排深淺，輪廓讓位給形體，看起來有厚度。材料不是命運，處理方式才是分岔點。</p>
+        </details>
+        <details class="group rounded-2xl border-2 border-ink bg-[#ffd7cc] p-6">
+          <summary class="cursor-pointer text-lg font-extrabold leading-8">中世紀為什麼把人畫得扁扁的？那個狀態到什麼時候才被打破？</summary>
+          <p class="mt-4 text-base leading-8 text-ink/85">因為歐洲的基督教藝術主動放棄古典羅馬的寫實手法 —— 放掉明暗、量感與透視 —— 目的是在視覺上與前一個時代的異教文化劃出清楚距離。常見的「因為相信人有原罪」是十九世紀的說法，現代研究不採用。這個狀態要到十五世紀初，透視法在佛羅倫斯被系統化並寫成規則之後才被打破，畫面才開始可以把深度排出來。</p>
+        </details>
+        <details class="group rounded-2xl border-2 border-ink bg-sky p-6">
+          <summary class="cursor-pointer text-lg font-extrabold leading-8">版畫為什麼會讓插畫變成一門可以獨立存在的生意？</summary>
+          <p class="mt-4 text-base leading-8 text-ink/85">因為交換方式變了。之前的插畫附在書頁、建築或教堂上，買的是那本書或那面牆。版畫可以大量複製品並單獨販售，買的人買的是「這個人的作品」而不是「這本書裡的插圖」。於是作者的名字變成商品標籤，個人風格第一次獨立於任何一本書而存在。</p>
+        </details>
+      </div>
     </section>
 
     <section class="bg-night px-5 py-16 text-paper sm:px-10 lg:px-12 lg:py-24">
       <div class="mx-auto max-w-5xl">
-        <p class="font-mono text-xs font-bold tracking-[.18em] text-sun">本週作業 / BLIND EXPERIMENT CARD</p>
-        <h2 class="mt-3 text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">這週請交一張盲生成實驗卡</h2>
+        <p class="font-mono text-xs font-bold tracking-[.18em] text-sun">本週作業 / HISTORY TRANSFER CARD</p>
+        <h2 class="mt-3 text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">把一件歷史作品，換成你自己的一張圖</h2>
         <ol class="mt-10 grid gap-4 md:grid-cols-2">
-          <li class="rounded-xl border-2 border-paper/30 bg-paper/10 p-5"><span class="font-mono text-xs font-bold text-sun">01</span><h3 class="mt-3 text-xl font-extrabold">固定一句話</h3><p class="mt-2 text-sm leading-7 text-paper/80">同一個主體和動作，不放風格名，四張都用它。</p></li>
-          <li class="rounded-xl border-2 border-paper/30 bg-paper/10 p-5"><span class="font-mono text-xs font-bold text-sun">02</span><h3 class="mt-3 text-xl font-extrabold">四張全留</h3><p class="mt-2 text-sm leading-7 text-paper/80">候選和失敗都留，刪掉就沒證據。</p></li>
-          <li class="rounded-xl border-2 border-paper/30 bg-paper/10 p-5"><span class="font-mono text-xs font-bold text-sun">03</span><h3 class="mt-3 text-xl font-extrabold">寫系統表</h3><p class="mt-2 text-sm leading-7 text-paper/80">輸出、加了什麼、猜錯什麼、下一輪改哪欄，四欄填滿。</p></li>
-          <li class="rounded-xl border-2 border-paper/30 bg-paper/10 p-5"><span class="font-mono text-xs font-bold text-sun">04</span><h3 class="mt-3 text-xl font-extrabold">反查加理由</h3><p class="mt-2 text-sm leading-7 text-paper/80">反向圖搜截圖加修改理由，留進工作檔案。</p></li>
+          <li class="rounded-xl border-2 border-paper/30 bg-paper/10 p-5">
+            <span class="font-mono text-xs font-bold text-sun">01</span>
+            <h3 class="mt-3 text-xl font-extrabold">挑一件作品</h3>
+            <p class="mt-2 text-sm leading-7 text-paper/80">本週五件任選一件。抄下它的年代、服務對象、畫在哪裡。</p>
+          </li>
+          <li class="rounded-xl border-2 border-paper/30 bg-paper/10 p-5">
+            <span class="font-mono text-xs font-bold text-sun">02</span>
+            <h3 class="mt-3 text-xl font-extrabold">寫出三個視覺決定</h3>
+            <p class="mt-2 text-sm leading-7 text-paper/80">它為了服務那個對象，在線條、色彩、構圖上做了哪三件事。</p>
+          </li>
+          <li class="rounded-xl border-2 border-paper/30 bg-paper/10 p-5">
+            <span class="font-mono text-xs font-bold text-sun">03</span>
+            <h3 class="mt-3 text-xl font-extrabold">做兩個版本</h3>
+            <p class="mt-2 text-sm leading-7 text-paper/80">同一個主體，一版照原作品的服務對象畫，一版改成你真正的看眾。</p>
+          </li>
+          <li class="rounded-xl border-2 border-paper/30 bg-paper/10 p-5">
+            <span class="font-mono text-xs font-bold text-sun">04</span>
+            <h3 class="mt-3 text-xl font-extrabold">寫下你選哪一版</h3>
+            <p class="mt-2 text-sm leading-7 text-paper/80">換了服務對象之後，哪幾個決定被迫跟著改。改不動的那個是什麼。</p>
+          </li>
         </ol>
-        <div class="mt-10 border-l-4 border-sun bg-paper/10 px-5 py-4 text-base leading-8 text-paper/85">提交：原始提示詞、四張輸出、對照系統表、修改理由、反查截圖。下週拆解風格時，從系統表的下一輪改哪欄開始。</div>
+        <div class="mt-10 border-l-4 border-sun bg-paper/10 px-5 py-4 text-base leading-8 text-paper/85">提交：歷史作品對照表、三個視覺決定、轉換實驗兩版與選擇理由。下週拆解風格時，從「被迫改掉的那個決定」開始。</div>
       </div>
     </section>
 
@@ -238,17 +563,37 @@ const designLesson = designEducation[2]
       <div class="mx-auto max-w-6xl">
         <div class="grid gap-8 rounded-2xl border-2 border-ink bg-[#ffd7cc] p-7 md:grid-cols-[minmax(0,1fr)_minmax(18rem,.7fr)] md:items-center md:p-10">
           <div>
-            <p class="font-mono text-xs font-bold tracking-[.16em] text-blue">台灣設計教育 / 先看現場</p>
+            <p class="font-mono text-xs font-bold tracking-[.16em] text-blue">台灣設計教育 / 先看一件事</p>
             <h2 class="mt-3 text-3xl font-extrabold tracking-[-.05em] sm:text-4xl">{designLesson.concept.replace(/。$/, '')}</h2>
             <p class="mt-5 text-lg leading-9">{designLesson.eli5}</p>
-            <p class="mt-4 text-base leading-8">先看模型交出什麼，再決定你要問它什麼。順序反過來，問題就問錯地方。</p>
+            <p class="mt-4 text-base leading-8">先決定要給誰看，線條和色彩才有根據。順序反過來，就會得到一張很精緻但不知道要給誰的圖。</p>
           </div>
           <figure class="rounded-2xl border-2 border-ink bg-paper p-4">
-            <img src={`${base}${designLesson.visual}`} alt={designLesson.visualAlt} class="h-auto w-full" loading="lazy" decoding="async" />
+            <img
+              src={`${base}${designLesson.visual}`}
+              alt={designLesson.visualAlt}
+              class="h-auto w-full"
+              loading="lazy"
+              decoding="async"
+            />
             <figcaption class="mt-3 font-mono text-xs leading-6 text-blue">{designLesson.visualAlt}</figcaption>
           </figure>
         </div>
-        <div class="mt-10 border-t-2 border-ink pt-8"><p class="font-mono text-xs font-bold tracking-[.16em] text-blue">本週參考</p><div class="mt-4 flex flex-wrap gap-x-5 gap-y-3 text-sm font-bold text-blue">{designEducationSources.map((source) => <a href={source.url} target="_blank" rel="noreferrer" class="underline decoration-coral decoration-2 underline-offset-4 hover:text-coral">{source.label} ↗</a>)}</div></div>
+        <div class="mt-10 border-t-2 border-ink pt-8" id="sources">
+          <p class="font-mono text-xs font-bold tracking-[.16em] text-blue">本週資料來源</p>
+          <p class="mt-3 max-w-3xl text-base leading-8 text-ink/80">正文裡每個數字、年代與物質成分都掛了編號，對應到下面這一筆。查證日：2026-09-29。課堂口述有幾處與史料不符，本頁採用機構版本並在文中直接標出修正點；查不到原始依據的說法一律不放進正文。</p>
+          <ol class="mt-5 space-y-3">
+            {footnotes.map((note) => (
+              <li id={`src-${note.n}`} class="grid scroll-mt-24 gap-1 text-sm leading-7 sm:grid-cols-[2.5rem_minmax(0,1fr)] sm:gap-3">
+                <span class="font-mono text-xs font-bold text-coral"><a href={`#ref-${note.n}`} class="underline decoration-1 underline-offset-2 hover:text-blue">{note.n}</a></span>
+                <span class="text-ink/85">
+                  <span class="font-bold text-ink">{note.claim}</span>
+                  <a href={note.url} target="_blank" rel="noreferrer" class="ml-1 font-bold text-blue underline decoration-coral decoration-2 underline-offset-4 hover:text-coral">{note.label} ↗</a>
+                </span>
+              </li>
+            ))}
+          </ol>
+        </div>
       </div>
     </section>
 

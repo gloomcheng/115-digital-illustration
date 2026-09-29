@@ -13,10 +13,10 @@ export const designEducation: Record<number, DesignEducationLesson> = {
     visualAlt: '一個循環圖：問題、試做、比較、記錄，再回到下一輪。',
   },
   2: {
-    concept: '先看現場，才知道要問工具什麼。',
-    eli5: '你說水壺漏水，修理的人還是要先看哪裡漏；不然拿膠帶到處貼，可能只把問題蓋住。',
-    visual: '/illustrations/prompt-window.svg',
-    visualAlt: '一張畫面說明卡，將主體、動作、用途與限制交給右側候選圖。',
+    concept: '先決定這張圖服務誰，畫法才有根據。',
+    eli5: '同一則新聞，寫給同學看和寫給長輩看，開場那句就不一樣；插畫也是先看要給誰，才知道要畫成什麼樣子。',
+    visual: '/illustrations/audience-lens.svg',
+    visualAlt: '同一頭牛因為服務對象不同，左邊描成可辨識的碳線輪廓，右邊塗成單一金色放進裝飾框。',
   },
   3: {
     concept: '風格不是一個名字，是線條、形狀和色彩一起造成的結果。',

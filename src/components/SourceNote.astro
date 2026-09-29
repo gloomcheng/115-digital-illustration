@@ -1,0 +1,10 @@
+---
+interface Props {
+  n: number
+  class?: string
+}
+
+const { n, class: className = '' } = Astro.props
+---
+
+<sup class={`align-super font-mono text-[0.6em] font-bold leading-none ${className}`}><a href={`#src-${n}`} id={`ref-${n}`} class="text-coral underline decoration-1 underline-offset-2 hover:text-blue" aria-label={`前往參考資料第 ${n} 筆`}>{n}</a></sup>

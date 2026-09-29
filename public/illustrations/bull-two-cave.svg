@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" role="img" aria-labelledby="tc-title tc-desc">
+  <title id="tc-title">原創示意圖：拉斯科與阿爾塔米拉畫同一頭牛，材料相同但處理方式不同</title>
+  <desc id="tc-desc">左右兩個面板各畫同一頭牛的示意圖。兩邊材料都是礦物颜料：黑色是錳的氧化物，赭紅是赤鐵礦。拉斯科靠線條處理，輪廓完整、內部有短線排練，結果是平面而可辨識。阿爾塔米拉靠岩壁本身的凹凸處理，輪廓被岩面取代、明暗沿著岩面隆起分布，結果是有體積感。兩邊下方各列出材料、處理與結果三欄。</desc>
+  <defs>
+    <symbol id="bull" viewBox="0 0 200 112">
+      <path d="M62 84 C48 84 42 72 42 60 C42 40 56 26 82 26 C104 26 118 19 138 21 C161 23 172 38 172 60 C172 74 164 84 150 84 Z"/>
+      <ellipse cx="30" cy="58" rx="27" ry="25"/>
+      <ellipse cx="10" cy="63" rx="15" ry="13"/>
+      <path d="M33 34 C24 18 32 5 47 1 C41 12 41 25 45 35 Z"/>
+      <path d="M39 37 C33 25 39 16 50 12 C46 21 46 30 50 38 Z"/>
+      <path d="M53 45 C66 40 75 45 72 53 C67 60 57 59 51 53 Z"/>
+      <rect x="58" y="80" width="16" height="28" rx="7"/>
+      <rect x="86" y="80" width="16" height="28" rx="7"/>
+      <rect x="128" y="80" width="16" height="28" rx="7"/>
+      <rect x="152" y="80" width="16" height="28" rx="7"/>
+      <path d="M171 43 C186 50 188 69 179 81"/>
+      <circle cx="33" cy="53" r="4.5" fill="#123d59"/>
+      <circle cx="7" cy="58" r="3.5" fill="#123d59"/>
+    </symbol>
+    <radialGradient id="bulge" cx="38%" cy="34%" r="72%">
+      <stop offset="0%" stop-color="#fffdf6"/>
+      <stop offset="55%" stop-color="#cfe7f0"/>
+      <stop offset="100%" stop-color="#0d5e82"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="900" height="500" rx="24" fill="#fffaf0"/>
+
+  <rect x="30" y="30" width="400" height="410" rx="18" fill="#fffaf0" stroke="#123d59" stroke-width="5"/>
+  <rect x="470" y="30" width="400" height="410" rx="18" fill="#fffaf0" stroke="#123d59" stroke-width="5"/>
+
+  <text x="230" y="72" text-anchor="middle" font-family="Noto Sans TC, sans-serif" font-size="27" font-weight="700" fill="#123d59">拉斯科</text>
+  <text x="230" y="98" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="15" fill="#0d5e82">Lascaux · France</text>
+  <text x="670" y="72" text-anchor="middle" font-family="Noto Sans TC, sans-serif" font-size="27" font-weight="700" fill="#123d59">阿爾塔米拉</text>
+  <text x="670" y="98" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="15" fill="#0d5e82">Altamira · Spain</text>
+
+  <g opacity="0.35" stroke="#0d5e82" stroke-width="2.5" stroke-linecap="round">
+    <path d="M62 128 V286 M78 128 V286 M94 128 V286 M110 128 V286 M126 128 V286 M142 128 V286 M158 128 V286 M174 128 V286 M190 128 V286 M206 128 V286 M222 128 V286 M238 128 V286 M254 128 V286 M270 128 V286 M286 128 V286 M302 128 V286 M318 128 V286 M334 128 V286 M350 128 V286 M366 128 V286 M382 128 V286 M398 128 V286"/>
+  </g>
+  <use href="#bull" x="96" y="150" width="268" height="150" fill="#fffaf0" stroke="#123d59" stroke-width="4" stroke-linejoin="round"/>
+  <g stroke="#123d59" stroke-width="3" stroke-linecap="round" opacity="0.75">
+    <path d="M150 200 l30 -18 M150 214 l34 -20 M156 230 l30 -16 M150 248 l34 -20 M160 264 l28 -16 M200 200 l40 -6 M240 202 l34 4 M200 222 l44 -2 M248 226 l30 6 M200 246 l40 4 M240 250 l32 8 M200 266 l36 6"/>
+  </g>
+
+  <g fill="none" stroke="#0d5e82" stroke-width="3" opacity="0.45">
+    <path d="M520 150 C600 118 760 118 840 152"/>
+    <path d="M512 196 C600 158 768 158 848 198"/>
+    <path d="M508 246 C600 202 776 202 852 248"/>
+    <path d="M514 296 C600 250 770 250 846 298"/>
+  </g>
+  <use href="#bull" x="536" y="150" width="268" height="150" fill="url(#bulge)" stroke="#123d59" stroke-width="3" stroke-dasharray="14 9" stroke-linejoin="round"/>
+
+  <g font-family="Noto Sans TC, sans-serif" font-size="20" fill="#123d59">
+    <text x="60" y="342" font-weight="700">材料：礦物颜料</text>
+    <text x="60" y="376">處理：靠線條</text>
+    <text x="60" y="410">結果：平面、可辨識</text>
+    <text x="500" y="342" font-weight="700">材料：礦物颜料</text>
+    <text x="500" y="376">處理：靠岩壁凹凸</text>
+    <text x="500" y="410">結果：有體積感</text>
+  </g>
+  <text x="450" y="470" text-anchor="middle" font-family="Noto Sans TC, sans-serif" font-size="19" fill="#0d5e82">材料相同，處理方式不同，結果就分岔</text>
+</svg>

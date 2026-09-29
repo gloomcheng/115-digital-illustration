@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 430" role="img" aria-labelledby="tl-title tl-desc">
+  <title id="tl-title">原創示意圖：插畫的服務對象一路改變，畫法就跟著改變</title>
+  <desc id="tl-desc">橫向時間軸由左到右五個節點。洞穴壁畫約西元前 20000 年，服務對象是過冬的獵人，畫法用深色線描輪廓。死者之書起於西元前 1550 年，服務對象是死者與神，畫法是儀式程序與神明形象。凱爾經約 800 年，服務對象是神與修士，畫法扁平、用金箔、字首放大。貝里公爵時禱書 1412 到 1486 年，服務對象是貝里公爵本人，畫法泥金精細、人體初現。杜勒版畫 1498 年，服務對象是買版畫的市場，畫法可大量複製、作者出名。箭頭方向由岩壁走向印刷市場。</desc>
+  <rect width="1000" height="430" rx="24" fill="#fffaf0"/>
+
+  <g stroke="#123d59" stroke-width="5" fill="none" stroke-linecap="round">
+    <path d="M60 88 H948"/>
+  </g>
+  <path d="M948 88 l-24 -14 v28 z" fill="#123d59"/>
+
+  <g font-family="JetBrains Mono, monospace" font-size="19" font-weight="700" fill="#123d59" text-anchor="middle">
+    <text x="108" y="64">c. 20000 BCE</text>
+    <text x="304" y="64">c. 1550 BCE</text>
+    <text x="500" y="64">c. 800 CE</text>
+    <text x="696" y="64">1412–1486</text>
+    <text x="892" y="64">1498</text>
+  </g>
+
+  <g stroke="#123d59" stroke-width="4">
+    <circle cx="108" cy="88" r="15" fill="#cfe7f0"/>
+    <circle cx="304" cy="88" r="15" fill="#f7c94d"/>
+    <circle cx="500" cy="88" r="15" fill="#ed765d"/>
+    <circle cx="696" cy="88" r="15" fill="#0d5e82"/>
+    <circle cx="892" cy="88" r="15" fill="#123d59"/>
+  </g>
+
+  <g font-family="Noto Sans TC, sans-serif" text-anchor="middle">
+    <g>
+      <rect x="16" y="116" width="184" height="290" rx="18" fill="#fffaf0" stroke="#123d59" stroke-width="4"/>
+      <rect x="16" y="116" width="184" height="50" rx="18" fill="#cfe7f0" stroke="#123d59" stroke-width="4"/>
+      <rect x="16" y="142" width="184" height="24" fill="#cfe7f0"/>
+      <text x="108" y="150" font-size="23" font-weight="700" fill="#123d59">洞穴壁畫</text>
+      <text x="108" y="198" font-family="JetBrains Mono, monospace" font-size="13" fill="#0d5e82">服務對象</text>
+      <text x="108" y="226" font-size="20" font-weight="700" fill="#123d59">過冬的獵人</text>
+      <text x="108" y="272" font-family="JetBrains Mono, monospace" font-size="13" fill="#0d5e82">畫法關鍵詞</text>
+      <text x="108" y="300" font-size="19" fill="#123d59">深色線描輪廓</text>
+      <text x="108" y="326" font-size="19" fill="#123d59">看得出生肖</text>
+      <text x="108" y="378" font-size="17" fill="#0d5e82">畫在岩壁上</text>
+    </g>
+    <g>
+      <rect x="212" y="116" width="184" height="290" rx="18" fill="#fffaf0" stroke="#123d59" stroke-width="4"/>
+      <rect x="212" y="116" width="184" height="50" rx="18" fill="#f7c94d" stroke="#123d59" stroke-width="4"/>
+      <rect x="212" y="142" width="184" height="24" fill="#f7c94d"/>
+      <text x="304" y="150" font-size="23" font-weight="700" fill="#123d59">死者之書</text>
+      <text x="304" y="198" font-family="JetBrains Mono, monospace" font-size="13" fill="#0d5e82">服務對象</text>
+      <text x="304" y="226" font-size="20" font-weight="700" fill="#123d59">死者與神</text>
+      <text x="304" y="272" font-family="JetBrains Mono, monospace" font-size="13" fill="#0d5e82">畫法關鍵詞</text>
+      <text x="304" y="300" font-size="19" fill="#123d59">儀式程序</text>
+      <text x="304" y="326" font-size="19" fill="#123d59">神明形象</text>
+      <text x="304" y="378" font-size="17" fill="#0d5e82">畫在莎草紙上</text>
+    </g>
+    <g>
+      <rect x="408" y="116" width="184" height="290" rx="18" fill="#fffaf0" stroke="#123d59" stroke-width="4"/>
+      <rect x="408" y="116" width="184" height="50" rx="18" fill="#ed765d" stroke="#123d59" stroke-width="4"/>
+      <rect x="408" y="142" width="184" height="24" fill="#ed765d"/>
+      <text x="500" y="150" font-size="23" font-weight="700" fill="#123d59">凱爾經</text>
+      <text x="500" y="198" font-family="JetBrains Mono, monospace" font-size="13" fill="#0d5e82">服務對象</text>
+      <text x="500" y="226" font-size="20" font-weight="700" fill="#123d59">神與修士</text>
+      <text x="500" y="272" font-family="JetBrains Mono, monospace" font-size="13" fill="#0d5e82">畫法關鍵詞</text>
+      <text x="500" y="300" font-size="19" fill="#123d59">扁平不可量</text>
+      <text x="500" y="326" font-size="19" fill="#123d59">金箔、字首放大</text>
+      <text x="500" y="378" font-size="17" fill="#0d5e82">畫在小牛皮上</text>
+    </g>
+    <g>
+      <rect x="604" y="116" width="184" height="290" rx="18" fill="#fffaf0" stroke="#123d59" stroke-width="4"/>
+      <rect x="604" y="116" width="184" height="50" rx="18" fill="#0d5e82" stroke="#123d59" stroke-width="4"/>
+      <rect x="604" y="142" width="184" height="24" fill="#0d5e82"/>
+      <text x="696" y="150" font-size="23" font-weight="700" fill="#fffaf0">時禱書</text>
+      <text x="696" y="198" font-family="JetBrains Mono, monospace" font-size="13" fill="#0d5e82">服務對象</text>
+      <text x="696" y="226" font-size="20" font-weight="700" fill="#123d59">貝里公爵本人</text>
+      <text x="696" y="272" font-family="JetBrains Mono, monospace" font-size="13" fill="#0d5e82">畫法關鍵詞</text>
+      <text x="696" y="300" font-size="19" fill="#123d59">泥金精細</text>
+      <text x="696" y="326" font-size="19" fill="#123d59">人體與透視初試</text>
+      <text x="696" y="378" font-size="17" fill="#0d5e82">畫成私人祈禱書</text>
+    </g>
+    <g>
+      <rect x="800" y="116" width="184" height="290" rx="18" fill="#fffaf0" stroke="#123d59" stroke-width="4"/>
+      <rect x="800" y="116" width="184" height="50" rx="18" fill="#123d59" stroke="#123d59" stroke-width="4"/>
+      <rect x="800" y="142" width="184" height="24" fill="#123d59"/>
+      <text x="892" y="150" font-size="23" font-weight="700" fill="#fffaf0">杜勒版畫</text>
+      <text x="892" y="198" font-family="JetBrains Mono, monospace" font-size="13" fill="#0d5e82">服務對象</text>
+      <text x="892" y="226" font-size="20" font-weight="700" fill="#123d59">買版畫的市場</text>
+      <text x="892" y="272" font-family="JetBrains Mono, monospace" font-size="13" fill="#0d5e82">畫法關鍵詞</text>
+      <text x="892" y="300" font-size="19" fill="#123d59">可大量複製</text>
+      <text x="892" y="326" font-size="19" fill="#123d59">作者比書更有名</text>
+      <text x="892" y="378" font-size="17" fill="#0d5e82">印成紙張販售</text>
+    </g>
+  </g>
+</svg>
