@@ -7,8 +7,8 @@ export interface DesignEducationLesson {
 
 export const designEducation: Record<number, DesignEducationLesson> = {
   1: {
-    concept: '先看清楚，再決定怎麼做。',
-    eli5: '把同一張椅子拿來觀察：先看輪廓、比例、材料和坐的位置，才知道哪裡是設計，哪裡只是裝飾。',
+    concept: '先把工作方式定下來，後面每一週才接得上。',
+    eli5: '同一個檔名，兩個人會做出兩份不同的東西；檔名先講清楚，交接的時候就不用問。版本也一樣，v1 到 v3 之間改了什麼要寫下來，不然半年後的你也不知道為什麼這樣改。',
     visual: '/illustrations/trial-loop.svg',
     visualAlt: '一個循環圖：問題、試做、比較、記錄，再回到下一輪。',
   },

@@ -12,9 +12,12 @@
     "build": "astro build",
     "typecheck": "astro check",
     "lint": "biome check .",
+    "live": "bun run scripts/live-game.ts",
+    "check:live": "bun run scripts/live-game-check.ts",
+    "check:anchors": "node scripts/anchor-audit.mjs",
     "check:reading-windows": "node scripts/reading-window-harness.mjs",
     "check:ai-prose": "node scripts/ai-prose-guard.mjs",
-    "quality": "npm run check:reading-windows && npm run check:ai-prose && npm run typecheck && npm run build"
+    "quality": "npm run check:reading-windows && npm run check:ai-prose && npm run check:anchors && npm run typecheck && npm run build"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.10",
@@ -24,6 +27,7 @@
     "typescript": "^5.9.3"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.5.11"
+    "@biomejs/biome": "^2.5.11",
+    "@types/bun": "^1.4.2"
   }
 }

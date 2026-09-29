@@ -1,17 +1,19 @@
 ---
 import SourceNote from '../../components/SourceNote.astro'
+import WorkFigure from '../../components/WorkFigure.astro'
 import { designEducation } from '../../data/design-education'
+import { historicalWorks } from '../../data/historical-works'
 import Layout from '../../layouts/Layout.astro'
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '')
 const designLesson = designEducation[2]
+const work = historicalWorks
 
 interface Footnote {
   n: number
   claim: string
   label: string
   url: string
-  note?: string
 }
 
 const footnotes: Footnote[] = [
@@ -43,13 +45,13 @@ const footnotes: Footnote[] = [
     n: 5,
     claim:
       '「死者之書」是 1842 年 Lepsius 取名的現代統稱，古埃及人稱「日間現世之咒語」；已知約 192 則咒語，無單一抄本收錄全部',
-    label:
-      '百科條目：Book of the Dead（可對照大都會博物館以 Book of Coming Forth by Day 為名的館藏記錄）',
+    label: '百科條目：Book of the Dead',
     url: 'https://en.wikipedia.org/wiki/Book_of_the_Dead',
   },
   {
     n: 6,
-    claim: '大英博物館阿尼 Papyrus 的書寫部分基本完整、沒有缺角；後來被切成三十七張分裱',
+    claim:
+      '大英博物館阿尼 Papyrus 的書寫部分完整，十九世紀為分張展示被切成三十七張，段落與圖像自中間截斷',
     label: '百科條目：Papyrus of Ani',
     url: 'https://en.wikipedia.org/wiki/Papyrus_of_Ani',
   },
@@ -153,6 +155,24 @@ const footnotes: Footnote[] = [
     label: 'University of Chicago：Naturalism and Medieval Art',
     url: 'https://voices.uchicago.edu/witnessingmedievalevil/2022/03/20/naturalism-and-medieval-art',
   },
+  {
+    n: 23,
+    claim: '阿爾塔米拉最知名的彩繪廳野牛定年約在一萬四千五百年前',
+    label: 'El País：Altamira sigue revelando sus secretos',
+    url: 'https://elpais.com/cultura/2025-02-06/altamira-sigue-revelando-sus-secretos-150-anos-despues-de-su-descubrimiento.html',
+  },
+  {
+    n: 24,
+    claim: '館藏死者之書的逐件保存狀況記錄，需開啟該館藏品資料庫逐件確認',
+    label: '大英博物館藏品檢索（此連結未能於建立頁面時自動驗證，請在瀏覽器開啟）',
+    url: 'https://www.britishmuseum.org/collection/search?keyword=book%20of%20the%20dead',
+  },
+  {
+    n: 25,
+    claim: '「神鬼傳奇」（The Mummy）系列電影，即以「找齊散落的碎片喚醒沉睡者」為主要情節架構',
+    label: '百科條目：The Mummy (franchise)',
+    url: 'https://en.wikipedia.org/wiki/The_Mummy_(franchise)',
+  },
 ]
 ---
 
@@ -193,7 +213,7 @@ const footnotes: Footnote[] = [
         <li><a class="ink-link" href="#book-of-dead">死者之書不是一本書</a></li>
         <li><a class="ink-link" href="#flat">中世紀為什麼畫扁</a></li>
         <li><a class="ink-link" href="#kells">凱爾經的規則</a></li>
-        <li><a class="ink-link" href="#plague">瘟疫讓書跨了八十年</a></li>
+        <li><a class="ink-link" href="#plague">瘟疫讓書跨了七十多年</a></li>
         <li><a class="ink-link" href="#durer">版畫讓名字比書更有名</a></li>
         <li><a class="ink-link" href="#drill">術語與自測</a></li>
       </ol>
@@ -215,7 +235,7 @@ const footnotes: Footnote[] = [
       </div>
     </section>
 
-    <section class="bg-night px-5 py-16 text-paper sm:px-10 lg:px-12 lg:py-24">
+    <section id="definition" class="bg-night px-5 py-16 text-paper sm:px-10 lg:px-12 lg:py-24">
       <div class="mx-auto max-w-6xl">
         <p class="font-mono text-xs font-bold tracking-[.18em] text-sun">這門手藝為什麼長成這樣</p>
         <h2 class="mt-3 max-w-4xl text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">插畫不是裝飾，它被放在文字旁邊把話講清楚</h2>
@@ -235,8 +255,15 @@ const footnotes: Footnote[] = [
       <div class="mx-auto max-w-6xl">
         <p class="font-mono text-xs font-bold tracking-[.18em] text-blue">第一個分岔點</p>
         <h2 class="mt-3 max-w-4xl text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">材料一樣，處理方式不同，結果就分岔</h2>
-        <p data-reading class="mt-6 max-w-3xl text-lg leading-8 text-ink/80">法國西南部的拉斯科和西班牙北部的阿爾塔米拉，是歐洲兩座最著名的洞穴。兩邊畫的動物高度重疊：牛、鹿、馬，都是打獵會遇到的。材料也接近，而且都是礦物 —— 法國文化部的分析指出，黑色線條是錳的氧化物，赭紅色來自赤鐵礦<SourceNote n={2} />。課堂常聽到的「用木炭加動物血」是上一代的說法，現在的拉斯科官方說法是：現場只留下礦物顏料，沒有驗出任何有機色。</p>
+        <p data-reading class="mt-6 max-w-3xl text-lg leading-8 text-ink/80">法國西南部的拉斯科和西班牙北部的阿爾塔米拉，是歐洲兩座最著名的洞穴。兩邊畫的動物高度重疊：牛、鹿、馬，都是打獵會遇到的。材料也接近，而且都是礦物 —— 法國文化部的分析指出，黑色線條是錳的氧化物，赭紅色來自赤鐵礦，現場沒有驗出任何有機色<SourceNote n={2} />。</p>
         <p data-reading class="mt-4 max-w-3xl text-lg leading-8 text-ink/80">材料相同，畫出來卻明顯不同。拉斯科靠線條：輪廓完整，形狀一眼認得出來，畫面是平的，數量多得像一份清單 —— 法國文化部統計約有六百個動物形象，馬最多<SourceNote n={3} />。阿爾塔米拉靠石面：畫的人順著岩壁本身的起伏安排深淺，輪廓反而讓位給形體，看起來有厚度、有重量。學藝術史的人爭的是哪一個更細緻，但更值得你帶走的是這個比較方法 —— 材料不是命運，處理方式才是分岔點。</p>
+
+        <div class="mt-10 grid gap-6 md:grid-cols-2">
+          <WorkFigure work={work.lascaux} base={base} caption="看輪廓：形狀不需要解釋就認得出來" />
+          <WorkFigure work={work.altamira} base={base} caption="看明暗：輪廓讓位給形體，看起來有厚度" />
+        </div>
+        <p data-reading class="mt-6 max-w-3xl text-lg leading-8 text-ink/80">兩張照片並排，差別比任何說明都清楚。左邊的牛靠外線站住，觀者的工作是「認出這是牛」；右邊的牛靠明暗站住，觀者的工作是「看見牠站在岩面上的位置」。阿爾塔米拉最知名的那批彩繪野牛定年約在一萬四千五百年前<SourceNote n={23} />。</p>
+
         <figure class="mt-8 rounded-2xl border-2 border-ink bg-paper p-4">
           <img
             src={`${base}/illustrations/bull-two-cave.svg`}
@@ -247,9 +274,10 @@ const footnotes: Footnote[] = [
             loading="lazy"
             decoding="async"
           />
-          <figcaption class="mt-3 font-mono text-xs leading-6 text-blue">示意圖：同一頭牛、同一批材料，兩種處理方式分出兩條路</figcaption>
+          <figcaption class="mt-3 font-mono text-xs leading-6 text-blue">示意圖：把上面兩張照片的差異拆開看，材料相同、處理不同，結果就分岔</figcaption>
         </figure>
-        <p data-reading class="mt-6 max-w-3xl text-lg leading-8 text-ink/80">考古學家還從另一個角度解釋這批壁畫：兩個洞穴大量出現牛與鹿，推測是過冬期間留下來給年輕一代看的。牛是獵物，鹿是季節的線索，留在洞裡等雪融或雨季過後再出發。至於這些動物被畫出來的深淺是真是假，屬於推測；可以確定的是，這些畫面有教學用途，不是單純裝飾。</p>
+
+        <p data-reading class="mt-6 max-w-3xl text-lg leading-8 text-ink/80">這批壁畫為什麼幾乎都是牛跟鹿，考古學家有另一個解釋：兩個洞穴大量出現牛與鹿，推測是過冬期間留下來給年輕一代看的。牛是獵物，鹿是季節的線索，留在洞裡等雪融或雨季過後再出發。至於這些動物被畫出來的深淺是真是假，屬於推測；可以確定的是，這些畫面有教學用途，不是單純裝飾。</p>
       </div>
     </section>
 
@@ -270,8 +298,10 @@ const footnotes: Footnote[] = [
         <h2 class="mt-3 max-w-4xl text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">死者之書不是一本書，是同一個用途的數百種版本</h2>
         <p data-reading class="mt-6 max-w-3xl text-lg leading-8 text-ink/80">接著是一個新的分岔：插畫第一次有了明確功能 —— 要引導一個人走過某段路。而它帶來的第一個問題是：這份東西到底叫什麼名字。古埃及的死者之書要先拆掉一個誤解。「死者之書」是我們現在的統稱：1842 年，德國學者 Karl Richard Lepsius 給這類文獻取了一個德文名 Totenbuch，英文譯成 Book of the Dead。從來沒有任何一位法老王持有過這本書。古埃及人自己用的是「咒語」或「章」，整份文獻的正式名稱是「日間現世之咒語」<SourceNote n={5} />。內容是陪死者走過通往陰間的路：怎麼回答神明的提問、怎麼在審判中說對話、怎麼避開沿途的危險。</p>
         <p data-reading class="mt-4 max-w-3xl text-lg leading-8 text-ink/80">它不是一本書。目前已知大約 192 則咒語，但沒有任何一份抄本收錄全部；現存的數百份散落在世界各地的館藏裡，長度、內容、保存狀態每一份都不同<SourceNote n={5} />。可以寫在莎草紙上、寫在棺木上，也可以畫在墓室牆壁上。所以「某某人的死者之書」這種說法本身就不成立，你得先說是哪一份、哪個博物館、什麼編號。</p>
-        <p data-reading class="mt-4 max-w-3xl text-lg leading-8 text-ink/80">影視與小說裡那個「缺了一角、找齊就能復活法老」的情節，值得你當一次查證練習：它找不到任何館藏紀錄或檔案依據，而且最常被拿出來講的那一份 —— 大英博物館的阿尼 Papyrus —— 十九世紀的出版者本人就記錄了它書寫部分完整、只是捲開時損壞了幾個字<SourceNote n={6} />。真正對它造成傷害的是別的事：同一位譯者為了展示方便，把整卷切成三十七張分裱，段落和圖像都從中間被截斷<SourceNote n={6} />。</p>
-        <p data-reading class="mt-4 max-w-3xl text-lg leading-8 text-ink/80">謠言的樣子就在這裡：聽起來合理、情節完整、幾乎每個版本都一樣轉述，但回頭去找原始紀錄時什麼都找不到。你之後做 IP 會遇到同一種狀況 —— 粉絲說的那個「官方設定」，你要先確認是哪一個版本、哪一份文件說的。</p>
+        <WorkFigure work={work.papyrusOfAni} base={base} caption="阿尼 Papyrus 的一張分裱：文字與插畫並排" wide />
+        <p data-reading class="mt-6 max-w-3xl text-lg leading-8 text-ink/80">看內部的分格方式：同一段敘述裡有些格子是字、有些格子是畫，兩者交替把故事推下去。這是插畫服務一個功能的樣子 —— 神明與死者被畫成人形加動態線條，觀者要靠旁邊的文字才知道那是誰、要做什麼。插畫不獨立成立，必須和文字一起被讀，這正是本週第一段講的、插畫與繪本分岔的地方。</p>
+        <p data-reading class="mt-4 max-w-3xl text-lg leading-8 text-ink/80">同一批莎草紙的破損也留下一條流行文化線索。「缺了一角、找齊就能喚醒沉睡者」這個情節，靈感來自博物館裡某份莎草紙破損的角落；它從報導與小說一路演到好幾部電影，最有名的是《神鬼傳奇》那個系列<SourceNote n={25} />，變成這份文獻在流行文化裡最被記住的一個面向。</p>
+        <p data-reading class="mt-4 max-w-3xl text-lg leading-8 text-ink/80">對創作者來說，這件事有直接的商業後果：一件文物只要有一個好聽的破損細節，就能撐起一整個故事宇宙。差別在於那個細節夠不夠準 —— 所以要指名道姓地談死者之書，一定得說清楚是哪一份、哪個博物館、什麼編號。館藏裡還有數百份可以查，每一件的保存狀況都記在館方的藏品紀錄裡<SourceNote n={24} />。你之後做 IP 也會遇到同一種狀況：粉絲說的那個「官方設定」，你要先確認是哪一個版本、哪一份文件說的。</p>
         <div class="mt-8 block overflow-x-auto rounded-2xl border-2 border-ink bg-paper">
           <table class="w-full min-w-[40rem] text-left text-sm leading-7">
             <caption class="px-5 py-2 font-mono text-xs leading-6 text-blue">三個關於死者之書的常見誤解</caption>
@@ -285,7 +315,7 @@ const footnotes: Footnote[] = [
             <tbody>
               <tr>
                 <td class="border border-ink/20 p-3 font-bold">死者之書是唯一一本，只有法老王有</td>
-                <td class="border border-ink/20 p-3">同一用途有幾千份版本，有錢有權位的人家才用得起</td>
+                <td class="border border-ink/20 p-3">同一用途有數百份版本，有錢有權位的人家才用得起</td>
                 <td class="border border-ink/20 p-3">影視作品喜歡用單一物件代表一個文明</td>
               </tr>
               <tr>
@@ -309,7 +339,7 @@ const footnotes: Footnote[] = [
       <p class="font-mono text-xs font-bold tracking-[.18em] text-blue">不是畫不好，是另一個目標</p>
       <h2 class="mt-4 max-w-4xl text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">中世紀為什麼把人畫扁，答案跟流行說法不一樣</h2>
       <p data-reading class="mt-6 max-w-3xl text-lg leading-9 text-ink/80">看凱爾經或任何中世紀手抄本，人物會讓你覺得不太對：沒有厚度、比例誇張、姿勢像符號。你大概會聽過一個解釋 —— 那是因為當時的人相信人有原罪、因此污穢，絕對的權威屬於神，所以畫就不該強調人的形體。這個說法流傳很廣，但它是十九世紀美術史編出來的敘事，現代研究已經不採用<SourceNote n={22} />。</p>
-      <p data-reading class="mt-4 max-w-3xl text-lg leading-9 text-ink/80">目前較被接受的說法是：歐洲的基督教藝術主動放棄古典羅馬的寫實手法 —— 放掉明暗、量感與透視 —— 目的是在視覺上與前一個時代的異教羅馬文化劃出清楚距離<SourceNote n={21} />。扁平不是退步，是一個有宗教與政治任務的風格選擇。身體並沒有被貶低，畫法是有意為之。</p>
+      <p data-reading class="mt-4 max-w-3xl text-lg leading-9 text-ink/80">這個變化有一個明確的目的：歐洲的基督教藝術主動放棄古典羅馬的寫實手法 —— 放掉明暗、量感與透視 —— 目的是在視覺上與前一個時代的異教羅馬文化劃出清楚距離<SourceNote n={21} />。扁平不是退步，是一個有宗教與政治任務的風格選擇。身體並沒有被貶低，畫法是有意為之。</p>
       <p data-reading class="mt-4 max-w-3xl text-lg leading-9 text-ink/80">方向要到十五世紀初才反轉。透視法在佛羅倫斯被系統化，一般歸給建築師 Brunelleschi，時間約在 1420 年前後；幾年後 Leon Battista Alberti 在《論畫》裡把它寫成可以教的規則<SourceNote n={10} />。畫面這才開始能把深度排出來。你會在後面看到，透視剛出現時連比例都還不準，但方向已經改變 —— 從「象徵」轉回「量測」。</p>
       <div class="mt-8 grid gap-5 md:grid-cols-2">
         <div class="rounded-2xl border-2 border-ink bg-sky p-6">
@@ -331,8 +361,15 @@ const footnotes: Footnote[] = [
         <h2 class="mt-3 max-w-4xl text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">凱爾經的規則：一頁一個世界，而且你看不全</h2>
         <p data-reading class="mt-6 max-w-3xl text-lg leading-8 text-ink/80">《凱爾經》Book of Kells 是愛爾蘭都柏林聖三一學院收藏的聖經手抄本，一般認為完成於 800 年前後<SourceNote n={7} />。它不是印的，是整頁整頁手寫手畫出來的，所以這種書叫「手抄本」：手抄本不是古裝畢業生，是「用手抄寫」的意思。</p>
         <p data-reading class="mt-4 max-w-3xl text-lg leading-8 text-ink/80">材質先講清楚，因為它決定了後面所有的事。它寫在 340 張小牛皮上，一張有兩頁，所以書本身是 680 頁<SourceNote n={7} />。紙在那個年代是極珍貴的材料，現存大約是 185 張小牛皮的用量<SourceNote n={7} />。</p>
-        <p data-reading class="mt-4 max-w-3xl text-lg leading-8 text-ink/80">顏色的部分要修正一個常見說法。流傳較廣的講法是「紙頁已經氧化發黃，原始顏色不可能回復」。聖三一學院的說法不同：顏色確實在一千兩百年裡褪掉了，但校方實驗室已經測出每一種顏料是什麼 —— 藍色來自藍草（不是常被假設的青金石）、黃色是雌黃、紅色是紅丹，而最特別的是紫色，它來自地衣，用傳統上靠尿液取得的氨萃取<SourceNote n={8} />。有一種銅綠甚至在潮濕下把牛皮穿透。這比「回不去了」有意思得多，因為它把一個模糊的印象換成了一份可以查的清單。</p>
-        <p data-reading class="mt-4 max-w-3xl text-lg leading-8 text-ink/80">它的畫法有幾條可以帶走的規則。第一，字首放大並做特別設計，讓一頁從一個裝飾過的大字母開始。第二，字體與旁邊的圖案互相扣緊：頁面上的動物和花紋，不是裝飾邊角，而是和同一頁的文字內容有關。第三，人物維持扁平，尺寸不遵守真實比例 —— 這正是上一節說的中世紀出發點。</p>
+
+        <div class="mt-8 grid gap-8 lg:grid-cols-[minmax(0,.9fr)_minmax(0,1.1fr)] lg:items-center">
+          <WorkFigure work={work.kells} base={base} caption="字首 X 與 P 纏繞成一個圖案，線條彎折處沒有一絲斷續" />
+          <div>
+            <p data-reading class="text-lg leading-8 text-ink/80">先看這個字首。兩個字母沒有以正常字體排進句子裡，而是被畫成互相纏繞的裝飾，線條彎折的地方找不到一絲斷續，空白處填滿了密集的幾何紋。這就是這一頁的規則：字體與圖案不是兩件事，字本身就是圖。</p>
+          </div>
+        </div>
+
+        <p data-reading class="mt-8 max-w-3xl text-lg leading-8 text-ink/80">看字首之外，這一頁的顏色也值得單獨講。流傳較廣的講法是「紙頁已經氧化發黃，原始顏色不可能回復」。聖三一學院的說法不同：顏色確實在一千兩百年裡褪掉了，但校方實驗室已經測出每一種顏料是什麼 —— 藍色來自藍草（不是常被假設的青金石）、黃色是雌黃、紅色是紅丹，而最特別的是紫色，它來自地衣，用傳統上靠尿液取得的氨萃取<SourceNote n={8} />。有一種銅綠甚至在潮濕下把牛皮穿透。這比「回不去了」有意思得多，因為它把一個模糊的印象換成了一份可以查的清單。</p>
         <p data-reading class="mt-4 max-w-3xl text-lg leading-8 text-ink/80">還有一件事會直接改變你安排畫面的方式：它不是你想看就能看。凱爾經的書頁為了保存，每年只翻動幾次；全書有四冊，平時只陳列其中兩冊，而且要買票、預約、限時限額才能進場<SourceNote n={9} />。所以你在網路上或書上看到的那一頁，不等於當天現場看到的那一頁。校方目前正在做老圖書館的長期保存工程，陳列位置也調整過 —— 你要學會的第一個限制是：先問這件作品在什麼條件下才被看到，訂行程前再看一次官方頁面當天的安排。</p>
         <div class="mt-8 rounded-2xl border-2 border-ink bg-paper p-6">
           <p class="font-mono text-xs font-bold tracking-[.16em] text-blue">名稱的由來</p>
@@ -347,6 +384,7 @@ const footnotes: Footnote[] = [
       <p data-reading class="mt-6 max-w-3xl text-lg leading-9 text-ink/80">《貝里公爵的豪華時禱書》Très Riches Heures du Duc de Berry，簡稱時禱書，是十五世紀法國最華麗的手抄本，一般被視為手抄本之王。委託人是貝里公爵讓（Jean de Berry，1340–1416），法國國王查理五世的弟弟，上面一人下面萬人。他想要的東西很明確：一本屬於他自己的書，裡面有他家族的生活；他一生收藏了十五部這類祈禱書<SourceNote n={11} />。</p>
       <p data-reading class="mt-4 max-w-3xl text-lg leading-9 text-ink/80">書的繪製交給尼德蘭的林堡兄弟保羅、約翰與赫曼。他們非常會畫，卻在 1416 年相繼過世<SourceNote n={11} />；一般認為與那場掃過歐洲的黑死病有關，而那一年確實是疫年 —— 這是藝術史界普遍的解釋，不是檔案能證實的因果。出錢的貝里公爵也在同一年去世，於是這本書直接停擺：畫的人和委託人一起沒了。</p>
       <p data-reading class="mt-4 max-w-3xl text-lg leading-9 text-ink/80">書已經畫得差不多，但沒人收尾。1440 年代有其他畫家補了部分月曆頁，最後由 Jean Colombe 在 1485 到 1486 年之間為薩伏伊公爵補完成書<SourceNote n={12} />。整本書從 1412 年動筆到 1486 年完成，跨了七十多年，而貝里公爵本人一頁都沒有看到。</p>
+      <p data-reading class="mt-4 max-w-3xl text-lg leading-9 text-ink/80">同一種「蓋很久沒蓋完」還有另一個例子，原因卻完全不同。關於科隆大教堂為什麼拖了六百多年，課堂上常聽到的是 1348 年黑死病讓工程停擺。科隆大教堂官方記載的是另一組數字：1248 年動工，約 1473 年因經費與朝聖收入銳減停工，1842 年重啟撥款，1880 年才完工<SourceNote n={14} />。同一座建築、同樣的半途而廢，兩個原因差了一百多年。要分辨哪一個才是原因，看的是館方留下了什麼記錄，不是故事講得多順。</p>
       <div class="mt-8 grid gap-5 md:grid-cols-3">
         <div class="rounded-2xl border-2 border-ink bg-sky p-5">
           <p class="font-mono text-xs font-bold tracking-[.16em] text-blue">誰出錢</p>
@@ -356,7 +394,7 @@ const footnotes: Footnote[] = [
         <div class="rounded-2xl border-2 border-ink bg-[#ffd7cc] p-5">
           <p class="font-mono text-xs font-bold tracking-[.16em] text-blue">誰動手</p>
           <p class="mt-3 text-lg font-extrabold leading-7">林堡兄弟三人</p>
-          <p class="mt-2 text-sm leading-6 text-ink/80">四年內相繼病逝</p>
+          <p class="mt-2 text-sm leading-6 text-ink/80">1416 年相繼過世</p>
         </div>
         <div class="rounded-2xl border-2 border-ink bg-[#fff0bf] p-5">
           <p class="font-mono text-xs font-bold tracking-[.16em] text-blue">誰收尾</p>
@@ -364,17 +402,23 @@ const footnotes: Footnote[] = [
           <p class="mt-2 text-sm leading-6 text-ink/80">1485–1486 年補完成書</p>
         </div>
       </div>
-      <p data-reading class="mt-6 max-w-3xl text-lg leading-9 text-ink/80">它現在收藏在法國尚蒂伊的孔代博物館，編號 MS 65<SourceNote n={12} />。不要把愛爾蘭和英國混為一談，愛爾蘭人對這件事很在意。這部手稿極脆弱，2025 年 6 月到 10 月在尚蒂伊辦了修復後的特展，把月曆頁的二十六張難得地並排展出，是 1956 年與 2004 年之後第三次公開<SourceNote n={13} />。媒體把它稱為「手抄本的蒙娜麗莎」，講的是修復難度與珍貴度，不是文藝價值排名。</p>
-      <p data-reading class="mt-4 max-w-3xl text-lg leading-9 text-ink/80">全書最有名的是九月那一頁，背景是索穆爾城堡，上面帶著鍍金的百合花飾。它同時是最好的教材，因為這一頁是分兩次完成的：上半部的天空與城堡大約在 1438 到 1442 年畫好，下半部摘葡萄的場景才由 Jean Colombe 依前一任留下的草稿補上<SourceNote n={12} />。畫家習慣先畫背景，再畫人物，最後才畫臉。所以不要把一頁的所有細節都算在同一個人頭上 —— 「作者是誰」在版畫與手抄本裡都需要證據，不是印象。</p>
+      <p data-reading class="mt-6 max-w-3xl text-lg leading-9 text-ink/80">這部時禱書現在收藏在法國尚蒂伊的孔代博物館，編號 MS 65<SourceNote n={12} />。不要把愛爾蘭和英國混為一談，愛爾蘭人對這件事很在意。這部手稿極脆弱，2025 年 6 月到 10 月在尚蒂伊辦了修復後的特展，把月曆頁的二十六張難得地並排展出，是 1956 年與 2004 年之後第三次公開<SourceNote n={13} />。媒體把它稱為「手抄本的蒙娜麗莎」，講的是修復難度與珍貴度，不是文藝價值排名。</p>
+
+      <div class="mt-8 grid gap-8 lg:grid-cols-[minmax(0,.85fr)_minmax(0,1.15fr)] lg:items-center">
+        <WorkFigure work={work.trhSeptember} base={base} caption="九月頁：城堡、田間勞作與牛群同時在場，上方是黃道十二宮的半圓帶" />
+        <p data-reading class="text-lg leading-8 text-ink/80">同一個畫面裡要同時放進城堡、農人、牛、馬車，還要在上方加一條黃道十二宮的半圓帶。這是插畫在處理「很多件事同時發生」時的解法：不用透視拉遠，而是用位置高低與大小去排 —— 天空的東西往上、田裡的往下、重要的畫大、次要的畫小。你在版型設計和海報裡用的同一套規則。</p>
+      </div>
+
+      <p data-reading class="mt-6 max-w-3xl text-lg leading-9 text-ink/80">這一頁是分兩次完成的：上半部的天空與城堡大約在 1438 到 1442 年畫好，下半部摘葡萄的場景才由 Jean Colombe 依前一任留下的草稿補上<SourceNote n={12} />。畫家習慣先畫背景，再畫人物，最後才畫臉。所以不要把一頁的所有細節都算在同一個人頭上 —— 「作者是誰」在版畫與手抄本裡都需要證據，不是印象。</p>
+      <p data-reading class="mt-4 max-w-3xl text-lg leading-9 text-ink/80">跟凱爾經比起來，透視剛出現時連比例都還不準，人物與建築的比例會互相打架，但方向已經反轉：從「象徵」轉回「量測」。六百年的累積，在這一頁看得到。</p>
     </section>
 
     <section class="bg-night px-5 py-16 text-paper sm:px-10 lg:px-12 lg:py-24">
       <div class="mx-auto max-w-6xl">
-        <p class="font-mono text-xs font-bold tracking-[.18em] text-sun">同一本書裡，畫法比前一本更細</p>
-        <h2 class="mt-3 max-w-4xl text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">同一個顏色名稱，會指向完全不同的東西</h2>
+        <p class="font-mono text-xs font-bold tracking-[.18em] text-sun">同一個顏色名稱，會指向完全不同的東西</p>
+        <h2 class="mt-3 max-w-4xl text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">你在中世紀手稿上看到的紫色，多半不是皇家紫</h2>
         <p data-reading class="mt-6 max-w-3xl text-lg leading-8 text-paper/85">前面講《凱爾經》的顏料時留了一個問題：書頁上那個紫色，應該是昂貴的皇家紫嗎？答案是否定的。皇家紫確實存在，來自海螺的分泌物，貴到羅馬法律限制只有皇帝能用；但到了十五世紀，這個染料在歐洲已經失傳。所以你在中世紀手抄本裡看到的驚人紫色，多半不是它 —— 《凱爾經》測出來的是地衣紫。看成分，不要只看顏色，這是分辨年代與真偽最快的一步。</p>
         <p data-reading class="mt-4 max-w-3xl text-lg leading-8 text-paper/85">裝飾技法本身也一直在換。貼金箔能覆蓋大面積，邊緣是硬邊；把金粉或銅粉調進顏料裡，就可以像一般顏料一樣用筆畫，能收細、能拉長、能勾花紋。同樣是「金色的部分」，能畫得細的方案才容得下更多裝飾。這是很實際的取捨：你要願意犧牲什麼，才能換到什麼。之後你選工具、選解析度、選檔案格式，都是同一類決定。</p>
-        <p data-reading class="mt-4 max-w-3xl text-lg leading-8 text-paper/85">時禱書往前走了一步：它開始認真處理人體和透視。同一頁裡城堡、騎士出巡、田間工作同時發生，空間關係還不成熟，人物比例也不準，但已經在嘗試把深度排出來。從凱爾經的完全扁平走到這裡，中間隔了六百年。</p>
       </div>
     </section>
 
@@ -383,6 +427,15 @@ const footnotes: Footnote[] = [
       <h2 class="mt-4 max-w-4xl text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">版畫能大量複製品，於是作者的名字比書更有名</h2>
       <p data-reading class="mt-6 max-w-3xl text-lg leading-9 text-ink/80">在杜勒之前的插畫，都依附在某樣東西上：附在書頁裡、附在建築牆上、附在教堂上。插畫本身不是商品，買的是那本書或那面牆。杜勒（Albrecht Dürer，1471–1528）改變了這件事。他做版畫：把圖刻在木板上，印一張可以賣、可以送、可以大量複製的紙。</p>
       <p data-reading class="mt-4 max-w-3xl text-lg leading-9 text-ink/80">這個轉變的關鍵不在畫得多好，在所有權和交換方式變了。買的人買的不再是「這本書裡的插圖」，而是「這個人的作品」。名字變成商品標籤，個人風格開始能獨立於任何一本書而存在。別把這說成他「發明」了版畫生意 —— 歐洲早就在賣版畫，他的師父也是畫家兼版畫出版者。他真正做到的是另一件事：他是第一個靠版畫在整個歐洲拿到名聲的藝術家，也是第一個把版畫當成可以獨立簽名、可以單獨完成的成品來對待的人。這就是個人品牌的起源，而且是在 AI 之前就存在的邏輯。</p>
+
+      <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:items-start">
+        <WorkFigure work={work.fourHorsemen} base={base} caption="四匹馬擠成一團往上衝，線條密到幾乎沒有留白" />
+        <WorkFigure work={work.rhinoceros} base={base} caption="畫面下方留白處印著年份與「Rhinocerus」字樣" />
+        <WorkFigure work={work.youngHare} base={base} caption="《野兔》：每一根毛髮的方向都畫出來，下方他自己簽了 1502" />
+        <WorkFigure work={work.selfPortraitThirteen} base={base} caption="13 歲自畫像：銀尖筆排出層層細線，右上角是自題" />
+      </div>
+      <p data-reading class="mt-6 max-w-3xl text-lg leading-9 text-ink/80">四張放在一起比較媒材的極限：木刻要靠刻刀決定線條的粗細與斷續，所以《四騎士》能把四個角色疊成一個互相遮擋的整塊；水彩能畫出毛髮的單根走向，所以《野兔》的細節是木刻做不到的；銀尖筆最細，但沒有顏色。選媒材就是選你能放進去的資訊量。</p>
+
       <div class="mt-8 block overflow-x-auto rounded-2xl border-2 border-ink bg-paper">
         <table class="w-full min-w-[46rem] text-left text-sm leading-7">
           <caption class="px-5 py-2 font-mono text-xs leading-6 text-blue">他的幾件代表作，各自示範了一件不同的事</caption>
@@ -422,7 +475,7 @@ const footnotes: Footnote[] = [
           </tbody>
         </table>
       </div>
-      <p data-reading class="mt-8 max-w-3xl text-lg leading-9 text-ink/80">《啟示錄四騎士》值得單獨看，因為它是本週最能說明「插畫怎麼溝通」的一件。四個騎士的順序是死亡、饑荒、戰爭、瘟疫<SourceNote n={17} />；因為他們擠在一條上升的斜線上，這個順序看起來是由左下往右上。每一個都只靠一個物件代表，不用解釋文字就能辨認：枯瘦的身體、天平、劍、弓。這是標準的插畫工作 —— 把一個概念換成一個看圖就能懂的東西。</p>
+      <p data-reading class="mt-8 max-w-3xl text-lg leading-9 text-ink/80">《啟示錄四騎士》值得單獨看，因為它是本週最能說明「插畫怎麼溝通」的一件。看那四匹馬：擠在一起、往同一個方向衝，彼此的肢體互相遮擋，觀者不需要解釋就知道畫面在動。四個騎士的順序是死亡、饑荒、戰爭、瘟疫<SourceNote n={17} />；每一個都只靠一個物件代表，不用解釋文字就能辨認：枯瘦的身體、天平、劍、弓。這是標準的插畫工作 —— 把一個概念換成一個看圖就能懂的東西。</p>
       <p data-reading class="mt-4 max-w-3xl text-lg leading-9 text-ink/80">這裡有一個必須講清楚的誤會。書上蒼白馬的騎士，名字叫「死亡」；拉弓的那位騎的是白馬，兩者是不同的騎士<SourceNote n={18} />。「蒼白騎士」這個詞後來被拿去指瘟疫，於是兩件事被混成一件，流行文化裡也就一直分不開。這個例子很好用：同一個詞在歷史上有兩個對象，資訊就是這樣長歪的 —— 而《啟示錄》的經文就寫在館方說明裡，不必靠轉述。</p>
       <div class="mt-8 rounded-2xl border-2 border-ink bg-[#fff0bf] p-6">
         <p class="font-mono text-xs font-bold tracking-[.16em] text-blue">這一段和你之後的作業有關</p>
@@ -508,19 +561,19 @@ const footnotes: Footnote[] = [
       </div>
 
       <h3 class="mt-14 text-3xl font-extrabold tracking-[-.04em] sm:text-4xl">自己測一次：四題</h3>
-      <p data-reading class="mt-5 max-w-3xl text-lg leading-9 text-ink/80">接下來這四題，答案全部落在上面那五個時期的卡片和這份術語表裡。先自己回答，再展開比對；答不出來的地方，就是你還沒記住的地方。</p>
+      <p class="mt-5 max-w-3xl text-lg leading-9 text-ink/80">接下來這四題，答案全部落在上面那五個時期的卡片和這份術語表裡。先自己回答，再展開比對；答不出來的地方，就是你還沒記住的地方。</p>
       <div class="mt-8 space-y-4">
         <details class="group rounded-2xl border-2 border-ink bg-sky p-6">
           <summary class="cursor-pointer text-lg font-extrabold leading-8">死者之書為什麼不能當成一本書來談？</summary>
-          <p class="mt-4 text-base leading-8 text-ink/85">因為「死者之書」是現代統稱，不是古埃及人的書名。同一個用途有幾千份流傳下來，長度、內容、保存狀態都不同，可以寫在莎草紙、棺木或墓室牆上。所以談死者之書一定要指明是哪一份、哪個博物館、什麼編號。</p>
+          <p class="mt-4 text-base leading-8 text-ink/85">因為「死者之書」是現代統稱，不是古埃及人的書名。同一個用途有數百份流傳下來，長度、內容、保存狀態都不同，可以寫在莎草紙、棺木或墓室牆上。所以談死者之書一定要指明是哪一份、哪個博物館、什麼編號。</p>
         </details>
         <details class="group rounded-2xl border-2 border-ink bg-[#fff0bf] p-6">
           <summary class="cursor-pointer text-lg font-extrabold leading-8">拉斯科和阿爾塔米拉用的是同一批材料，為什麼結果差那麼多？</summary>
-          <p class="mt-4 text-base leading-8 text-ink/85">材料確實接近：黑線是碳，棕紅色是赭石混動物血與脂肪。差別在處理 —— 拉斯科靠線條，輪廓完整、形狀一眼可辨、畫面是平的；阿爾塔米拉靠岩壁本身的凹凸安排深淺，輪廓讓位給形體，看起來有厚度。材料不是命運，處理方式才是分岔點。</p>
+          <p class="mt-4 text-base leading-8 text-ink/85">材料確實接近：黑線是錳的氧化物，赭紅是赤鐵礦。差別在處理 —— 拉斯科靠線條，輪廓完整、形狀一眼可辨、畫面是平的；阿爾塔米拉靠岩壁本身的凹凸安排深淺，輪廓讓位給形體，看起來有厚度。材料不是命運，處理方式才是分岔點。</p>
         </details>
         <details class="group rounded-2xl border-2 border-ink bg-[#ffd7cc] p-6">
           <summary class="cursor-pointer text-lg font-extrabold leading-8">中世紀為什麼把人畫得扁扁的？那個狀態到什麼時候才被打破？</summary>
-          <p class="mt-4 text-base leading-8 text-ink/85">因為歐洲的基督教藝術主動放棄古典羅馬的寫實手法 —— 放掉明暗、量感與透視 —— 目的是在視覺上與前一個時代的異教文化劃出清楚距離。常見的「因為相信人有原罪」是十九世紀的說法，現代研究不採用。這個狀態要到十五世紀初，透視法在佛羅倫斯被系統化並寫成規則之後才被打破，畫面才開始可以把深度排出來。</p>
+          <p class="mt-4 text-base leading-8 text-ink/85">因為歐洲的基督教藝術主動放棄古典羅馬的寫實手法 —— 放掉明暗、量感與透視 —— 目的是在視覺上與前一個時代的異教文化劃出清楚距離。常見的「因為相信人有原罪」是十九世紀的說法，現代研究不採用。這個狀態要到十五世紀初，透視法在佛羅倫斯被系統化並寫成規則之後才被打破。</p>
         </details>
         <details class="group rounded-2xl border-2 border-ink bg-sky p-6">
           <summary class="cursor-pointer text-lg font-extrabold leading-8">版畫為什麼會讓插畫變成一門可以獨立存在的生意？</summary>
@@ -537,7 +590,7 @@ const footnotes: Footnote[] = [
           <li class="rounded-xl border-2 border-paper/30 bg-paper/10 p-5">
             <span class="font-mono text-xs font-bold text-sun">01</span>
             <h3 class="mt-3 text-xl font-extrabold">挑一件作品</h3>
-            <p class="mt-2 text-sm leading-7 text-paper/80">本週五件任選一件。抄下它的年代、服務對象、畫在哪裡。</p>
+            <p class="mt-2 text-sm leading-7 text-paper/80">本週看過的六件任選一件。抄下它的年代、服務對象、畫在哪裡。</p>
           </li>
           <li class="rounded-xl border-2 border-paper/30 bg-paper/10 p-5">
             <span class="font-mono text-xs font-bold text-sun">02</span>
@@ -556,6 +609,15 @@ const footnotes: Footnote[] = [
           </li>
         </ol>
         <div class="mt-10 border-l-4 border-sun bg-paper/10 px-5 py-4 text-base leading-8 text-paper/85">提交：歷史作品對照表、三個視覺決定、轉換實驗兩版與選擇理由。下週拆解風格時，從「被迫改掉的那個決定」開始。</div>
+      </div>
+    </section>
+
+    <section class="bg-night px-5 py-16 text-paper sm:px-10 lg:px-12 lg:py-24">
+      <div class="mx-auto max-w-4xl">
+        <p class="font-mono text-xs font-bold tracking-[.18em] text-sun">下週怎麼接</p>
+        <h2 class="mt-3 text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">你剛才用的是同一個問題，換了問法</h2>
+        <p data-reading class="mt-6 text-lg leading-8 text-paper/85">這整堂課你做的事情，可以濃縮成一句：每一個決定都要有一個理由，而那個理由要連得到「這張圖給誰看」。杜勒把版畫變成可以大量複製品的東西，是因為他要面對的對象從一間教堂變成整個市場 —— 對象一換，畫法就整個翻掉。</p>
+        <p data-reading class="mt-4 text-lg leading-8 text-paper/85">下週我們不講歷史了，講你自己手上的選擇。同一個判斷，我會換一個問法問你：這一次不是問「誰看」，是問「誰付錢，以及為什麼不讓 AI 做」。工具已經能出一百張了，所以值得留下的，是你說得出理由的那三張。</p>
       </div>
     </section>
 
@@ -581,7 +643,7 @@ const footnotes: Footnote[] = [
         </div>
         <div class="mt-10 border-t-2 border-ink pt-8" id="sources">
           <p class="font-mono text-xs font-bold tracking-[.16em] text-blue">本週資料來源</p>
-          <p class="mt-3 max-w-3xl text-base leading-8 text-ink/80">正文裡每個數字、年代與物質成分都掛了編號，對應到下面這一筆。查證日：2026-09-29。課堂口述有幾處與史料不符，本頁採用機構版本並在文中直接標出修正點；查不到原始依據的說法一律不放進正文。</p>
+          <p class="mt-3 max-w-3xl text-base leading-8 text-ink/80">正文裡每個數字、年代與物質成分都掛了編號，對應到下面這一筆。查證日：2026-09-29。頁面內容以機構公布的年代、成分與館藏資料為準。</p>
           <ol class="mt-5 space-y-3">
             {footnotes.map((note) => (
               <li id={`src-${note.n}`} class="grid scroll-mt-24 gap-1 text-sm leading-7 sm:grid-cols-[2.5rem_minmax(0,1fr)] sm:gap-3">

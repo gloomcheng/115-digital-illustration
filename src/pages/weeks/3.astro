@@ -1,0 +1,220 @@
+---
+import { designEducation } from '../../data/design-education'
+import { styleAxes } from '../../data/labs'
+import { liveMechanics, liveRounds } from '../../data/live-rounds'
+import { hiringQuestion, marketFacts } from '../../data/market-reality'
+import Layout from '../../layouts/Layout.astro'
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '')
+const designLesson = designEducation[3]
+const measured = marketFacts.filter((fact) => !fact.assumed)
+---
+
+<Layout
+  title="W03 插畫藝術的風格類型"
+  description="AI 會出一百張。付錢的是那個決定留下哪三張的人 —— 風格拆解與真實市場數據。"
+>
+  <main class="bg-paper">
+    <section class="relative isolate min-h-[min(720px,calc(100svh-76px))] overflow-hidden bg-ink text-paper">
+      <img
+        src={`${base}/illustrations/style-atlas.webp`}
+        alt="原創插畫：攤在木桌上一張角色設定頁，旁邊排列同一角色的貼圖、海報與周邊 mockup，桌面有量尺、色票與版畫工具。"
+        class="absolute inset-0 h-full w-full object-cover object-center"
+        width="1536"
+        height="1024"
+        fetchpriority="high"
+        loading="eager"
+        decoding="async"
+      />
+      <div class="absolute inset-0 bg-[linear-gradient(90deg,rgba(7,31,52,.96)_0%,rgba(7,31,52,.86)_35%,rgba(7,31,52,.3)_78%,rgba(7,31,52,.1)_100%)]"></div>
+      <div class="relative mx-auto flex min-h-[min(720px,calc(100svh-76px))] max-w-7xl items-end px-5 py-14 sm:px-10 sm:py-20 lg:px-12">
+        <div class="max-w-3xl">
+          <p class="font-mono text-xs font-bold tracking-[.18em] text-sun">W03 / AI 工具</p>
+          <h1 class="mt-5 text-5xl font-extrabold leading-[.98] tracking-[-.07em] sm:text-7xl">插畫藝術的風格類型</h1>
+          <p data-reading class="mt-8 max-w-2xl border-l-4 border-coral bg-ink/75 px-5 py-4 text-xl font-bold leading-9 text-paper sm:text-2xl">AI 會出一百張。付錢的是那個決定留下哪三張的人。</p>
+          <p data-reading class="mt-6 max-w-2xl text-lg leading-8 text-paper/85">這一週的每個選擇都有第二個讀法。它看起來是什麼，以及誰在為它付錢、為什麼不找你以外的人做。</p>
+        </div>
+      </div>
+    </section>
+
+    <nav class="border-b-2 border-ink bg-[#fff0bf] px-5 py-5 sm:px-10 lg:px-12" aria-label="本週段落">
+      <p class="font-mono text-xs font-bold tracking-[.16em] text-blue">快速複習</p>
+      <ol class="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-sm font-bold text-ink">
+        <li><a class="ink-link" href="#reality">先看真實世界</a></li>
+        <li><a class="ink-link" href="#second-reading">每個選擇有兩個讀法</a></li>
+        <li><a class="ink-link" href="#axes">六個軸，辨識點還是裝飾</a></li>
+        <li><a class="ink-link" href="#game">課堂遊戲</a></li>
+        <li><a class="ink-link" href="#evidence">這週要交什麼</a></li>
+      </ol>
+    </nav>
+
+    <section id="reality" class="mx-auto max-w-6xl px-5 py-16 sm:px-10 lg:px-12 lg:py-24">
+      <div class="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(18rem,.7fr)] lg:items-start">
+        <div>
+          <p class="font-mono text-xs font-bold tracking-[.18em] text-blue">先看真實世界</p>
+          <h2 class="mt-4 text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">會用 AI 的人，一年前到今年翻了將近一倍</h2>
+          <p data-reading class="mt-6 text-lg leading-9 text-ink/80">為什麼會這樣，我先給你們數字，再回頭解釋那個「第二個讀法」怎麼用。去年會用一個 AI 工具就能拿到 offer，今年同樣的話換成你說，機會少了一截。差別不在工具變差，是門檻變了。</p>
+          <p data-reading class="mt-4 text-lg leading-9 text-ink/80">招募端的數字更直接：資深職缺在增加，初級職缺在減少。企業沒有不找設計師，它只是把初級的入口關小了一點。這件事對坐在這間教室裡的你，比對已經在業界十年的人更有影響。</p>
+        </div>
+        <aside class="rounded-2xl border-2 border-ink bg-[#ffd7cc] p-6 shadow-[8px_8px_0_rgba(13,94,130,.14)]">
+          <p class="font-mono text-xs font-bold tracking-[.16em] text-blue">等一下我要問你們</p>
+          <p class="mt-4 text-2xl font-extrabold leading-9">AI 出了 100 張，<br />留下哪 3 張？<br />誰決定，為什麼？</p>
+        </aside>
+      </div>
+
+      <div class="mt-12 overflow-x-auto">
+        <table class="w-full min-w-[46rem] border-collapse text-left text-sm leading-7">
+          <caption class="pb-4 text-left font-mono text-xs leading-6 text-blue">這些是我找到的真實數據。每一筆都附出處，數字會變，所以我把連結一起給你們。</caption>
+          <thead>
+            <tr class="border-b-2 border-ink">
+              <th class="w-[30%] py-3 pr-4 font-mono text-xs font-bold text-blue">這件事</th>
+              <th class="w-[26%] py-3 pr-4 font-mono text-xs font-bold text-blue">數字</th>
+              <th class="py-3 font-mono text-xs font-bold text-blue">出處與限制</th>
+            </tr>
+          </thead>
+          <tbody>
+            {measured.map((fact) => (
+              <tr class="border-b border-ink/20 align-top">
+                <td class="py-4 pr-4 font-bold">{fact.claim}</td>
+                <td class="py-4 pr-4 font-mono font-bold text-coral">{fact.value}</td>
+                <td class="py-4">
+                  {fact.url ? (
+                    <a href={fact.url} target="_blank" rel="noreferrer" class="font-bold text-blue underline decoration-coral decoration-2 underline-offset-4 hover:text-coral">{fact.source} ↗</a>
+                  ) : (
+                    <span class="font-bold text-blue">{fact.source}</span>
+                  )}
+                  {fact.boundary && <span class="mt-1 block text-ink/70">{fact.boundary}</span>}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <p data-reading class="mt-8 max-w-3xl text-lg leading-9 text-ink/80">這張表裡我最想讓你們記住的是 5.8% 那個數字。Labubu 2015 年就畫出來了，2019 年就拿到獨家授權，但到 2023 年它只佔營收 5.8%，2024 年才爆紅。中間隔了八年。</p>
+      <p data-reading class="mt-4 max-w-3xl text-lg leading-9 text-ink/80">我講這個不是要講勵志故事，是要你們知道：「東西好」跟「東西是生意」中間有一段很長的路。而那一段路上要做的每一件事，就是今天要練的。</p>
+    </section>
+
+    <section id="second-reading" class="bg-night px-5 py-16 text-paper sm:px-10 lg:px-12 lg:py-24">
+      <div class="mx-auto max-w-6xl">
+        <p class="font-mono text-xs font-bold tracking-[.18em] text-sun">每個選擇有兩個讀法</p>
+        <h2 class="mt-4 max-w-4xl text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">同一個決定，念第二次會聽到不同的東西</h2>
+        <p data-reading class="mt-6 max-w-3xl text-lg leading-8 text-paper/85">上一週你學到「服務對象決定畫法」。這一週要再往前一步：服務對象不只是誰在看，還有誰在付錢、付了之後要做什麼、能做幾次。</p>
+        <p data-reading class="mt-4 max-w-3xl text-lg leading-8 text-paper/85">以線條為例。粗黑封閉輪廓看起來最不講究，但它印得到、雷射切得開，角色能上實體商品。開放式細線比較有質感，可是一印小就糊掉，你的角色就只能在螢幕上活。兩個都是專業的選擇，差別在你能用它做幾件事。</p>
+        <p data-reading class="mt-4 max-w-3xl text-lg leading-8 text-paper/85">Labubu 是一個真實的例子。它認得出來的不是那個歪嘴笑，是九顆牙、桃色臉、腳底的標誌 —— 這三個是設計成「縮到最小還在」的。做成 3 公分的鑰匙圈時，表情早就沒了，但牙和臉還在。找出辨識點的方法不是挑你最喜歡的，是挑最小的時候還留得住的。</p>
+      </div>
+    </section>
+
+    <section id="axes" class="mx-auto max-w-6xl px-5 py-16 sm:px-10 lg:px-12 lg:py-24">
+      <p class="font-mono text-xs font-bold tracking-[.18em] text-blue">六個軸，辨識點還是裝飾</p>
+      <h2 class="mt-4 max-w-4xl text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">每個變數都要問：縮小之後還在嗎</h2>
+      <p data-reading class="mt-6 max-w-3xl text-lg leading-9 text-ink/80">風格不是一個名字。「可愛」「有電影感」是感覺，不是判斷。要判斷就得拆到線條、形狀、色彩、材質、空間、用途六個軸，每個軸都要指得出畫面上的位置。</p>
+      <p data-reading class="mt-4 max-w-3xl text-lg leading-9 text-ink/80">所以這六個軸下面，每一個選項都給你視覺和它的第二個讀法。差別不在好不好看，在於這個決定會不會在某個尺寸、某個媒材、某個通路直接失效 —— 那個失效點就是你的設計要守住的地方。</p>
+
+      <div class="mt-10 space-y-4">
+        {styleAxes.map((axis, axisIndex) => (
+          <details class="group rounded-2xl border-2 border-ink bg-sky" open={axisIndex === 0}>
+            <summary class="cursor-pointer list-none px-6 py-5 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-coral/40">
+              <div class="flex flex-wrap items-baseline justify-between gap-3">
+                <span class="font-mono text-sm font-bold text-blue">0{axisIndex + 1} / {axis.key}</span>
+                <span class="font-mono text-xs text-ink/60">{axis.options.length} 個選項</span>
+              </div>
+              <h3 class="mt-3 text-2xl font-extrabold group-open:text-blue">{axis.question}</h3>
+            </summary>
+            <div class="grid gap-3 px-6 pb-6 md:grid-cols-3">
+              {axis.options.map((option) => (
+                <article class="rounded-xl border-2 border-ink/25 bg-paper p-5">
+                  <p class="text-lg font-extrabold leading-7">{option.visual}</p>
+                  <p class="mt-2 text-sm leading-7 text-ink/80">{option.commercial}</p>
+                </article>
+              ))}
+            </div>
+          </details>
+        ))}
+      </div>
+    </section>
+
+    <section id="game" class="bg-[#fff0bf] px-5 py-16 sm:px-10 lg:px-12 lg:py-24">
+      <div class="mx-auto max-w-6xl">
+        <p class="font-mono text-xs font-bold tracking-[.18em] text-blue">課堂遊戲</p>
+        <h2 class="mt-4 max-w-4xl text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">用手機押，投影只看比例</h2>
+        <p data-reading class="mt-6 max-w-3xl text-lg leading-9 text-ink/80">題目和選項只在你自己的手機上。投影只顯示比例長條，收完作答之前不會更新，所以你沒有辦法偷看別人選什麼。</p>
+        <p data-reading class="mt-4 max-w-3xl text-lg leading-9 text-ink/80">你可以寫一句理由，最多 80 字。理由匿名，老師可以把其中一句放到投影上讓全班回應。個人名次不會出現在任何地方。</p>
+
+        <div class="mt-10 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+          {liveMechanics.map((mechanic, index) => (
+            <article class="rounded-xl border-2 border-ink bg-paper p-5">
+              <p class="font-mono text-xs font-bold text-coral">{String(index + 1).padStart(2, '0')}</p>
+              <h3 class="mt-3 text-lg font-extrabold leading-7">{mechanic.title}</h3>
+              <p class="mt-2 text-sm leading-7 text-ink/80">{mechanic.detail}</p>
+            </article>
+          ))}
+        </div>
+
+        <div class="mt-10 rounded-2xl border-2 border-ink bg-paper p-6">
+          <h3 class="text-2xl font-extrabold">{liveRounds.length} 個回合</h3>
+          <p data-reading class="mt-4 text-base leading-8">這六題沒有正確答案，只有「你為什麼這樣答」。每一題都在練同一件事：把選擇的理由說到別人能用。遊戲結束時老師可以匯出每位學生每一回合的選項與理由，那就是這週的作業。</p>
+          <ol class="mt-5 grid gap-3 sm:grid-cols-2">
+            {liveRounds.map((round, index) => (
+              <li class="rounded-xl border-2 border-ink/25 bg-sky p-4">
+                <span class="font-mono text-xs font-bold text-blue">{String(index + 1).padStart(2, '0')}</span>
+                <p class="mt-2 text-sm font-bold leading-7">{round.prompt}</p>
+                <p class="mt-2 text-sm leading-7 text-ink/75">{round.teaches}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+
+        <div class="mt-10 rounded-2xl border-2 border-ink bg-ink p-8 text-paper">
+          <p class="font-mono text-xs font-bold tracking-[.18em] text-sun">這一堂課的結論</p>
+          <p data-reading class="mt-4 text-3xl font-extrabold leading-snug sm:text-4xl">{hiringQuestion.headline}</p>
+          <p data-reading class="mt-5 max-w-3xl text-lg leading-8 text-paper/85">{hiringQuestion.detail}</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="evidence" class="paper-grid px-5 py-16 sm:px-10 lg:px-12 lg:py-24">
+      <div class="mx-auto max-w-5xl">
+        <p class="font-mono text-xs font-bold tracking-[.18em] text-blue">這週要交</p>
+        <h2 class="mt-4 text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">三個可驗證的特徵，加一個辨識點</h2>
+        <div class="mt-8 grid gap-4 sm:grid-cols-2">
+          <article class="rounded-2xl border-2 border-ink bg-paper p-6">
+            <h3 class="text-xl font-extrabold">三個視覺特徵</h3>
+            <p class="mt-3 text-sm leading-7">從同一個主體的六張結果，各挑一個軸標出來。每個都要指得出畫面上的位置，不能寫「比較可愛」。</p>
+          </article>
+          <article class="rounded-2xl border-2 border-ink bg-[#ffd7cc] p-6">
+            <h3 class="text-xl font-extrabold">縮小測試</h3>
+            <p class="mt-3 text-sm leading-7">把你的角色縮到指甲蓋大小。哪一個特徵還在？那個才是辨識點，其他三個都會被處理掉。</p>
+          </article>
+          <article class="rounded-2xl border-2 border-ink bg-sky p-6">
+            <h3 class="text-xl font-extrabold">你的遊戲紀錄</h3>
+            <p class="mt-3 text-sm leading-7">課堂遊戲結束，老師端按匯出會拿到每位學生每一回合的選項與理由。存進工作檔案。</p>
+          </article>
+          <article class="rounded-2xl border-2 border-ink bg-paper p-6">
+            <h3 class="text-xl font-extrabold">你放棄了什麼</h3>
+            <p class="mt-3 text-sm leading-7">寫一句：為了讓這個角色能被買走第二次，你放棄了哪一個視覺上的東西。這是下週開始改的依據。</p>
+          </article>
+        </div>
+
+        <div class="mt-10 rounded-2xl border-2 border-ink bg-paper p-6">
+          <div class="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(18rem,.8fr)] lg:items-start">
+            <div>
+              <h3 class="text-2xl font-extrabold">{designLesson.concept.replace(/。$/, '')}</h3>
+              <p data-reading data-reading-source="designLesson.eli5" class="mt-4 text-lg leading-9">{designLesson.eli5}</p>
+              <p data-reading class="mt-4 text-base leading-8">下週把同一個主體放進不同用途，看哪些條件要跟著改。換用途等於換買家，而換買家會逼你重選一次。</p>
+            </div>
+            <figure class="rounded-2xl border-2 border-ink bg-paper p-4">
+              <img src={`${base}${designLesson.visual}`} alt={designLesson.visualAlt} class="h-auto w-full" loading="lazy" decoding="async" />
+              <figcaption class="mt-3 font-mono text-xs leading-6 text-blue">{designLesson.visualAlt}</figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <nav class="mx-auto grid max-w-5xl gap-5 border-t-2 border-ink px-5 py-10 text-sm font-bold sm:grid-cols-2 sm:px-10 lg:px-12" aria-label="週次導覽">
+      <a href={`${base}/weeks/2`} class="ink-link">← W02 插畫與繪本的藝術史</a>
+      <a href={`${base}/weeks/4`} class="ink-link sm:text-right">W04 各國插畫的風格取向與應用 →</a>
+    </nav>
+  </main>
+</Layout>

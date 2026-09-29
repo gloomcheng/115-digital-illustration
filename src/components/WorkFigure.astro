@@ -1,0 +1,33 @@
+---
+import type { HistoricalWork } from '../data/historical-works'
+
+interface Props {
+  work: HistoricalWork
+  /** Base URL prefix, so the image resolves on a project hosted in a subpath. */
+  base: string
+  /** What to look at, given the surrounding prose. */
+  caption: string
+  /** Fill the available width instead of sitting in a column. */
+  wide?: boolean
+  class?: string
+}
+
+const { work, base, caption, wide = false, class: className = '' } = Astro.props
+---
+
+<figure class:list={['rounded-2xl border-2 border-ink bg-paper p-4', wide && 'mt-8', className]}>
+  <img
+    src={`${base}${work.file}`}
+    alt={work.description}
+    class="h-auto w-full"
+    loading="lazy"
+    decoding="async"
+  />
+  <figcaption class="mt-3 text-base font-bold leading-7 text-ink">{caption}</figcaption>
+  <p class="mt-2 border-t border-ink/15 pt-3 font-mono text-xs leading-6 text-blue">
+    {work.maker}．{work.date}．影像授權：{work.license}．{work.credit}
+  </p>
+  <p class="mt-1 font-mono text-xs leading-6">
+    <a href={work.source} target="_blank" rel="noreferrer" class="text-blue underline decoration-coral decoration-2 underline-offset-4 hover:text-coral">來源與授權紀錄 ↗</a>
+  </p>
+</figure>

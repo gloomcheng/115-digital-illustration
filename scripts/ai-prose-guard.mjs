@@ -30,7 +30,9 @@ const BANNED_PHRASES = [
 
 const ELI5_PATTERN = /\bELI5\b/
 const HEADING_PATTERN = /<h([1-6])\b[^>]*>([\s\S]*?)<\/h\1>/g
-const DATA_FIELD_PATTERN = /\b(title|name|value): '([^']*)'/g
+// Only fields that render as a heading or a label. `value` and `detail` are
+// body copy in a card, so a terminal period there is correct.
+const DATA_FIELD_PATTERN = /\b(title|name): '([^']*)'/g
 
 function walkFiles(directory, files = []) {
   for (const entry of fs.readdirSync(directory, { withFileTypes: true })) {

@@ -1,41 +1,156 @@
 export type ToolStatus = 'free' | 'free-quota' | 'one-time' | 'optional-gpu'
 
-export const styleAxes = [
+/**
+ * Style axes carry two readings for every option: what it looks like, and what
+ * it earns. The commercial column is the criterion in AGENTS.md — can this
+ * choice be sold a second time? Options whose commercial answer is a yes are
+ * repeatable; the rest are one-off.
+ */
+export interface StyleOption {
+  visual: string
+  commercial: string
+  repeatable: boolean
+}
+
+export interface StyleAxis {
+  key: string
+  title: string
+  question: string
+  options: StyleOption[]
+}
+
+export const styleAxes: StyleAxis[] = [
   {
     key: '線條',
     title: '線條',
     question: '輪廓是穩定、顫抖、粗細分明，還是幾乎沒有線？',
-    example: '粗黑輪廓、單色鋼筆線、開放式輪廓',
+    options: [
+      {
+        visual: '粗黑封閉輪廓',
+        commercial: '印刷和雷射切割都吃得住，同一個角色能上實體周邊',
+        repeatable: true,
+      },
+      {
+        visual: '開放式細線、斷續筆觸',
+        commercial: '質感好但印小會糊，交付範圍被鎖在螢幕',
+        repeatable: false,
+      },
+      {
+        visual: '幾乎沒有描邊',
+        commercial: '改一次顏色要整張重畫，客戶每改一次你就少賺一次',
+        repeatable: false,
+      },
+    ],
   },
   {
     key: '形狀',
     title: '形狀',
     question: '角色由哪些幾何形狀組成？哪個形狀不能改？',
-    example: '圓潤體塊、簡化剪影、尖銳切面',
+    options: [
+      {
+        visual: '簡化剪影，只靠外輪廓認人',
+        commercial: '能在 128px 貼圖和大型看板都成立，一套圖能切多種商品',
+        repeatable: true,
+      },
+      {
+        visual: '圓潤體塊、細節多',
+        commercial: '單張很好看，縮到貼圖尺寸就認不出，只能當主視覺',
+        repeatable: false,
+      },
+      {
+        visual: '尖銳切面、造型強烈',
+        commercial: '辨識度高但限制延伸，換姿勢容易崩',
+        repeatable: false,
+      },
+    ],
   },
   {
     key: '色彩',
     title: '色彩',
     question: '顏色有幾種？哪一種顏色負責記憶點？',
-    example: '限制色盤、藍橘對比、單一強調色',
+    options: [
+      {
+        visual: '限制色盤加單一強調色',
+        commercial: '換成聖誕版只改一個變數，授權給不同通路時成本低',
+        repeatable: true,
+      },
+      {
+        visual: '滿版高彩度',
+        commercial: '每張都搶焦點，系列商品放一起沒有共同識別',
+        repeatable: false,
+      },
+      {
+        visual: '低彩度單色',
+        commercial: '容易讀但沒有記憶點，別人記不住是哪個角色',
+        repeatable: false,
+      },
+    ],
   },
   {
     key: '材質',
     title: '材質',
-    question: '畫面看起來像紙、木刻、水彩、蠟筆，還是數位平塗？',
-    example: '紙纖維、孔版印刷顆粒、粉蠟筆痕',
+    question: '畫面看起來像紙、木刻、水彩，還是數位平塗？',
+    options: [
+      {
+        visual: '乾淨的數位平塗',
+        commercial: '輸出和授權都單純，印刷不挑紙，交付最快',
+        repeatable: true,
+      },
+      {
+        visual: '紙纖維、顆粒紋理',
+        commercial: '放大漂亮，縮到商品尺寸變髒，縮小版要重做一份',
+        repeatable: false,
+      },
+      {
+        visual: '厚塗、有筆觸',
+        commercial: '單張價值高，但幾乎不能複製品，只能當主視覺',
+        repeatable: false,
+      },
+    ],
   },
   {
     key: '空間',
     title: '空間',
     question: '畫面是平面、分層、等距，還是有明確消失點？',
-    example: '扁平透視、紙層、微縮場景',
+    options: [
+      {
+        visual: '前中後景分層，物件可獨立取出',
+        commercial: '能拆成貼圖、桌商品、動畫元件，一份工作分幾種收入',
+        repeatable: true,
+      },
+      {
+        visual: '單一扁平平面',
+        commercial: '一張圖就是一張圖，交付即結束',
+        repeatable: false,
+      },
+      {
+        visual: '強烈單點透視',
+        commercial: '視覺漂亮但綁死一個角度，換用途要重畫',
+        repeatable: false,
+      },
+    ],
   },
   {
     key: '用途',
     title: '用途',
     question: '這個風格要放在繪本、貼圖、海報、展演還是角色周邊？',
-    example: '小尺寸辨識、連續頁面、可授權延伸',
+    options: [
+      {
+        visual: '角色設定頁與素材包',
+        commercial: '賣的是這個角色本身，客戶付一次你持續有權利',
+        repeatable: true,
+      },
+      {
+        visual: '單張海報',
+        commercial: '綁死一次展覽，展完就結束，只能收一次費用',
+        repeatable: false,
+      },
+      {
+        visual: '一次性委託插畫',
+        commercial: '交付即終結，沒有後續收入',
+        repeatable: false,
+      },
+    ],
   },
 ]
 

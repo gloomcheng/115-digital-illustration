@@ -16,6 +16,7 @@ import path from 'node:path'
 const PAGES = [
   { page: 'src/pages/weeks/1.astro', data: 'src/data/design-education.ts', key: 1, label: 'W01' },
   { page: 'src/pages/weeks/2.astro', data: 'src/data/design-education.ts', key: 2, label: 'W02' },
+  { page: 'src/pages/weeks/3.astro', data: 'src/data/design-education.ts', key: 3, label: 'W03' },
 ]
 const STOP_WORDS = new Set(['這個', '這一', '一個', '可以', '不是', '也會', '以及', '下一'])
 const CONNECTIVE_PATTERNS = [

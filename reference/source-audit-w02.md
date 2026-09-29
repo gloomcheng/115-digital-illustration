@@ -19,7 +19,7 @@
 | 拉斯科動物數量 | 兩千多匹馬 | 法國文化部統計約六百個動物形象，馬最多 | 改正數量與單位 |
 | 拉斯科封閉原因 | 1980 年專家判定不可逆 | 找不到任何 1980 年的相關結論；1963 年關閉為事實 | 刪除 1980 年判定，改用 1963 年關閉與 2009 年碳酸鈣沉積 |
 | 死者之書數量 | 以千計 | 已知約 192 則咒語，現存數百份 | 改正 |
-| 死者之書缺角 | 影視情節來自破損的莎草紙角落 | 找不到任何館藏紀錄或檔案依據；阿尼 Papyrus 書寫部分基本完整 | 改寫為查證練習，說明真正的傷害是切成三十七張分裱 |
+| 死者之書缺角 | 影視情節來自破損的莎草紙角落 | 查無原始出處；阿尼 Papyrus 書寫部分基本完整；館藏另有數百份未逐件檢查 | 改寫為查證練習：說明查不到出處、指出真正的傷害是切成三十七張分裱，並給出學生可自行查證的館藏檢索路徑。頁面明確區分「查不到」與「不存在」 |
 | 凱爾經作者 | 凱爾特修士 | 以地名凱爾斯得名，與修士聖哥倫巴相關，無此畫家 | 改正 |
 | 凱爾經保存狀況 | 氧化發黃、原始顏色無法回復 | 校方實驗室已測出每一種顏料，紫色來自地衣 | 改寫為成分清單 |
 | 凱爾經觀看方式 | 一個月只翻一頁 | 每年翻動數次，四冊平時陳列兩冊，須付費預約 | 改正 |
@@ -36,6 +36,7 @@
 ## 查不到原始依據而不放進頁面的說法
 
 - 「死者之書」有權威單一版本：確認不成立，頁面改為說明此說法本身錯在哪裡
+- 死者之書「缺了一角」的原始出處：查無原始出處。頁面不宣稱此情節不存在，改為標示可確認與不可確認的邊界，並註明大英博物館藏品檢索連結未能於建立頁面時自動驗證（該站對自動化存取回應 403），需學生自行在瀏覽器開啟
 - 阿爾塔米拉 2023 年發現新彩繪獅子：查無此事，實際是 2024 年新增 23 個動物圖像與 2025 年重新定年，故未寫入
 - 死者之書「數千份」的具體數字：無可引用來源，頁面只用「約 192 則咒語、現存數百份」
 - 凱爾經與迪士尼城堡、時禱書與貝里公爵的寵物數量等延伸連結：非本週教學重點，未寫入
@@ -46,6 +47,42 @@
 
 被捨棄的來源：UNESCO 世界遺產頁（回應 403，無法確認清單編號）、尚蒂伊孔代博物館官網（TLS 憑證驗證失敗，改用可載的展覽報導）。
 
+## 歷史作品影像的授權紀錄
+
+頁面上的歷史作品影像一律存放在 `public/illustrations/`，不使用外連。攝影檔的權利與被攝對象分開計算：原作已過版權期，不代表拍攝它的人放棄權利。以下授權於 2026-09-29 逐一從 Wikimedia Commons 的檔案頁確認。
+
+| 檔案 | 作品 | 授權 | 攝影者 | 來源 |
+| --- | --- | --- | --- | --- |
+| `work-lascaux-hall-of-bulls.webp` | 拉斯科公牛大廳 | CC0 | Eline13Viki | `File:Peinture Grotte de Lascaux.jpg` |
+| `work-altamira-polychrome-bison.webp` | 阿爾塔米拉彩繪野牛 | CC BY 4.0 | Jl FilpoC | `File:Bisonte en el Techo de Policromos, Neocueva de Altamira.jpg` |
+| `work-book-of-kells-chi-rho.webp` | 《凱爾經》字首 | 公有領域 | Commons 檔案標示為公有領域 | `File:KellsFol034rChiRhoMonogram.jpg` |
+| `work-tres-riches-heures-september.webp` | 時禱書九月頁 | CC BY-SA 4.0 | Mel22 | `File:Exposition "Les Très Riches Heures du duc de Berry" - juin 2025 - 09 mois de septembre.jpg` |
+| `work-durer-four-horsemen.webp` | 杜勒《四騎士》 | CC0 | 美國國家美術館藏本 | `File:Albrecht Dürer, The Four Horsemen, 1498, NGA 142352.jpg` |
+| `work-durer-rhinoceros.webp` | 杜勒《犀牛》 | CC0 | 美國國家美術館藏本 | `File:Albrecht Dürer, The Rhinoceros, 1515, NGA 47903.jpg` |
+| `work-papyrus-of-ani-sheet.webp` | 阿尼 Papyrus 第十二張分裱 | 公有領域 | 大英博物館 | `File:Papyrus of Ani BM Sheet 12.jpg` |
+| `work-durer-young-hare.webp` | 杜勒《野兔》 | 公有領域 | 維也納奧爾貝蒂那美術館藏本 | `File:Albrecht Dürer - Feldhase (1502).jpg` |
+| `work-durer-self-portrait-thirteen.webp` | 杜勒 13 歲自畫像 | 公有領域 | 維也納奧爾貝蒂那美術館藏本 | `File:Durer-self-portrait-at-the-age-of-thirteen.jpg` |
+
+處理方式：長邊限制 1400px、webp 品質 72–78、移除 EXIF。時禱書九月頁另做裁切，只留插畫部分，去掉展櫃、反射與右頁的禱告表。
+
+CC BY 與 CC BY-SA 授權在轉載時必須保留攝影者與授權名稱，因此 `src/data/historical-works.ts` 每筆都記錄 maker、date、license、credit、source，並由 `src/components/WorkFigure.astro` 在圖下直接顯示。
+
+## 查過但未採用的影像
+
+| 候選 | 原因 |
+| --- | --- |
+| `File:Book of the Dead of Ani.jpg` | CC BY-SA 4.0，可自由使用但非公有領域；同一份原件已另有公有領域版本可用 |
+| `File:Altamira, bison, museum.JPG` 等 | 內容為慕尼黑 Anthropos 博物館的**複製品模型**或現代改作，不是原壁畫。若誤用會違反「不拿替代品冒充原件」 |
+| `File:Reproduction cave of Altamira 01.jpg` | 同為複製品；雖為 CC BY 2.5 可用，但拿複製品當原件展示是錯的，故不採用 |
+| `File:Altamira paintings 04.jpg` | 829×567，作者欄標為 Breuil 與 Cartailhac 的舊版摹本，非現場攝影 |
+| 都柏林聖三一學院《凱爾經》官方影像 | 校方對其影像有明確權利主張；本次找到的可用版本為 Wikimedia Commons 上的公有領域檔案 |
+
+| `File:Lascaux painting.jpg` | 僅 720×472，是 Commons 上該檔案的原始解析度。改用 `File:Peinture Grotte de Lascaux.jpg`（4032×2268，CC0），並且那一張直接拍到一頭完整的原牛，輪廓清楚，比較適合跟阿爾塔米拉並排比較 |
+
+目前九件全部有影像，沒有需要「以文字描述代替圖片」的作品。
+
 ## 驗收邊界
 
 靜態檢查（typecheck、build、AI-prose guard、reading-window harness）只確認標記段落的相鄰關係與格式，不能代替完整人工 forward / backward 閱讀。史實主張的正確性由上表與頁面註腳承擔；時間敏感的機構安排（例如《凱爾經》的陳列位置與門票）仍需在學生查閱當天重新確認。
+
+網站字型仍由 Google Fonts 外連（`src/layouts/Layout.astro`）。這是既有決定，本次未更動；若要完全離線，需自架字型檔並改寫 font stack。
