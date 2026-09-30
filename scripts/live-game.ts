@@ -301,7 +301,7 @@ function pushState(code: string) {
       myReasons: mine
         .filter((submission) => submission.reason)
         .map((submission) => submission.reason),
-      reasons: state.reasons,
+      reasons: state.locked ? state.reasons : [],
       myVotes: [...room.votes.entries()]
         .filter(([, set]) => set.has(peer.clientId))
         .map(([reason]) => reason),
@@ -694,10 +694,18 @@ ul.rr li{margin:6px 0}
 ul.rr button{width:100%;text-align:left;font-weight:500;font-size:.95rem}
 ul.rr button.on{background:var(--sun)}
 .out{width:100%;height:240px;margin-top:12px;font-family:ui-monospace,monospace;font-size:.8rem;padding:12px;border:2px solid var(--ink);border-radius:10px}
+#join{margin-top:18px}
+#join .q{background:var(--sky);border-color:var(--ink)}
+#join .link{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:1.15rem;font-weight:700;word-break:break-all;background:#fff;border:2px solid var(--ink);border-radius:10px;padding:12px}
+#join .warn{color:#a3341f;font-weight:700;margin:10px 0 0}
+#qr{display:grid;grid-template-columns:repeat(25,10px);gap:0;background:#fff;border:2px solid var(--ink);padding:10px;width:max-content}
+#qr i{width:10px;height:10px;display:block}
+#qr i.on{background:var(--ink)}
 </style></head><body>
 <h1>誰要看它 · 老師端</h1>
 <p style="color:var(--blue);margin:0">房號（讓學生輸入）：</p>
 <div class="code" id="code">—</div>
+<div id="join"></div>
 <div class="bar">
   <button class="pri" id="unlock">開這一題（讓學生押）</button>
   <button id="reveal">公布比例（留在這題讓大家看）</button>

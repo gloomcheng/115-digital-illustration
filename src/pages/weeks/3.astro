@@ -62,33 +62,31 @@ const measured = marketFacts.filter((fact) => !fact.assumed)
         </aside>
       </div>
 
-      <div class="mt-12 overflow-x-auto">
-        <table class="w-full min-w-[46rem] border-collapse text-left text-sm leading-7">
-          <caption class="pb-4 text-left font-mono text-xs leading-6 text-blue">這些是我找到的真實數據。每一筆都附出處，數字會變，所以我把連結一起給你們。</caption>
-          <thead>
-            <tr class="border-b-2 border-ink">
-              <th class="w-[30%] py-3 pr-4 font-mono text-xs font-bold text-blue">這件事</th>
-              <th class="w-[26%] py-3 pr-4 font-mono text-xs font-bold text-blue">數字</th>
-              <th class="py-3 font-mono text-xs font-bold text-blue">出處與限制</th>
-            </tr>
-          </thead>
-          <tbody>
-            {measured.map((fact) => (
-              <tr class="border-b border-ink/20 align-top">
-                <td class="py-4 pr-4 font-bold">{fact.claim}</td>
-                <td class="py-4 pr-4 font-mono font-bold text-coral">{fact.value}</td>
-                <td class="py-4">
-                  {fact.url ? (
-                    <a href={fact.url} target="_blank" rel="noreferrer" class="font-bold text-blue underline decoration-coral decoration-2 underline-offset-4 hover:text-coral">{fact.source} ↗</a>
-                  ) : (
-                    <span class="font-bold text-blue">{fact.source}</span>
-                  )}
-                  {fact.boundary && <span class="mt-1 block text-ink/70">{fact.boundary}</span>}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      <div class="mt-12">
+        <p class="pb-4 text-left font-mono text-xs leading-6 text-blue">這些是我找到的真實數據。每一筆都附出處，數字會變，所以我把連結一起給你們。</p>
+        <div class="border-t-2 border-ink font-mono text-xs font-bold text-blue">
+          <div class="grid grid-cols-[minmax(0,1fr)_minmax(0,.9fr)_minmax(0,1.6fr)] gap-4 py-3">
+            <span>這件事</span>
+            <span>數字</span>
+            <span>出處與限制</span>
+          </div>
+        </div>
+        <div class="text-sm leading-7">
+          {measured.map((fact) => (
+            <div class="grid grid-cols-[minmax(0,1fr)_minmax(0,.9fr)_minmax(0,1.6fr)] items-start gap-4 border-t border-ink/20 py-4">
+              <span class="font-bold">{fact.claim}</span>
+              <span class="font-mono font-bold text-coral [overflow-wrap:anywhere]">{fact.value}</span>
+              <span>
+                {fact.url ? (
+                  <a href={fact.url} target="_blank" rel="noreferrer" class="font-bold text-blue underline decoration-coral decoration-2 underline-offset-4 hover:text-coral">{fact.source} ↗</a>
+                ) : (
+                  <span class="font-bold text-blue">{fact.source}</span>
+                )}
+                {fact.boundary && <span class="mt-1 block text-ink/70">{fact.boundary}</span>}
+              </span>
+            </div>
+          ))}
+        </div>
       </div>
 
       <p data-reading class="mt-8 max-w-3xl text-lg leading-9 text-ink/80">這張表裡我最想讓你們記住的是 5.8% 那個數字。Labubu 2015 年就畫出來了，2019 年就拿到獨家授權，但到 2023 年它只佔營收 5.8%，2024 年才爆紅。中間隔了八年。</p>

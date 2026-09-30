@@ -7,3 +7,13 @@ dist/
 .DS_Store
 *.log
 
+
+# 飲料店模擬
+# 預覽圖是產生器的輸出，不進版控；精靈圖（public/shop-sprites.*）要進，
+# 重新產生用 bun run shop:sprites。
+scripts/shop-sim/preview-*.png
+scripts/shop-sim/chars-*.png
+# 進度資料是每屆學生自己的經營紀錄，不該進版控。
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm

@@ -125,10 +125,25 @@ const MEASURE = `(() => {
     if (wrapper.querySelector('h1')) continue;
     const heading = wrapper.querySelector('h2,h3');
     const box = wrapper.getBoundingClientRect();
+
+    // A shared left edge is not enough. Content can still run past the column
+    // and get squeezed to one character per line, which is a separate defect
+    // with a separate fix. Measure the widest descendant that has no scroll
+    // container of its own.
+    const spilling = [...wrapper.querySelectorAll('*')].filter((el) => {
+      if (el.closest('.overflow-x-auto')) return false;
+      const child = el.getBoundingClientRect();
+      return child.right > box.right + TOLERANCE;
+    });
+    const over = spilling.length
+      ? Math.round(Math.max(...spilling.map((el) => el.getBoundingClientRect().right)) - box.right)
+      : 0;
+
     rows.push({
       label: (heading ? heading.textContent : '').trim().slice(0, 20),
       left: Math.round(box.left),
       width: Math.round(box.width),
+      over,
     });
   }
   return rows;
@@ -175,7 +190,9 @@ try {
       sessionId
     )
     const measured = result.result?.value
-    const rows: { label: string; left: number; width: number }[] = Array.isArray(measured)
+    const rows: { label: string; left: number; width: number; over: number }[] = Array.isArray(
+      measured
+    )
       ? measured
       : []
 
@@ -185,16 +202,24 @@ try {
     console.log(`  ${page}`)
     for (const row of rows) {
       const drift = row.left - reference
-      const kind =
-        Math.abs(drift) <= TOLERANCE ? 'aligned' : `OFF by ${drift > 0 ? '+' : ''}${drift}px`
+      const aligned = Math.abs(drift) <= TOLERANCE
+      const spill = row.over > 0 ? `  SPILLS ${row.over}px` : ''
+      const kind = aligned ? 'aligned' : `OFF by ${drift > 0 ? '+' : ''}${drift}px`
       console.log(
-        `    ${row.label.padEnd(24)} left=${String(row.left).padStart(4)} width=${String(row.width).padStart(4)}  ${kind}`
+        `    ${row.label.padEnd(24)} left=${String(row.left).padStart(4)} width=${String(row.width).padStart(4)}  ${kind}${spill}`
       )
     }
 
     if (lefts.some((left) => Math.abs(left - reference) > TOLERANCE)) {
       console.error(`  FAIL ${page} — content columns start at ${lefts.join(', ')}`)
       exitCode = 1
+    }
+
+    for (const row of rows) {
+      if (row.over > 0) {
+        console.error(`  FAIL ${page} — "${row.label}" content runs ${row.over}px past its column`)
+        exitCode = 1
+      }
     }
 
     await devtools.send('Target.closeTarget', { targetId })
