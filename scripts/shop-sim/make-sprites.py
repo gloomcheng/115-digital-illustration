@@ -414,6 +414,77 @@ def storefront(w, h):
     d.line([(0, h - 1), (w, h - 1)], fill=(146, 140, 128, 255))
     # 門口的地磚：標出「出入口」
     d.rectangle([dx - 4, glass_h + sill, dx + 26, h], fill=(188, 182, 170, 255))
+    # 人行道的水平接縫。**路面只有一條線的話會讀成一塊灰色空白**，
+    # 有了前後兩條接縫才看得出是一格一格鋪出來的地磚，
+    # 也才有「這是店外面」的縱深。
+    top = glass_h + sill
+    d.line([(0, top + 5), (w, top + 5)], fill=(184, 178, 166, 255))
+    # 垂直接縫：每隔 28px 一條，錯開排列（磚塊要對縫）
+    for i in range(0, w, 28):
+        d.line([(i, top + 4), (i, top + 5)], fill=(184, 178, 166, 255))
+        d.line([(i + 14, top + 6), (i + 14, h - 1)], fill=(184, 178, 166, 255))
+    # 路緣石：人行道最下面一條略深，標出街道的邊界
+    d.rectangle([0, h - 3, w, h - 1], fill=(172, 166, 154, 255))
+    d.line([(0, h - 3), (w, h - 3)], fill=(150, 144, 132, 255))
+    return img
+
+
+def pendant_lamp():
+    """
+    吊燈（10×16）。從天花板吊下來的燈泡。
+
+    為什麼要：吧檯上方原本是一整片空白天花板。Gather Town 那類的店裡
+    吊燈是靈魂——它同時做兩件事：把視線拉到檯面（玩家真正操作的地方），
+    以及讓上半部不空。倒吊的錐形燈罩 + 一顆暖色燈泡，遠看就是「店」。
+
+    燈罩是上窄下寬的梯形，不是方塊：方塊會讀成一個吊著的箱子。
+    燈泡用比燈罩亮的黃色，並在下方留 1px 暈開的高光，
+    這樣在米色牆上才看得出「有光」。
+    """
+    w, h = 10, 16
+    img = blank(w, h)
+    d = ImageDraw.Draw(img)
+    # 電線
+    d.line([(w // 2, 0), (w // 2, 4)], fill=INK)
+    # 燈罩：梯形（上窄下寬）
+    d.polygon([(3, 4), (6, 4), (8, 10), (1, 10)], fill=P["steel_dk"])
+    d.line([(3, 4), (6, 4)], fill=INK)
+    d.line([(1, 10), (8, 10)], fill=INK)
+    d.line([(3, 4), (1, 10)], fill=INK)
+    d.line([(6, 4), (8, 10)], fill=INK)
+    # 燈罩內側受光：靠下緣一條較亮的邊
+    d.line([(2, 9), (7, 9)], fill=P["steel"])
+    # 燈泡
+    d.ellipse([3, 10, 6, 13], fill=(255, 224, 150, 255))
+    d.point((4, 11), fill=(255, 244, 214, 255))
+    # 光暈：1px 的淡黃，畫在燈泡下方
+    d.line([(2, 14), (7, 14)], fill=(255, 238, 190, 120))
+    return img
+
+
+def wall_clock():
+    """
+    牆上的時鐘（11×11）。
+
+    為什麼要：後牆右側（x168–224）本來是空的。一面 14 格寬的牆，
+    左邊有吊櫃、中間有菜單燈箱，右邊卻什麼都沒有，視線會在那裡斷掉。
+    時鐘是最不囉嗦的填法：真實飲料店都有，而且它是「時間」的符號——
+    這個遊戲的核心就是十二年的光陰。
+
+    分針指向 12，時針指向 4，指針用墨色且畫在圓盤中央偏上。
+    """
+    w, h = 11, 11
+    img = blank(w, h)
+    d = ImageDraw.Draw(img)
+    d.ellipse([0, 0, w - 1, h - 1], fill=INK)
+    d.ellipse([1, 1, w - 2, h - 2], fill=(246, 242, 232, 255))
+    # 12 / 3 / 6 / 9 四點
+    for x, y in ((5, 2), (8, 5), (5, 8), (2, 5)):
+        d.point((x, y), fill=(120, 112, 100, 255))
+    # 分針往上（12），時針往右下（4）
+    d.line([(5, 5), (5, 2)], fill=INK)
+    d.line([(5, 5), (7, 7)], fill=INK)
+    d.point((5, 5), fill=P["red"])
     return img
 
 
@@ -996,6 +1067,8 @@ def build():
     put(menu_lightbox(), "menu")
     put(plant(), "plant")
     put(ice_machine(), "ice")
+    put(pendant_lamp(), "lamp")
+    put(wall_clock(), "clock")
 
     # 員工 4 種外觀 × 3 影格 × 2 方向
     for v in range(4):
@@ -1053,8 +1126,12 @@ def build():
         "sprites": {pl["name"]: {k: pl[k] for k in ("x", "y", "w", "h")}
                     for pl in placements},
     }
+    # 結尾要有換行。public/ 下的 JSON 會進版控，而 biome 會檢查
+    # public/ 的格式——少一個換行字元就是 lint 錯誤。
+    # 這裡補上，就不用每次產生完再去手動修一個產生的檔案。
     with open(JSON_PATH, "w") as f:
         json.dump(meta, f, indent=2)
+        f.write("\n")
 
     print(f"精靈圖  {sheet.width}×{sheet.height}　{len(registry)} 個影格　→ {SHEET_PATH}")
     print(f"中繼資料                                          → {JSON_PATH}")

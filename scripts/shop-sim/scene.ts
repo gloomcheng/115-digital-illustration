@@ -44,6 +44,12 @@ const MAP = {
   WALL_H: 44,
   CAB_X: 2 * 16, CAB_Y: 8,            // 吊櫃與層架：後牆上
   MENU_X: 7 * 16, MENU_Y: 18,         // 菜單燈箱
+  CLOCK_X: 13 * 16, CLOCK_Y: 10,      // 時鐘：後牆右側原本是空的
+  /* 吊燈：吊在吧檯上方，y 從天花板下緣（26）到燈罩底（36）。
+     位置對齊工位（茶桶），讓視線落在玩家真正操作的那一排。 */
+  LAMP_X0: 12 + 52,
+  LAMP_STEP: 32,
+  LAMP_N: 4,
   ICE_X: 12, ICE_Y: 46,               // 製冰機：通道左角
   COUNTER_X: 12,
   COUNTER_Y: 62,
@@ -62,6 +68,9 @@ const MAP = {
   QUEUE_Y: 62 + 21 + 4,
   QUEUE_X0: 12 + 55,                  // 隊伍排在工位正前方
   QUEUE_N: 4,
+  /* 盆栽：門口左邊的地面。14×18 sprite，右緣剛好不超過畫布。 */
+  PLANT_X: 14 * 16 - 14 - 8,
+  PLANT_Y: 9 * 16 - 26 - 18 - 6,
   STORE_Y: 9 * 16 - 26,
   DOOR_X: 14 * 16 - 34,
   DOOR_Y: 9 * 16 - 26,
@@ -138,10 +147,34 @@ function drawShop(ctx, st, t){
   spr(ctx, 'menu', M.MENU_X, M.MENU_Y - 3);
   ctx.restore();
   spr(ctx, 'menu', M.MENU_X, M.MENU_Y);
-  spr(ctx, 'plant', 22 * TILE - 16, M.WALL_H - 30);
+  /* 時鐘：後牆右側（x168–224）本來是空的，視線會在那裡斷掉。
+     時鐘是最不囉嗦的填法，而且它是「時間」的符號——
+     這個遊戲的核心就是十二年的光陰。 */
+  spr(ctx, 'clock', M.CLOCK_X, M.CLOCK_Y);
+  /* 盆栽放在門口旁邊的地面上。
+     這裡曾經寫成 22 * TILE - 16（=336），但畫布只有 224 寬——
+     所以那盆盆栽從來沒有出現在畫面上。為什麼會這樣：寫的時候是照
+     一個更寬的店面草稿算的，後來畫布收窄成 14 格寬，這個座標沒跟著改。
+     現在 scene-check 會自動掃過所有 spr() 呼叫並驗證有沒有畫出畫布，
+     所以這種錯不會再靠人記得。
+
+     注意：這整段字串在 SCENE_CODE 的 String.raw 樣板裡面，
+     裡面不能出現反引號。任何一個反引號都會把樣板字串提前結束，
+     檔案變成語法錯誤、整個 import 不進去，伺服器就起不來。
+     （寫這段說明的時候自己又踩了一次，所以改成純文字。）
+     scene-check 會真的 import scene.ts 一次，這種錯才抓得到。 */
+  spr(ctx, 'plant', M.PLANT_X, M.PLANT_Y);
   spr(ctx, 'ice', M.ICE_X, M.ICE_Y);
 
-  /* 4. 吧檯 + 配料盒
+  /* 4. 吊燈
+     畫在吧檯**之前**（所以檯面會蓋住燈的下緣）——吊燈在天花板和檯面之間，
+     如果壓在檯面之上，看起來會像浮在檯上的裝飾品而不是吊在頭頂的燈。
+     位置對齊工位（茶桶），讓視線落在玩家真正操作的那一排。 */
+  for (let i = 0; i < M.LAMP_N; i++) {
+    spr(ctx, 'lamp', M.LAMP_X0 + i * M.LAMP_STEP, 26);
+  }
+
+  /* 5. 吧檯 + 配料盒
      工位就是茶桶。設計文件裡的
      「供給上限 = min(人, 工位) + 0.4 × 超額」在畫面上就是
      「幾個茶桶有人照顧、幾個空著」。
@@ -156,14 +189,14 @@ function drawShop(ctx, st, t){
     spr(ctx, 'bin' + i + '_' + lv, M.BOX_X0 + i * M.BOX_STEP, M.BOX_Y);
   }
 
-  /* 5. 閒置員工：先畫，所以會被吧檯蓋住下半身 */
+  /* 6. 閒置員工：先畫，所以會被吧檯蓋住下半身 */
   for (let i = 0; i < st.idle; i++){
     const x = M.IDLE_X0 + i * TILE;
     spr(ctx, 'shadow', x, M.STAFF_FEET - 4);
     spr(ctx, 'idle_' + (i % 4) + '_down', x, M.STAFF_Y);
   }
 
-  /* 6. 有工位的員工：站在吧檯後面，腳被檯面蓋住 */
+  /* 7. 有工位的員工：站在吧檯後面，腳被檯面蓋住 */
   for (let i = 0; i < st.onStation; i++){
     const x = M.BAY0 + i * TILE;
     const f = (t * 0.5 + i) % 3;
@@ -171,12 +204,12 @@ function drawShop(ctx, st, t){
     spr(ctx, 'staff_' + (i % 4) + '_' + f + '_down', x, M.STAFF_Y);
   }
 
-  /* 7. 店面：玻璃 + 門 + 人行道
+  /* 8. 店面：玻璃 + 門 + 人行道
      飲料店是外帶店，客人拿了就走。畫出這條邊界，
      畫面才不會被讀成「有座位的店」——這是踩過一次的錯。 */
   spr(ctx, 'store', 0, M.STORE_Y);
 
-  /* 8. 客人在吧檯前等（外帶動線）
+  /* 9. 客人在吧檯前等（外帶動線）
      飲料店沒有座位，所以隊伍是「站在檯前」，不是坐在哪裡。
      走的時候往右、往門出去。 */
   const walking = Math.floor(t * 1.2) % 3;
@@ -187,7 +220,7 @@ function drawShop(ctx, st, t){
     spr(ctx, 'cust_' + (i % 6) + '_' + (i === 0 ? walking : 0) + '_left', x, M.QUEUE_Y - 18);
   }
 
-  /* 9. 買不到、轉身走掉的人：往門的方向走，最後消失在人行道 */
+  /* 10. 買不到、轉身走掉的人：往門的方向走，最後消失在人行道 */
   for (let i = 0; i < st.turned; i++){
     const x = M.DOOR_X - 8 - i * 18;
     ctx.globalAlpha = 0.75;
@@ -195,13 +228,13 @@ function drawShop(ctx, st, t){
     ctx.globalAlpha = 1;
   }
 
-  /* 10. 買到、往外走的人：手上拿著杯子 */
+  /* 11. 買到、往外走的人：手上拿著杯子 */
   for (let i = 0; i < Math.min(2, st.served ?? 0); i++){
     const x = M.DOOR_X + 4 + i * 16;
     spr(ctx, 'served_' + (i % 6), x, M.STORE_Y - 6);
   }
 
-  /* 11. 老闆（玩家）只能在客區和通道走 */
+  /* 12. 老闆（玩家）只能在客區和通道走 */
   if (st.boss){
     const f = st.bossMoving ? st.bossFrame : 0;
     const key = st.bossFacing === 'up' ? 'up' : st.bossFacing === 'down' ? 'down' : 'left';
@@ -209,7 +242,7 @@ function drawShop(ctx, st, t){
     spr(ctx, 'boss_' + f + '_' + key, st.boss.x, st.boss.y - 2);
   }
 
-  /* 12. 狀態提示：老闆頭上的小氣泡
+  /* 13. 狀態提示：老闆頭上的小氣泡
      刻意做小。上一版讓它撐滿寬度，結果紅色橫幅蓋掉半個店，
      而且玩家根本不會站在螢幕正中央，氣泡會被畫到畫布外面。
      所以寬度上限 150px，超過就換行；位置夾在畫布內。 */

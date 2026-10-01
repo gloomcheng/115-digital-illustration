@@ -69,6 +69,13 @@ MAP = {
     "QUEUE_Y": const("QUEUE_Y"),
     "QUEUE_X0": const("QUEUE_X0"),
     "QUEUE_N": const("QUEUE_N"),
+    "CLOCK_X": const("CLOCK_X"),
+    "CLOCK_Y": const("CLOCK_Y"),
+    "LAMP_X0": const("LAMP_X0"),
+    "LAMP_STEP": const("LAMP_STEP"),
+    "LAMP_N": const("LAMP_N"),
+    "PLANT_X": const("PLANT_X"),
+    "PLANT_Y": const("PLANT_Y"),
     "STORE_Y": const("STORE_Y"),
     "DOOR_X": const("DOOR_X"),
     "DOOR_Y": const("DOOR_Y"),
@@ -79,12 +86,24 @@ W, H = MAP["COLS"] * TILE, MAP["ROWS"] * TILE
 missing = []
 
 
-def spr(img, name, x, y):
+def spr(img, name, x, y, alpha=1.0):
+    """
+    貼一個 sprite。
+
+    `alpha` 對應 scene.ts 的 `ctx.globalAlpha`。「買不到、走掉的人」要半透明，
+    表示已經離開這家店的經營。之前這裡沒辦法做，所以那一段只好另外手寫
+    img.paste + putalpha，導致同一件事在兩個檔案裡是兩種寫法——
+    scene-check 掃不出來，也就沒有東西擋著它們漂走。
+    把 alpha 收進 spr() 之後，兩邊就都是 `spr(...)`，可以逐字比對了。
+    """
     s = META["sprites"].get(name)
     if s is None:
         missing.append(name)
         return
     sub = SHEET.crop((s["x"], s["y"], s["x"] + s["w"], s["y"] + s["h"]))
+    if alpha < 1.0:
+        sub = sub.copy()
+        sub.putalpha(sub.split()[3].point(lambda v: int(v * alpha)))
     img.paste(sub, (x, y), sub)
 
 
@@ -129,54 +148,66 @@ def draw(st, label):
         d.rectangle([W - 5, y, W - 1, y + TILE - 1], fill=(200, 183, 156, 255))
     d.rectangle([0, H - 2, W, H], fill=(20, 18, 16, 255))
 
-    # 3. 後牆：吊櫃 + 菜單燈箱 + 製冰機
+    # 3. 後牆：吊櫃 + 菜單燈箱 + 時鐘 + 盆栽 + 製冰機
+    #    順序和 scene.ts 的 drawShop 一樣。這個檔案本來是手抄一份的，
+    #    結果抄漏了——盆栽的座標在這裡還是舊的畫出畫布外，
+    #    而 scene.ts 早就改掉了。兩份會漂移，所以新增的東西
+    #    要照著 scene.ts 的順序一起改。
     spr(img, "cabinets", MAP["CAB_X"], MAP["CAB_Y"])
     spr(img, "menu", MAP["MENU_X"], MAP["MENU_Y"])
-    spr(img, "plant", 22 * TILE - 16, MAP["WALL_H"] - 30)
+    spr(img, "clock", MAP["CLOCK_X"], MAP["CLOCK_Y"])
+    spr(img, "plant", MAP["PLANT_X"], MAP["PLANT_Y"])
     spr(img, "ice", MAP["ICE_X"], MAP["ICE_Y"])
 
-    # 4. 吧檯（工位=茶桶）+ 配料盒
+    # 4. 吊燈（畫在吧檯之前 → 檯面蓋住燈的下緣）
+    for i in range(MAP["LAMP_N"]):
+        spr(img, "lamp", MAP["LAMP_X0"] + i * MAP["LAMP_STEP"], 26)
+
+    # 5. 吧檯（工位=茶桶）+ 配料盒
     spr(img, f"counter_{st['onStation']}", MAP["COUNTER_X"], MAP["COUNTER_Y"])
     full = round(MAP["BINS"] * st["shelf"] / max(1, st["shelfMax"]))
     for i in range(MAP["BINS"]):
         lv = "full" if i < full else ("half" if i == full else "empty")
         spr(img, f"bin{i}_{lv}", MAP["BOX_X0"] + i * MAP["BOX_STEP"], MAP["BOX_Y"])
 
-    # 5. 閒置員工（先畫 → 被檯面蓋住下半身）
+    # 6. 閒置員工（先畫 → 被檯面蓋住下半身）
     for i in range(st["idle"]):
         x = MAP["IDLE_X0"] + i * TILE
         spr(img, "shadow", x, MAP["STAFF_FEET"] - 4)
         spr(img, f"idle_{i % 4}_down", x, MAP["STAFF_Y"])
 
-    # 6. 有工位的員工
+    # 7. 有工位的員工
     for i in range(st["onStation"]):
         x = MAP["BAY0"] + i * TILE
         spr(img, "shadow", x, MAP["STAFF_FEET"] - 4)
         spr(img, f"staff_{i % 4}_{i % 3}_down", x, MAP["STAFF_Y"])
 
-    # 7. 店面：玻璃 + 門 + 人行道
+    # 8. 店面：玻璃 + 門 + 人行道
     spr(img, "store", 0, MAP["STORE_Y"])
 
-    # 8. 客人在檯前等
+    # 9. 客人在檯前等
     for i in range(min(st["queue"], MAP["QUEUE_N"])):
         x = MAP["QUEUE_X0"] + i * TILE
         spr(img, "shadow", x, MAP["QUEUE_Y"])
         spr(img, f"cust_{i % 6}_{0 if i else 1}_left", x, MAP["QUEUE_Y"] - 18)
 
-    # 9. 買不到走掉的人
+    # 10. 買不到走掉的人（半透明，對應 scene.ts 的 globalAlpha = 0.75）
     for i in range(st["turned"]):
-        x = MAP["DOOR_X"] - 8 - i * 18
-        s_ = META["sprites"][f"left_{i % 3}"]
-        body = SHEET.crop((s_["x"], s_["y"], s_["x"] + s_["w"], s_["y"] + s_["h"])).copy()
-        body.putalpha(body.split()[3].point(lambda v: int(v * 0.75)))
-        img.paste(body, (x, MAP["QUEUE_Y"] - 4), body)
+        spr(img, f"left_{i % 3}", MAP["DOOR_X"] - 8 - i * 18, MAP["QUEUE_Y"] - 4, alpha=0.75)
 
-    # 10. 老闆
+    # 11. 買到、往外走的人（手上拿著杯子）
+    #     這一段本來整個漏掉了——scene.ts 有畫，预覽沒有。
+    #     所以「有人買走了」這件事在預覽裡看不出來，
+    #     而預覽正是用來判斷這件事的工具。
+    for i in range(min(2, st.get("served", 0))):
+        spr(img, f"served_{i % 6}", MAP["DOOR_X"] + 4 + i * TILE, MAP["STORE_Y"] - 6)
+
+    # 12. 老闆
     bx, by = st["boss"]
     spr(img, "shadow", bx, by + 16)
     spr(img, "boss_0_down", bx, by - 2)
 
-    # 11. 狀態提示（和 drawShop 的氣泡同樣規則）
+    # 12. 狀態提示（和 drawShop 的氣泡同樣規則）
     if st.get("note"):
         txt = st["note"]
         max_w, pad, line_h = 150, 6, 13

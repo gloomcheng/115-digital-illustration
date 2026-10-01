@@ -218,6 +218,161 @@ console.log('\n3. 地圖佈局（所有東西都要畫在畫布內）')
     `${qy - 18}..${qy} / 檯 ${62 + 21}`
   )
   check('隊伍沒超出畫布右緣', 67 + 4 * 16 <= W, `${67 + 4 * 16} <= ${W}`)
+
+  // ── 逐一驗證場景程式裡**每一個** spr() 呼叫 ──
+  // 上面那幾條是手寫的清單：每加一個場景元素就要記得補一條，忘了就沒有人擋。
+  // 這一段改成直接從 scene.ts 原始碼把 spr(ctx, 'name', 運算式, 運算式) 抓出來，
+  // 算出實際座標後驗證有沒有畫在畫布內。
+  // 踩過：`plant` 畫在 `22 * TILE - 16`（=336），但畫布只有 224 寬，
+  // 所以那盆盆栽從來沒有出現在畫面上，而手寫清單裡沒有它，所以測試是綠的。
+  const src = readFileSync(resolve(import.meta.dir, 'scene.ts'), 'utf8')
+  const sprCalls = [...src.matchAll(/spr\(ctx,\s*'([^']+)'\s*,\s*([^,]+),\s*([^,)]+)/g)]
+  check('場景程式有抓得到 spr() 呼叫', sprCalls.length >= 8, `${sprCalls.length} 個`)
+
+  // TILE 是場景程式裡的全域常數（16），不是 MAP 的一項，先放進去。
+  const consts = new Map<string, number>([['TILE', TILE]])
+  // MAP 的常數之間會互相引用（PLANT_X 用到 14 * 16），所以要多跑幾輪，
+  // 到沒有新的算出來為止。跑一輪的話後面引用前面常數的會全部算不出來。
+  for (let round = 0; round < 4; round++) {
+    let learned = 0
+    for (const m of src.matchAll(/\b([A-Z_][A-Z0-9_]*)\s*:\s*([^,\n]+),/g)) {
+      const name = m[1]
+      if (consts.has(name)) continue
+      const expr = m[2].trim()
+      if (!/^[\d\s*+\-()A-Z_]+$/.test(expr)) continue
+      // 依賴還沒算出來的常數時跳過，留給下一輪。
+      const deps = [...expr.matchAll(/\b([A-Z_][A-Z0-9_]*)\b/g)].map((d) => d[1])
+      if (deps.some((d) => !consts.has(d))) continue
+      try {
+        consts.set(
+          name,
+          arith(
+            expr.replace(/\b([A-Z_][A-Z0-9_]*)\b/g, (hit) => `${consts.get(hit)}`),
+            name
+          )
+        )
+        learned++
+      } catch {
+        /* 抓不到就略過，不要因為解析不了常數而讓整段檢查爆掉 */
+      }
+    }
+    if (learned === 0) break
+  }
+  const resolveExpr = (expr: string): number =>
+    arith(
+      expr
+        .trim()
+        .replace(/\bM\.([A-Z_][A-Z0-9_]*)\b/g, (_, k) => {
+          if (!consts.has(k)) throw new Error(`${k} 算不出來`)
+          return `${consts.get(k)}`
+        })
+        .replace(/\b([A-Z_][A-Z0-9_]*)\b/g, (hit) => {
+          if (!consts.has(hit)) throw new Error(`${hit} 算不出來`)
+          return `${consts.get(hit)}`
+        }),
+      expr.trim()
+    )
+
+  const seen = new Set<string>()
+  const outside: string[] = []
+  for (const m of sprCalls) {
+    const [, name, ex, ey] = m
+    // 同一個 sprite 在迴圈裡多次呼叫是正常的，只驗一次座標。
+    if (seen.has(name)) continue
+    seen.add(name)
+    // 迴圈裡的座標（`c * TILE`、`x`）是變數，這裡算不出來。
+    // 那些位置由上面那幾條手寫檢查負責（後牆、隊伍、老闆走動範圍）。
+    // 這裡只負責抓「寫死卻畫出畫布外」的座標——那種錯誤不會被手寫清單蓋到。
+    if (/\b[a-z]\b/.test(ex) || /\b[a-z]\b/.test(ey)) continue
+    let x: number, y: number
+    try {
+      x = resolveExpr(ex)
+      y = resolveExpr(ey)
+    } catch {
+      outside.push(`${name}（座標算不出來：${ex}, ${ey}）`)
+      continue
+    }
+    const s = META.sprites[name]
+    if (!s) {
+      outside.push(`${name}（精靈圖裡沒這個名字）`)
+      continue
+    }
+    if (x < 0 || y < 0 || x + s.w > W || y + s.h > H) {
+      outside.push(`${name} 在 ${x},${y}，右緣 ${x + s.w} 下緣 ${y + s.h}（畫布 ${W}×${H}）`)
+    }
+  }
+  check(
+    '每個場景元素都畫在畫布內（自動掃過所有 spr() 呼叫）',
+    outside.length === 0,
+    outside.length ? outside.join('；') : `${seen.size} 個 sprite 全部在範圍內`
+  )
+
+  // ── 預覽工具不能和遊戲漂移 ──
+  // preview-client.py 是手抄一份 scene.ts 的繪製順序。抄漏的時候沒有人會知道：
+  // 盆栽的座標在預覽裡還是舊的（畫到畫布外），scene.ts 早就改好了，
+  // 所以「遊戲是對的、預覽是舊的」——這比兩邊都錯更糟，因為預覽是用來
+  // 判斷對錯的工具。這裡比對兩邊出現的 sprite 名稱，順序不同就報。
+  const py = readFileSync(resolve(import.meta.dir, 'preview-client.py'), 'utf8')
+  // 只取「整個 sprite 名稱都是寫死的」那些呼叫。
+  // 名稱裡帶 ${...}（f-string）或 '+'（字串拼接）的，名字取決於執行時的
+  // 變數——例如 `counter_` + st.onStation、`bin${i}_${lv}`——這種比不了，
+  // 而且它們一定在迴圈裡、不影響「有沒有漏抄一個新場景元素」這個判斷。
+  // 只排除「用 + 拼接」的那種（`'counter_' + st.onStation`），
+  // 因為那種名字執行時才知道。f-string（`bin${i}_${lv}`）要保留，
+  // 它會被下面的 literal() 正則濾掉變數部分，留下可比較的字面名稱。
+  // scene.ts 用單引號、preview-client.py 用雙引號，所以兩種都要認。
+  const fixedNames = (text: string) =>
+    [...text.matchAll(/spr\(\s*(?:ctx|img),\s*f?["']([^"']+)["']/g)]
+      .map((m) => m[1])
+      .filter((n) => !n.includes('+'))
+  const sceneNames = fixedNames(src)
+  const pyNames = fixedNames(py)
+  // 名稱裡帶 ${...} 或 {…} 的地方，執行時才會是完整名稱，比不了完整字串。
+  // 但**寫死的那一段前綴**必須一樣（`counter_`、`bin`、`idle_`…），
+  // 否則就是兩邊用不同 sprite。所以把變數部分截掉再比。
+  //
+  // 尾端的序號與朝向（`_0_down`、`_1_left`…）也拿掉：
+  // 遊戲端是 `spr(ctx, 'boss_' + f + '_' + key, …)` 動態組出來的，
+  // 預覽端只畫一個固定姿勢寫成 `boss_0_down`。這兩種寫法指的是同一個 sprite，
+  // 拿掉尾綴才比得出來——這裡要擋的是「用錯 sprite」，不是「寫法不同」。
+  const stem = (n: string) =>
+    n
+      .split(/[${}]/)[0]
+      .replace(/f$/, '')
+      .replace(/_\d+(_(down|left|right|up))?$/, '')
+      .replace(/_(down|left|right|up)$/, '')
+      .replace(/_$/, '')
+  const literal = (names: string[]) => names.map(stem).filter(Boolean)
+  const a = [...new Set(literal(sceneNames))]
+  const b = [...new Set(literal(pyNames))]
+  const missingInPy = a.filter((n) => !b.includes(n))
+  const extraInPy = b.filter((n) => !a.includes(n))
+  check(
+    '預覽工具和遊戲畫同一批 sprite（寫死的名稱要一致）',
+    missingInPy.length === 0 && extraInPy.length === 0,
+    [
+      missingInPy.length ? `預覽少了：${missingInPy.join(', ')}` : '',
+      extraInPy.length ? `預覽多���：${extraInPy.join(', ')}` : '',
+      !missingInPy.length && !extraInPy.length ? `各 ${a.length} 個` : '',
+    ]
+      .filter(Boolean)
+      .join('；')
+  )
+  // 順序也要一致：同樣的東西畫在不同順序，遮擋關係就會不同。
+  // 這裡用「首次出現的順序」，因為同一個 sprite 可能在迴圈裡出現多次。
+  //
+  // menu 是刻意的例外：scene.ts 在燈箱後面先畫一份 globalAlpha 0.45 的
+  // 當底光，預覽沒有這一層（預覽只印得出來的第一份）。那是同一個 sprite
+  // 畫兩次，不是順序不一致，所以比對前先去掉重複。
+  const firstSeen = (names: string[]) => [...new Set(literal(names))]
+  const fa = firstSeen(sceneNames)
+  const fb = firstSeen(pyNames)
+  const sameOrder = fa.length === fb.length && fa.every((n, i) => n === fb[i])
+  check(
+    '預覽工具的繪製順序和遊戲一致（遮擋關係才會一樣）',
+    sameOrder,
+    sameOrder ? `各 ${fa.length} 個` : `遊戲：${fa.join(' → ')}　預覽：${fb.join(' → ')}`
+  )
 }
 
 console.log('\n4. 老闆走動範圍')
@@ -444,6 +599,34 @@ console.log('\n8. 學生頁能不能真的跑起來（語法與 sprite 名稱）
   const m = sceneSrc.match(/String\.raw`([\s\S]*?)`\s*\n\nexport default/)
   check('可以抽出 SCENE_CODE', m !== null)
   const sceneCode = m![1]
+
+  // SCENE_CODE 必須是**完整的程式**，而且 scene.ts 本身必須讀得進來。
+  //
+  // 踩過：在 SCENE_CODE 裡面寫了一段註解，註解裡用反引號引用舊程式碼
+  // （寫成 `22 * TILE - 16`）。反引號會把 String.raw 的樣板字串**提前結束**，
+  // 檔案從此語法錯誤、整個 import 不進去。
+  // 症狀很難懂：型別檢查用的是 .d.ts 所以照過、單看檢查結果是「語法正確」
+  // （因為那條驗的是拼出來的頁面，不是 scene.ts），但伺服器起不來，
+  // shop:persist 會在第一段就安靜地卡住，沒有錯誤訊息。
+  //
+  // 抓法有兩個，缺一不可：
+  //   1. 直接 import scene.ts —— 這是唯一能抓到「檔案本身壞掉」的方法。
+  //   2. 確認 SCENE_CODE 裡有 start()/stop()/resize()——
+  //      這三個是 createLoop() 回傳物件的介面，少了就是被截斷了。
+  let importErr = ''
+  let realCode = ''
+  try {
+    const mod = await import(resolve(import.meta.dir, 'scene.ts'))
+    realCode = mod.SCENE_CODE as string
+  } catch (e) {
+    importErr = String(e).slice(0, 200)
+  }
+  check('scene.ts 讀得進來（SCENE_CODE 裡不能有未跳脫的反引號）', importErr === '', importErr)
+  check(
+    'SCENE_CODE 是完整的（createLoop 回傳 start/stop/resize/draw）',
+    ['start(', 'stop(', 'resize', 'draw('].every((k) => realCode.includes(k)),
+    realCode ? `SCENE_CODE 只有 ${realCode.length} 字元` : 'scene.ts 沒讀進來'
+  )
 
   // 抽出 studentPage 裡 ${SCENE_CODE} 之後的學生端邏輯。
   //
