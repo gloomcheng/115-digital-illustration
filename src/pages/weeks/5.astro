@@ -1,6 +1,6 @@
 ---
-import Layout from '../../layouts/Layout.astro'
 import { designEducation } from '../../data/design-education'
+import Layout from '../../layouts/Layout.astro'
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '')
 const designLesson = designEducation[5]
@@ -15,25 +15,29 @@ interface SourceEvidence {
 const verifiedSources: SourceEvidence[] = [
   {
     n: 1,
-    claim: '湯米·狄波拉《Strega Nona》（巫婆奶奶）於 1975 年出版並榮獲 1976 年凱迪克榮譽獎，扉頁副標題與隨手塗鴉起源為作者經典原創實證',
+    claim:
+      '湯米·狄波拉《Strega Nona》（巫婆奶奶）於 1975 年出版並榮獲 1976 年凱迪克榮譽獎，扉頁副標題與隨手塗鴉起源為作者經典原創實證',
     label: '美國圖書館學會（ALA）：1976 年凱迪克獎得獎名單與作品考證',
     url: 'https://www.ala.org/alsc/awardsgrants/bookmedia/caldecott/caldecott-honors',
   },
   {
     n: 2,
-    claim: '佐野洋子《わたし クリスマスツリー》（我是聖誕樹）於 1990 年由講談社初版，其封面、前後蝴蝶頁到扉頁展現連貫裝幀敘事',
+    claim:
+      '佐野洋子《わたし クリスマスツリー》（我是聖誕樹）於 1990 年由講談社初版，其封面、前後蝴蝶頁到扉頁展現連貫裝幀敘事',
     label: '日本講談社繪本名錄：わたし クリスマスツリー（佐野洋子著）',
     url: 'https://bookclub.kodansha.co.jp/product?item=0000176602',
   },
   {
     n: 3,
-    claim: '台灣與華語圈 VTuber / Live2D 市場行情：靜態立繪約 5,000–15,000 元，含精細拆層 PSD 約 12,000–35,000+ 元，全套動態綁定建模約 15,000–80,000+ 元',
+    claim:
+      '台灣與華語圈 VTuber / Live2D 市場行情：靜態立繪約 5,000–15,000 元，含精細拆層 PSD 約 12,000–35,000+ 元，全套動態綁定建模約 15,000–80,000+ 元',
     label: '創作者委託市場行情綜合查核報告（2024–2026）',
     url: `${base}/weeks/5#market-audit`,
   },
   {
     n: 4,
-    claim: '工業標準繪本 32 頁裝幀規範：由 2 台（每台 16 頁）印刷折疊裝訂成冊，跨頁裝訂線（Gutter）須保留至少 1.5–2 公分安全邊界避免五官被咬死',
+    claim:
+      '工業標準繪本 32 頁裝幀規範：由 2 台（每台 16 頁）印刷折疊裝訂成冊，跨頁裝訂線（Gutter）須保留至少 1.5–2 公分安全邊界避免五官被咬死',
     label: '繪本出版印前工程與裝幀規格參考指南',
     url: `${base}/weeks/5#print-anatomy`,
   },
