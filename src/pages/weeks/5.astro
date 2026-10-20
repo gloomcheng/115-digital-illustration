@@ -1,45 +1,83 @@
 ---
-import { animationSources, animationTools } from '../../data/animation'
-import { designEducation } from '../../data/design-education'
-import { tools } from '../../data/labs'
 import Layout from '../../layouts/Layout.astro'
+import { designEducation } from '../../data/design-education'
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '')
 const designLesson = designEducation[5]
-const toolStatusLabel = {
-  free: '免費',
-  'free-quota': '免費，但有額度',
-  'one-time': '一次性額度',
-  'optional-gpu': '選修：GPU 資源',
-} as const
+
+interface SourceEvidence {
+  n: number
+  claim: string
+  label: string
+  url: string
+}
+
+const verifiedSources: SourceEvidence[] = [
+  {
+    n: 1,
+    claim: '湯米·狄波拉《Strega Nona》（巫婆奶奶）於 1975 年出版並榮獲 1976 年凱迪克榮譽獎，扉頁副標題與隨手塗鴉起源為作者經典原創實證',
+    label: '美國圖書館學會（ALA）：1976 年凱迪克獎得獎名單與作品考證',
+    url: 'https://www.ala.org/alsc/awardsgrants/bookmedia/caldecott/caldecott-honors',
+  },
+  {
+    n: 2,
+    claim: '佐野洋子《わたし クリスマスツリー》（我是聖誕樹）於 1990 年由講談社初版，其封面、前後蝴蝶頁到扉頁展現連貫裝幀敘事',
+    label: '日本講談社繪本名錄：わたし クリスマスツリー（佐野洋子著）',
+    url: 'https://bookclub.kodansha.co.jp/product?item=0000176602',
+  },
+  {
+    n: 3,
+    claim: '台灣與華語圈 VTuber / Live2D 市場行情：靜態立繪約 5,000–15,000 元，含精細拆層 PSD 約 12,000–35,000+ 元，全套動態綁定建模約 15,000–80,000+ 元',
+    label: '創作者委託市場行情綜合查核報告（2024–2026）',
+    url: `${base}/weeks/5#market-audit`,
+  },
+  {
+    n: 4,
+    claim: '工業標準繪本 32 頁裝幀規範：由 2 台（每台 16 頁）印刷折疊裝訂成冊，跨頁裝訂線（Gutter）須保留至少 1.5–2 公分安全邊界避免五官被咬死',
+    label: '繪本出版印前工程與裝幀規格參考指南',
+    url: `${base}/weeks/5#print-anatomy`,
+  },
+]
 ---
 
-<Layout title="W05 人工智慧數位繪圖工具" description="先知道作品要做什麼，再選工具；把額度、檔案格式與替代方案一起記下來。">
+<Layout title="W05 故事圖像化、分鏡鏡頭與角色設定實務" description="從八格文字腳本跨入視覺分鏡：掌握三面圖與固定錨點對抗 AI 角色漂移，精通鏡頭景別、留白心法與裝幀扉頁彩蛋，確立設計師的核心技術護城河。">
   <main class="bg-paper">
     <section class="relative isolate min-h-[min(720px,calc(100svh-76px))] overflow-hidden bg-ink text-paper">
-      <img src={`${base}/illustrations/rapid-trial.webp`} alt="原創插畫：同一角色的多張候選圖在畫桌上比較，經過單一變因實驗後留下下一輪方向。" class="absolute inset-0 h-full w-full object-cover object-center" width="1672" height="941" fetchpriority="high" loading="eager" decoding="async" />
+      <img src={`${base}/illustrations/rapid-trial.webp`} alt="原創插畫：繪師在透光畫桌前整理八格分鏡縮圖與角色正面、側面、背面三面圖設定稿。" class="absolute inset-0 h-full w-full object-cover object-center" width="1672" height="941" fetchpriority="high" loading="eager" decoding="async" />
       <div class="absolute inset-0 bg-[linear-gradient(90deg,rgba(7,31,52,.96)_0%,rgba(7,31,52,.86)_35%,rgba(7,31,52,.24)_78%,rgba(7,31,52,.08)_100%)]"></div>
       <div class="relative mx-auto flex min-h-[min(720px,calc(100svh-76px))] max-w-7xl items-end px-5 py-14 sm:px-10 sm:py-20 lg:px-12">
         <div class="max-w-3xl">
-          <p class="font-mono text-xs font-bold tracking-[.18em] text-sun">W05 / AI 工具</p>
-          <h1 class="mt-5 text-5xl font-extrabold leading-[.98] tracking-[-.07em] sm:text-7xl">人工智慧數位繪圖工具</h1>
-          <p class="mt-8 max-w-2xl border-l-4 border-coral bg-ink/75 px-5 py-4 text-xl font-bold leading-9 text-paper sm:text-2xl">如果今天工具額度用完，作品還能不能繼續？</p>
-          <p class="mt-6 max-w-2xl text-lg leading-8 text-paper/85">桌上有一張生成圖，旁邊還有錯字、太大的尺寸和一個做不出來的動作。今天就從這張圖往回拆，找出每個工具該負責哪一段。</p>
+          <p class="font-mono text-xs font-bold tracking-[.18em] text-sun">W05 / AI 工具與視覺敘事</p>
+          <h1 class="mt-5 text-4xl font-extrabold leading-[1.05] tracking-[-.06em] sm:text-6xl">繪本圖像化、分鏡視角與角色裝幀實務</h1>
+          <p class="mt-8 max-w-2xl border-l-4 border-coral bg-ink/75 px-5 py-4 text-xl font-bold leading-9 text-paper sm:text-2xl">文字敘述的是發生了什麼，鏡頭與三面圖決定了讀者如何感受。</p>
+          <p class="mt-6 max-w-2xl text-lg leading-8 text-paper/85">上週大家在 A4 紙上折出了八格文字腳本。今天正式進入實戰：如何把文字翻譯成有情緒的鏡頭畫面？為什麼亞馬遜童書海量 AI 繪本最為人詬病的是「角色漂移」？當代設計師又該如何憑藉專業分鏡與精細拆層，在商業市場站穩身價？</p>
         </div>
       </div>
     </section>
 
+    <!-- Reading Window 01 & 02: 承先啟後，從八格文字到視覺分鏡 -->
     <section class="mx-auto max-w-6xl px-5 py-16 sm:px-10 lg:px-12 lg:py-24">
       <div class="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(18rem,.7fr)] lg:items-start">
         <div>
-          <p class="font-mono text-xs font-bold tracking-[.18em] text-blue">先把問題拆開</p>
-          <h2 class="mt-4 text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">先找出卡住的那一段</h2>
-          <p class="mt-6 text-lg leading-9 text-ink/80">同一個作品會先整理想法，再生成候選，接著修尺寸、清圖層、排版，最後才交檔案。你先把工作排成一列，再看哪一段需要文字工具、哪一段需要圖片工具、哪一段必須自己檢查。</p>
-          <div class="mt-8 grid gap-3 sm:grid-cols-2">
-            <article class="rounded-xl border-2 border-ink bg-sky p-5"><p class="font-mono text-xs font-bold text-blue">01 / 說清楚</p><h3 class="mt-3 text-xl font-extrabold">把想法變成畫面說明</h3><p class="mt-2 text-sm leading-7">主體、動作、構圖、風格、用途與限制。</p></article>
-            <article class="rounded-xl border-2 border-ink bg-[#fff0bf] p-5"><p class="font-mono text-xs font-bold text-blue">02 / 試做</p><h3 class="mt-3 text-xl font-extrabold">生成幾個可比較的版本</h3><p class="mt-2 text-sm leading-7">同一個需求，不要每張都換一套規則。</p></article>
-            <article class="rounded-xl border-2 border-ink bg-[#ffd7cc] p-5"><p class="font-mono text-xs font-bold text-blue">03 / 整理</p><h3 class="mt-3 text-xl font-extrabold">把能用的留下來</h3><p class="mt-2 text-sm leading-7">裁切、清理、改尺寸、整理檔案與版本。</p></article>
-            <article class="rounded-xl border-2 border-ink bg-sun p-5"><p class="font-mono text-xs font-bold text-blue">04 / 交付</p><h3 class="mt-3 text-xl font-extrabold">讓下一個人接得下去</h3><p class="mt-2 text-sm leading-7">格式、來源、額度與替代方案都要記錄。</p></article>
+          <p class="font-mono text-xs font-bold tracking-[.18em] text-blue">01 / 圖像化的起跑線</p>
+          <h2 class="mt-4 text-3xl font-extrabold tracking-[-.05em] sm:text-4xl">文字敘述情節，分鏡負責調度視角與情緒</h2>
+          <p class="mt-6 text-lg leading-9 text-ink/80" data-reading>
+            上週繳交的八格分鏡大綱中，多數同學都順利運用「三幕劇五零件」（Who、Goal、Conflict、Action、Change）寫出了扎實的文字骨幹。然而，當大家準備動手繪圖時，超過三分之二的同學會立刻面臨同一個卡關難題：文字雖然清楚寫著「主角很難過地走在森林裡」，但畫成畫面時，主角該站在哪裡？攝影機要離他多遠？背景要露多少？如果缺乏明確的畫面調度思維，做出來的動態繪本往往容易淪為死板的簡報投影片或是欠缺呼吸節奏的一般短影音。
+          </p>
+          <p class="mt-4 text-lg leading-9 text-ink/80" data-reading>
+            繪本的分工自古以來就有「作者（文字）」與「繪者（圖像）」的分野，即使由同一人包辦，大腦運作也是兩個完全不同的迴路。文字是線性的、敘述事件的先後順序；圖像則是立體的、一次性地將空間氣壓、光影情緒與視線動線拋給讀者。今天課堂實作的核心任務，就是要帶大家把那張摺疊的文字腳本，正式轉換為具備鏡頭焦點與版面節奏的「八頁縮圖分鏡圖」（Storyboard Thumbnail）。
+          </p>
+          <div class="mt-8 grid gap-4 sm:grid-cols-2">
+            <div class="rounded-xl border-2 border-ink bg-sky p-5">
+              <p class="font-mono text-xs font-bold text-blue">文字腳本的任務</p>
+              <h3 class="mt-2 text-xl font-extrabold">釐清事件與因果關係</h3>
+              <p class="mt-2 text-sm leading-7 text-ink/80">交代「誰在什麼時候遇到了什麼麻煩，最後做了什麼選擇」，提供理性的劇情骨幹與對白。</p>
+            </div>
+            <div class="rounded-xl border-2 border-ink bg-[#fff0bf] p-5">
+              <p class="font-mono text-xs font-bold text-blue">視覺分鏡的任務</p>
+              <h3 class="mt-2 text-xl font-extrabold">決定讀者的感官與心理距離</h3>
+              <p class="mt-2 text-sm leading-7 text-ink/80">透過鏡頭高低、主角比例、留白邊界與翻頁懸疑感，直接引導讀者的呼吸與心跳拍速。</p>
+            </div>
           </div>
         </div>
         <figure class="rounded-2xl border-2 border-ink bg-[#ffd7cc] p-5 shadow-[8px_8px_0_rgba(13,94,130,.14)]">
@@ -49,65 +87,305 @@ const toolStatusLabel = {
       </div>
     </section>
 
+    <!-- Reading Window 03 & 04: 角色設定三面圖與對抗 AI 漂移 -->
     <section class="bg-night px-5 py-16 text-paper sm:px-10 lg:px-12 lg:py-24">
       <div class="mx-auto max-w-6xl">
-        <p class="font-mono text-xs font-bold tracking-[.18em] text-sun">01 / 一個小實驗</p>
-        <h2 class="mt-3 max-w-4xl text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">同一個需求，讓工具各做一段</h2>
-        <p class="mt-6 max-w-3xl text-lg leading-8 text-paper/85">桌上只放同一個需求。先讓文字工具找缺口，再讓圖片工具生成，接著用編修工具處理一個問題，最後把檔案交給同學打開。每一段都記下輸入和輸出，回頭才知道哪裡真的改變了作品。</p>
+        <p class="font-mono text-xs font-bold tracking-[.18em] text-sun">02 / 角色設定的本質</p>
+        <h2 class="mt-3 max-w-4xl text-3xl font-extrabold tracking-[-.05em] sm:text-4xl">繪本著重劇情推展，三面圖則是對抗 AI 漂移的錨點</h2>
+        <p class="mt-6 max-w-3xl text-lg leading-8 text-paper/85" data-reading>
+          在遊戲與動畫製作中，前期必須建立極度繁複的世界觀與角色檔案（包含複雜身世、招式與裝備數值）；但繪本卻截然不同。許多膾炙人口的經典繪本，角色造形極其純粹，甚至是在系列作大獲成功後，作者才在續集中慢慢補齊身世背景。在繪本的世界裡，劇情的推進與氛圍往往比龐大的角色百科更重要，創作者甚至可以先把關鍵場景氛圍畫好，再回頭決定角色的具體輪廓。
+        </p>
+        <p class="mt-4 max-w-3xl text-lg leading-8 text-paper/85" data-reading>
+          然而，當我們引入當代生成式 AI 輔助製作時，這個彈性卻會立刻遭遇毀滅性打擊。現在打開 Amazon 童書排行榜，充斥著大量主打廉價速成的 AI 繪本，但絕大多數讀者與評論家一眼就能看穿破綻——最致命的缺陷就在於「角色漂移」（Character Drift）。上一頁主角還是圓圓大眼、右耳有小缺口的小狐狸，翻到下一頁轉身奔跑時，耳形變了、斑紋位移了、甚至衣服顏色都換了套光影。AI 模型本質上是在高維潛在空間裡尋找機率最高的美麗像素，它天生缺乏對三維立體物理結構與恆常物件特徵的認知記憶。
+        </p>
 
+        <!-- 三面圖實戰指南卡片 -->
         <div class="mt-10 rounded-2xl border-2 border-paper/40 bg-paper/10 p-6 sm:p-8">
-          <p class="font-mono text-xs font-bold tracking-[.16em] text-sun">同一份畫面說明</p>
-          <pre class="mt-5 overflow-x-auto whitespace-pre-wrap rounded-xl bg-[#071f34] p-5 font-mono text-sm leading-7 text-paper">主體：一隻背黃色書包的小狗
-動作：站在雨後的校園入口，回頭看向畫面外
-構圖：主體在右側，左側保留可以放文字的空間
-色彩：藍灰色雨後空氣，黃色書包作為唯一強調色
-用途：繪本跨頁草稿
-限制：只要一隻狗；不要出現品牌標誌；保留角色輪廓</pre>
-          <p class="mt-4 text-sm leading-7 text-paper/75">先別找完美的 prompt。這份說明是拿來重跑、拿來比較的。</p>
-        </div>
-
-        <div class="mt-10 grid gap-5 md:grid-cols-2">
-          <article class="rounded-2xl border-2 border-paper/40 bg-paper/10 p-6"><p class="font-mono text-xs font-bold text-sun">ROUND 1 / 說清楚</p><h3 class="mt-4 text-2xl font-extrabold">請 ChatGPT 或 Google AI Studio 找缺欄</h3><p class="mt-3 text-base leading-8 text-paper/85">把上面的畫面說明交給文字工具。只問一件事：哪一欄會讓圖片工具自己猜？不要讓它直接替你寫一篇漂亮文案。</p><p class="mt-5 border-t border-paper/20 pt-4 text-sm leading-7 text-paper/70">留下：原始說明、工具指出的缺口、你接受或拒絕的理由。</p></article>
-          <article class="rounded-2xl border-2 border-paper/40 bg-paper/10 p-6"><p class="font-mono text-xs font-bold text-sun">ROUND 2 / 試做</p><h3 class="mt-4 text-2xl font-extrabold">用一個圖片工具做四張候選</h3><p class="mt-3 text-base leading-8 text-paper/85">四張都用同一個用途，風格也先固定；不然最後只會剩下「我比較喜歡這張」，你不知道差異從哪裡來。</p><p class="mt-5 border-t border-paper/20 pt-4 text-sm leading-7 text-paper/70">留下：四張候選、生成時間、使用額度、最常出錯的地方。</p></article>
-          <article class="rounded-2xl border-2 border-paper/40 bg-paper/10 p-6"><p class="font-mono text-xs font-bold text-sun">ROUND 3 / 整理</p><h3 class="mt-4 text-2xl font-extrabold">用 Photopea 或 Krita 修一件事</h3><p class="mt-3 text-base leading-8 text-paper/85">只做一個能檢查的整理：裁掉多餘背景、改成繪本跨頁比例、清除錯字，或把角色與背景分開。先把這一件修好，再決定要不要繼續。</p><p class="mt-5 border-t border-paper/20 pt-4 text-sm leading-7 text-paper/70">留下：修改前後、修改哪裡、為什麼這一件事先修。</p></article>
-          <article class="rounded-2xl border-2 border-paper/40 bg-paper/10 p-6"><p class="font-mono text-xs font-bold text-sun">ROUND 4 / 交付</p><h3 class="mt-4 text-2xl font-extrabold">讓別人能打開你的檔案</h3><p class="mt-3 text-base leading-8 text-paper/85">確認檔案格式、尺寸、檔名、來源、工具條款與下一個可用的替代方案。接手的人要知道它是什麼、能做什麼、哪裡不能動。</p><p class="mt-5 border-t border-paper/20 pt-4 text-sm leading-7 text-paper/70">留下：最終檔、版本號、來源與一張交付檢查表。</p></article>
+          <h3 class="text-2xl font-extrabold text-sun">如何打造能穩定生圖的角色設定表（Character Sheet）</h3>
+          <p class="mt-3 text-base leading-8 text-paper/80">要對抗 AI 的角色漂移，繪師絕不能單憑一句「穿紅色外套的小男孩」就去盲目抽卡，必須在課堂實作中建立完整的「角色三面圖」與色彩特徵規範：</p>
+          <div class="mt-6 grid gap-4 md:grid-cols-3">
+            <article class="rounded-xl border border-paper/30 bg-[#071f34] p-5">
+              <span class="font-mono text-xs font-bold text-coral">STEP 01</span>
+              <h4 class="mt-2 text-lg font-bold text-paper">三視角幾何投影</h4>
+              <p class="mt-2 text-sm leading-6 text-paper/75">繪製角色的「正面（Front View）」、「側面（Side View）」與「背面（Back View）」。鎖定角色的頭身比例、四肢長度、耳朵角度與背部配件結構，讓空間立體關係完全固定。</p>
+            </article>
+            <article class="rounded-xl border border-paper/30 bg-[#071f34] p-5">
+              <span class="font-mono text-xs font-bold text-coral">STEP 02</span>
+              <h4 class="mt-2 text-lg font-bold text-paper">不可變異的特徵錨點</h4>
+              <p class="mt-2 text-sm leading-6 text-paper/75">設定至少一至兩個極具辨識度且在自然界罕見的「視覺錨點」：例如眼角下的水滴狀胎記、圍巾尾端的金色星型別針、缺了一角的左邊兔耳朵，或一雙單側破洞的黃色雨鞋。</p>
+            </article>
+            <article class="rounded-xl border border-paper/30 bg-[#071f34] p-5">
+              <span class="font-mono text-xs font-bold text-coral">STEP 03</span>
+              <h4 class="mt-2 text-lg font-bold text-paper">絕對數值色票與對比規範</h4>
+              <p class="mt-2 text-sm leading-6 text-paper/75">標記主色、輔色與強調色的固定數值或自然界物體參照（如「熟透的芥末黃」與「深海午夜藍」）。未來將這些色票與特徵特寫餵給 LoRA、ControlNet 或參考圖時，生成結果才具備校準基底。</p>
+            </article>
+          </div>
         </div>
       </div>
     </section>
 
+    <!-- Reading Window 05 & 06: 鏡頭視角心理學 -->
     <section class="paper-grid px-5 py-16 sm:px-10 lg:px-12 lg:py-24">
       <div class="mx-auto max-w-6xl">
-        <p class="font-mono text-xs font-bold tracking-[.18em] text-blue">02 / 免費帳號會在哪裡卡住？</p>
-        <h2 class="mt-3 max-w-4xl text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">額度用完時，你要知道下一步去哪裡</h2>
-        <p class="mt-6 max-w-3xl text-lg leading-8 text-ink/80">免費帳號會卡在額度、速度、輸出尺寸或功能。開始前先把今天看到的條件截圖，作品做到一半卡住時，拿這張紀錄找替代工具，不要靠印象猜。</p>
-        <div class="mt-10 overflow-hidden rounded-2xl border-2 border-ink bg-paper">
-          <div class="hidden grid-cols-[1.1fr_.8fr_1.6fr_1fr] border-b-2 border-ink bg-sun px-5 py-4 font-mono text-xs font-bold tracking-[.12em] md:grid"><span>工具</span><span>狀態</span><span>適合做什麼</span><span>替代路線</span></div>
-          {tools.map((tool) => <article class="grid gap-3 border-b border-ink/15 px-5 py-5 last:border-0 md:grid-cols-[1.1fr_.8fr_1.6fr_1fr] md:items-start md:gap-5"><div><a href={tool.source} target="_blank" rel="noreferrer" class="font-bold text-blue underline decoration-coral decoration-2 underline-offset-4 hover:text-coral">{tool.name} ↗</a></div><div class="font-mono text-xs font-bold text-coral">{toolStatusLabel[tool.status]}</div><p class="text-sm leading-7 text-ink/80">{tool.role}</p><p class="text-sm leading-7 text-ink/70"><span class="font-bold text-blue">如果不能用：</span>{tool.fallback}</p></article>)}
+        <p class="font-mono text-xs font-bold tracking-[.18em] text-blue">03 / 導演眼中的攝影機</p>
+        <h2 class="mt-3 max-w-4xl text-3xl font-extrabold tracking-[-.05em] sm:text-4xl">四大鏡頭視角：角度不是美化，角度是心理權力關係</h2>
+        <p class="mt-6 max-w-3xl text-lg leading-8 text-ink/80" data-reading>
+          許多初學畫圖的同學，習慣每一頁都從「正前方胸口高度」去畫同一個角色，導致整本繪本看完就像是一組平淡的證件照幻燈片。在專業的視覺敘事裡，攝影機的高低角度直接決定了讀者在潛意識中對畫中角色的權力與心理感受。當你把視點抬高俯視角色，讀者自然會產生掌控或憐憫的情緒；而當鏡頭貼緊地面向上仰望時，畫中的主體瞬間具備了壓倒性的震撼力。
+        </p>
+        <p class="mt-4 max-w-3xl text-lg leading-8 text-ink/80" data-reading>
+          課堂中我們將鏡頭視角歸納為四種基礎語言：平視帶來平起平坐的親近感與沉靜觀察；俯視強調角色的渺小、孤獨、困頓或全局地圖的掌控；仰視賦予主體巨大威嚴、力量感、威脅性或崇高尊貴的地位；而主觀視角（Point of View, POV）則直接奪取讀者的眼睛，讓翻書的人透過門縫、握住鑰匙的手或倒映在水窪裡的倒影，直接化身為故事的主角本人。
+        </p>
+
+        <!-- 視角對照網格 -->
+        <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div class="rounded-xl border-2 border-ink bg-paper p-5">
+            <span class="font-mono text-xs font-bold text-blue">ANGLE 01</span>
+            <h3 class="mt-2 text-xl font-extrabold">平視 (Eye Level)</h3>
+            <p class="mt-1 font-mono text-xs text-ink/60">中立客觀／陪伴共感</p>
+            <p class="mt-3 text-sm leading-6 text-ink/80">視平線與主角目光齊平。不帶審判與壓迫，是建立日常安全感、對話傾聽與常規敘事時最穩定的基礎基調。</p>
+          </div>
+          <div class="rounded-xl border-2 border-ink bg-paper p-5">
+            <span class="font-mono text-xs font-bold text-coral">ANGLE 02</span>
+            <h3 class="mt-2 text-xl font-extrabold">俯視 (High Angle)</h3>
+            <p class="mt-1 font-mono text-xs text-ink/60">渺小孤獨／命運俯瞰</p>
+            <p class="mt-3 text-sm leading-6 text-ink/80">由高處向下鳥瞰。常在主角遭遇挫折、迷失在大城市街道，或呈現整座迷宮與地景結構時使用，營造無助與困頓感。</p>
+          </div>
+          <div class="rounded-xl border-2 border-ink bg-paper p-5">
+            <span class="font-mono text-xs font-bold text-blue">ANGLE 03</span>
+            <h3 class="mt-2 text-xl font-extrabold">仰視 (Low Angle)</h3>
+            <p class="mt-1 font-mono text-xs text-ink/60">巨大壓迫／英雄崛起</p>
+            <p class="mt-3 text-sm leading-6 text-ink/80">視點緊貼地面往上仰看。用來表現高聳入雲的古樹、氣勢洶洶的怪物老闆，或是主角在克服恐懼時挺起胸膛的勇氣時刻。</p>
+          </div>
+          <div class="rounded-xl border-2 border-ink bg-paper p-5">
+            <span class="font-mono text-xs font-bold text-sun">ANGLE 04</span>
+            <h3 class="mt-2 text-xl font-extrabold">主觀視角 (POV)</h3>
+            <p class="mt-1 font-mono text-xs text-ink/60">感官替換／直接沉浸</p>
+            <p class="mt-3 text-sm leading-6 text-ink/80">讓畫面呈現角色雙眼所見之景，如透過望遠鏡圓孔、顫抖拿著信件的指尖，徹底打破讀者與故事世界的隔閡。</p>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="bg-[#ffd7cc] px-5 py-16 sm:px-10 lg:px-12 lg:py-24">
+    <!-- Reading Window 07 & 08: 五層次景別與鏡頭距離 -->
+    <section class="bg-[#fff0bf] px-5 py-16 sm:px-10 lg:px-12 lg:py-24">
       <div class="mx-auto max-w-6xl">
-        <p class="font-mono text-xs font-bold tracking-[.18em] text-blue">03 / 動圖先做小</p>
-        <h2 class="mt-3 max-w-4xl text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">先做五格，看看動作能不能成立</h2>
-        <p class="mt-6 max-w-3xl text-lg leading-8 text-ink/80">LINE 動圖先從五格開始。Krita 把每格畫出來，Photopea 處理尺寸和透明背景，APNG Assembler 把 PNG 序列封裝起來；完整規格和送審流程放在<a href={`${base}/animation-lab`} class="font-bold text-blue underline decoration-coral decoration-2 underline-offset-4">動圖實驗室</a>。</p>
-        <div class="mt-10 grid gap-4 md:grid-cols-2 xl:grid-cols-4">{animationTools.map((tool) => <article class="rounded-xl border-2 border-ink bg-paper p-5"><p class="font-mono text-xs font-bold text-blue">{tool.role}</p><h3 class="mt-3 text-xl font-extrabold">{tool.name}</h3><p class="mt-3 text-sm leading-7">{tool.detail}</p><a href={tool.url} target="_blank" rel="noreferrer" class="mt-4 inline-block font-mono text-xs font-bold text-blue underline decoration-coral decoration-2 underline-offset-4">官方文件 ↗</a></article>)}</div>
-        <div class="mt-10 rounded-2xl border-2 border-ink bg-paper p-6 sm:p-8"><p class="font-mono text-xs font-bold tracking-[.16em] text-blue">動圖的第一個檢查</p><h3 class="mt-3 text-2xl font-extrabold">靜止時也要看得懂</h3><p class="mt-4 max-w-3xl text-base leading-8">LINE 動態貼圖的第一格會被當成靜態預覽。先檢查第一格能不能說出動作和情緒，再檢查它怎麼動；不然你只是把一張不清楚的圖做成會動。</p><div class="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-sm font-bold text-blue">{animationSources.slice(0, 2).map((source) => <a href={source.url} target="_blank" rel="noreferrer" class="underline decoration-coral decoration-2 underline-offset-4 hover:text-coral">{source.label} ↗</a>)}</div></div>
+        <p class="font-mono text-xs font-bold tracking-[.18em] text-blue">04 / 景別與情緒距離</p>
+        <h2 class="mt-3 max-w-4xl text-3xl font-extrabold tracking-[-.05em] sm:text-4xl">五大基礎景別：從天地浩瀚到眼角淚珠的節奏縮放</h2>
+        <p class="mt-6 max-w-3xl text-lg leading-8 text-ink/80" data-reading>
+          如果鏡頭視角決定了情緒的態度，那麼景別（Shot Size）的切換則決定了劇情的「呼吸頻率與心跳速度」。在八頁的分鏡長度中，最忌諱每一頁都採用相同的景深比例。當每一頁都是中景時，故事就會喪失高潮迭起的戲劇張力。電影導演懂得在關鍵時刻切換景別，繪本創作者更需要透過大畫面的遠景與直擊心靈的特寫交錯，牢牢抓住翻閱者的目光。
+        </p>
+        <p class="mt-4 max-w-3xl text-lg leading-8 text-ink/80" data-reading>
+          標準的視覺景別由遠及近分為五個層次：遠景（Long Shot）負責建立世界觀環境與氣候座標；全景（Full Shot）展現人物全身動作與地表互動；中景（Medium Shot）聚焦人與人之間的對話與肢體張力；特寫（Close-Up）放大臉部表情與眼神微妙顫動；大特寫（Extreme Close-Up）則專門凝視關鍵道具（如一把生鏽的鑰匙）或局部反應（如咬緊的下唇），引爆最強烈的敘事高潮。
+        </p>
+
+        <!-- 景別規格表格 -->
+        <div class="mt-10 overflow-hidden rounded-2xl border-2 border-ink bg-paper">
+          <div class="grid grid-cols-[1fr_1.5fr_2fr] border-b-2 border-ink bg-ink px-5 py-4 font-mono text-xs font-bold text-paper sm:grid-cols-[1fr_1.2fr_1.5fr_2fr]">
+            <span>景別代號</span>
+            <span class="hidden sm:inline">中文名稱</span>
+            <span>畫面收納範圍</span>
+            <span>心理與敘事功能</span>
+          </div>
+          <div class="divide-y divide-ink/15 text-sm">
+            <div class="grid grid-cols-[1fr_1.5fr_2fr] px-5 py-4 sm:grid-cols-[1fr_1.2fr_1.5fr_2fr]">
+              <span class="font-mono font-bold text-blue">LS (Long Shot)</span>
+              <span class="hidden font-bold sm:inline">遠景／大遠景</span>
+              <span>主體極小，地景環境佔據 80% 以上</span>
+              <span class="text-ink/80">開篇交代世界觀、季節天候、荒涼孤寂或宏大旅程起點。</span>
+            </div>
+            <div class="grid grid-cols-[1fr_1.5fr_2fr] px-5 py-4 sm:grid-cols-[1fr_1.2fr_1.5fr_2fr]">
+              <span class="font-mono font-bold text-blue">FS (Full Shot)</span>
+              <span class="hidden font-bold sm:inline">全景 (全身)</span>
+              <span>角色從頭頂到腳底完整呈現</span>
+              <span class="text-ink/80">交代角色的全身外貌、正在進行的奔跑跳躍動作與立即所處空間。</span>
+            </div>
+            <div class="grid grid-cols-[1fr_1.5fr_2fr] px-5 py-4 sm:grid-cols-[1fr_1.2fr_1.5fr_2fr]">
+              <span class="font-mono font-bold text-coral">MS (Medium Shot)</span>
+              <span class="hidden font-bold sm:inline">中景 (半身)</span>
+              <span>角色腰部或膝蓋以上</span>
+              <span class="text-ink/80">最自然的日常敘事距離，承載角色間的對話、手部操作與關係拉扯。</span>
+            </div>
+            <div class="grid grid-cols-[1fr_1.5fr_2fr] px-5 py-4 sm:grid-cols-[1fr_1.2fr_1.5fr_2fr]">
+              <span class="font-mono font-bold text-coral">CU (Close-Up)</span>
+              <span class="hidden font-bold sm:inline">特寫</span>
+              <span>角色胸口以上至整張臉部</span>
+              <span class="text-ink/80">強迫讀者直視角色的恐懼、欣喜、狡黠或落寞，引爆情緒同理心。</span>
+            </div>
+            <div class="grid grid-cols-[1fr_1.5fr_2fr] px-5 py-4 sm:grid-cols-[1fr_1.2fr_1.5fr_2fr]">
+              <span class="font-mono font-bold text-sun">ECU (Extreme CU)</span>
+              <span class="hidden font-bold sm:inline">大特寫</span>
+              <span>瞳孔、緊握的指節、撕裂的書頁角</span>
+              <span class="text-ink/80">揭露關鍵伏筆或最劇烈的危機瞬間，畫面張力達到最高頂點。</span>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
+    <!-- Reading Window 09 & 10: 構圖三分法、閱讀動線與留白心法 -->
+    <section class="mx-auto max-w-6xl px-5 py-16 sm:px-10 lg:px-12 lg:py-24">
+      <div class="grid gap-10 lg:grid-cols-2 lg:items-center">
+        <div>
+          <p class="font-mono text-xs font-bold tracking-[.18em] text-blue">05 / 構圖與版面留白</p>
+          <h2 class="mt-3 text-3xl font-extrabold tracking-[-.05em] sm:text-4xl">構圖不是把畫面填滿，而是替文字與呼吸留下空間</h2>
+          <p class="mt-6 text-lg leading-9 text-ink/80" data-reading>
+            繪本畫面的構成與獨立單幅插畫有著本質上的不同。單幅藝術畫作往往力求畫面飽滿均衡、處處藏有彩蛋；但繪本插畫的本質是「承載故事的舞台容器」。優秀的繪本大師在落筆時，腦中永遠有一套「三分法（Rule of Thirds）」與「視覺動線引導」原則：畫面的主視覺焦點通常落在九宮格交會點上，並善用地平線、河流或角色的視線指引，牽引讀者的視線順暢滑動。
+          </p>
+          <p class="mt-4 text-lg leading-9 text-ink/80" data-reading>
+            更重要的是「留白心法（Negative Space）」。初學者最常犯的錯誤是把天空或草地全部畫滿雜碎細節，最後發現文字完全找不到合適的排版位置，不是遮住主角的臉，就是字體在斑駁背景中難以閱讀。在設計八格分鏡時，每一頁都必須在構圖之初就明確圈定「文字安置區」，讓大塊純淨的天空、平緩的雪地或暗調的牆面成為文字呼吸的天然港灣；同時利用右頁邊緣的角色前傾姿勢，創造催促讀者「趕快翻開下一頁」的強大動能。
+          </p>
+        </div>
+        <div class="rounded-2xl border-2 border-ink bg-sky p-6 sm:p-8">
+          <h3 class="text-2xl font-extrabold text-ink">八格分鏡的動線三大戒律</h3>
+          <ul class="mt-5 space-y-4 text-base leading-7 text-ink/80">
+            <li class="flex items-start gap-3">
+              <span class="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-ink font-mono text-xs font-bold text-paper">1</span>
+              <span><strong>前進動線順應翻頁方向：</strong>橫排繪本讀者視線由左向右流動。主角踏上冒險旅程時面向右側，代表勇敢推進；主角受挫逃跑或回頭悔恨時面向左側，能本能喚起讀者的阻力感。</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-ink font-mono text-xs font-bold text-paper">2</span>
+              <span><strong>預留文字的專屬閱讀帶：</strong>至少保留畫面三分之一的低噪點留白區域，讓排版字級與行距不受干擾，不必依賴生硬的白色色塊去壓圖。</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-ink font-mono text-xs font-bold text-paper">3</span>
+              <span><strong>右側懸念線索（Page-Turner）：</strong>在翻頁前的最後一格，刻意讓主角看向畫面外，或是讓某個神祕影子露出一角，迫使讀者產生強烈的翻頁渴望。</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Reading Window 11 & 12: 實體裝幀結構與扉頁彩蛋 -->
+    <section id="print-anatomy" class="bg-night px-5 py-16 text-paper sm:px-10 lg:px-12 lg:py-24">
+      <div class="mx-auto max-w-6xl">
+        <p class="font-mono text-xs font-bold tracking-[.18em] text-sun">06 / 裝幀的物理秘密</p>
+        <h2 class="mt-3 max-w-4xl text-3xl font-extrabold tracking-[-.05em] sm:text-4xl">從封面、蝴蝶頁到扉頁彩蛋：實體繪本的空間旅行</h2>
+        <p class="mt-6 max-w-3xl text-lg leading-8 text-paper/85" data-reading>
+          一本實體繪本在讀者真正看到「第一頁正文」之前，其實早就已經開始說故事了。許多同學常常以為繪本只有內頁需要畫，卻忽略了從封皮、書脊、封底、前後蝴蝶頁（Endpapers / 見返し）到書名扉頁（Title Page）所構成的完整空間儀式。日本繪本大師佐野洋子在經典作品《我是聖誕樹》（わたし クリスマスツリー）中，封面與封底展開是一幅大雪紛飛的長幅森林全景，而翻開後的蝴蝶頁則用沉靜的紙張與漸次拉近的空鏡頭，一步步引領讀者走向那棵渴望進城的小樅樹。
+        </p>
+        <p class="mt-4 max-w-3xl text-lg leading-8 text-paper/85" data-reading>
+          繪本歷史上最著名的出版彩蛋之一，莫過於湯米·狄波拉（Tomie dePaola）於 1975 年出版、榮獲 1976 年凱迪克榮譽獎的《Strega Nona》（巫婆奶奶／杜老爹的魔法湯）。狄波拉在初版扉頁幽默地印上「An old tale retold」（依據古老傳說改寫），一度騙過全美無數圖書館員與民俗學者，甚至大家四處查訪卡拉布里亞到底有沒有這個傳統歌謠，最後作者才大笑坦承這完全是他自己在無聊教職員會議邊緣隨手塗鴉發明的原創角色。翻開一本好書，扉頁從來不是冷冰冰的出版資訊，而是作者與讀者心領神會的祕密通道。
+        </p>
+
+        <!-- 印刷物理與安全邊界指南 -->
+        <div class="mt-10 grid gap-6 md:grid-cols-2">
+          <div class="rounded-2xl border border-paper/30 bg-[#071f34] p-6">
+            <h3 class="text-xl font-bold text-sun">32 頁標準台數與印刷結構</h3>
+            <p class="mt-3 text-sm leading-7 text-paper/80">
+              商業繪本絕大多數是 32 頁或 40 頁，因為全張紙印刷是以「16 頁為一台（Signature）」折疊裝訂。32 頁剛好由 2 台組成，多一頁或少一頁都會造成用紙與裝訂工藝的巨大浪費。封面與前後蝴蝶頁通常另外選用高磅數特殊美術色紙（140g–160g）貼合在硬殼灰紙板上，是實體書獨有的重工觸感。
+            </p>
+          </div>
+          <div class="rounded-2xl border border-paper/30 bg-[#071f34] p-6">
+            <h3 class="text-xl font-bold text-coral">裝訂咬死禁區（Gutter Safe Zone）</h3>
+            <p class="mt-3 text-sm leading-7 text-paper/80">
+              畫跨頁（Spread）插畫時，最嚴重的致命傷是將主角的雙眼、鼻樑或關鍵文字剛好擺在左右兩頁交界的中縫處。實體書經過穿線膠裝後，中縫有 1.5 至 2 公分會被「咬進書脊」裡。如果在畫分鏡草圖時沒有避開這個物理黑洞，印出來主角的臉就會當場被腰斬變形。
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Reading Window 13 & 14: 商業市場對照：Live2D 拆層與設計師護城河 -->
+    <section id="market-audit" class="bg-[#ffd7cc] px-5 py-16 sm:px-10 lg:px-12 lg:py-24">
+      <div class="mx-auto max-w-6xl">
+        <p class="font-mono text-xs font-bold tracking-[.18em] text-blue">07 / 商業市場真相</p>
+        <h2 class="mt-3 max-w-4xl text-3xl font-extrabold tracking-[-.05em] sm:text-4xl">當 AI 兩秒出一張圖，市場為何願意花八萬買「拆層模型」？</h2>
+        <p class="mt-6 max-w-3xl text-lg leading-8 text-ink/80" data-reading>
+          許多同學在看到生成式 AI 可以在幾秒內畫出一張華麗精緻的角色插圖時，難免對自己的未來產生深沉的職業焦慮。但如果我們把視角拉到當代數位娛樂產業最炙手可熱的 VTuber 與 Live2D 委託市場，就會看見一個截然不同的商業真相。在台灣與海外創作者社群中，單純一張不能動的個人非買斷角色立繪，行情大約落在 5,000 至 15,000 元之間；然而，一旦這張角色具備了專業的「高精度圖層拆解（PSD 拆層）」，委託價格立刻翻倍攀升至 12,000 至 35,000 元以上；若加上全套動作骨架綁定與物理碰撞建模，成套商用行情更是高達 30,000 到 80,000 元，頂級企業勢專案甚至能突破十幾萬元。
+        </p>
+        <p class="mt-4 max-w-3xl text-lg leading-8 text-ink/80" data-reading>
+          為什麼市場願意為後者付出十倍以上的溢價？原因就在於「結構邏輯與工程交付」。AI 工具能輕易生成單張扁平的表層像素，但它完全無法自動拆解「前瀏海、鬢角、眼眶、眼球高光、被眼皮遮擋的眼白、嘴唇內構、舌頭與後頭皮」多達上百個各自獨立且補齊遮蔽邊界的完整圖層。當客戶需要角色眨眼、說話、轉頭並產生重力擺動時，缺乏嚴謹空間拆解能力的 AI 圖立刻化為廢紙。設計師的核心競爭力，從來不是在鍵盤上敲提示詞，而是在於對三維結構、動態拆解、鏡頭語言與規格交付的絕對掌控力。
+        </p>
+
+        <!-- 行情對照表 -->
+        <div class="mt-10 overflow-hidden rounded-2xl border-2 border-ink bg-paper">
+          <div class="grid grid-cols-[1.2fr_1.5fr_1fr_1.5fr] border-b-2 border-ink bg-coral px-5 py-4 font-mono text-xs font-bold text-paper">
+            <span>委託類別</span>
+            <span>交付物與技術門檻</span>
+            <span>台灣市場行情</span>
+            <span>商業價值與技術溢價理由</span>
+          </div>
+          <div class="divide-y divide-ink/15 text-sm">
+            <div class="grid grid-cols-[1.2fr_1.5fr_1fr_1.5fr] px-5 py-4">
+              <span class="font-bold text-blue">靜態單張立繪 (非買斷)</span>
+              <span>正面單幅全身插畫，單一圖層或簡易合併檔</span>
+              <span class="font-mono font-bold text-ink">約 $5,000 – $15,000</span>
+              <span class="text-ink/80">個人非商用實況委託；易受 AI 生圖衝擊，技術替代性相對較高。</span>
+            </div>
+            <div class="grid grid-cols-[1.2fr_1.5fr_1fr_1.5fr] px-5 py-4">
+              <span class="font-bold text-blue">Live2D 專用立繪＋精細拆層</span>
+              <span>100–300+ 獨立圖層 PSD，包含五官遮罩與遮蔽底圖補全</span>
+              <span class="font-mono font-bold text-coral">約 $12,000 – $35,000+</span>
+              <span class="text-ink/80">繪師必須熟知網格綁定邏輯與運動補圖，具備極高的手工專業護城河。</span>
+            </div>
+            <div class="grid grid-cols-[1.2fr_1.5fr_1fr_1.5fr] px-5 py-4">
+              <span class="font-bold text-blue">Live2D 動態綁定建模 (Rigging)</span>
+              <span>XYZ 軸偏轉、表情捕捉、眼球跟隨、頭髮服飾物理擺動</span>
+              <span class="font-mono font-bold text-coral">約 $15,000 – $50,000+</span>
+              <span class="text-ink/80">結合工程物理與動態表演，產出即時運算的 `.moc3` 串流檔案。</span>
+            </div>
+            <div class="grid grid-cols-[1.2fr_1.5fr_1fr_1.5fr] px-5 py-4">
+              <span class="font-bold text-blue">成套商用建置 (皮加模一條龍)</span>
+              <span>原創三面設計＋精細拆層＋全套高階物理綁定與表情差分</span>
+              <span class="font-mono font-bold text-ink">約 $30,000 – $80,000+ (企業勢 $100K+)</span>
+              <span class="text-ink/80">提供商業級交付標準，包含全套著作財產權約定與後續衍生品授權。</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Reading Window 15 & 16: 本週作業與文獻驗證清單 -->
     <section class="bg-night px-5 py-16 text-paper sm:px-10 lg:px-12 lg:py-24">
       <div class="mx-auto max-w-6xl">
-        <p class="font-mono text-xs font-bold tracking-[.18em] text-sun">本週作業 / TOOL EXPERIMENT CARD</p>
-        <h2 class="mt-3 text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">這週請交一張能重跑的實驗卡</h2>
-        <ol class="mt-10 grid gap-4 md:grid-cols-2">
-          <li class="rounded-xl border-2 border-paper/30 bg-paper/10 p-5"><span class="font-mono text-xs font-bold text-sun">01</span><h3 class="mt-3 text-xl font-extrabold">固定一個需求</h3><p class="mt-2 text-sm leading-7 text-paper/80">同一個主體、動作、構圖與用途，至少做四張候選。</p></li>
-          <li class="rounded-xl border-2 border-paper/30 bg-paper/10 p-5"><span class="font-mono text-xs font-bold text-sun">02</span><h3 class="mt-3 text-xl font-extrabold">比較兩個工具</h3><p class="mt-2 text-sm leading-7 text-paper/80">記錄額度、速度、輸出格式與哪一個地方需要人工修。</p></li>
-          <li class="rounded-xl border-2 border-paper/30 bg-paper/10 p-5"><span class="font-mono text-xs font-bold text-sun">03</span><h3 class="mt-3 text-xl font-extrabold">修一個問題</h3><p class="mt-2 text-sm leading-7 text-paper/80">只改裁切、錯字、尺寸、角色輪廓或背景其中一件事。</p></li>
-          <li class="rounded-xl border-2 border-paper/30 bg-paper/10 p-5"><span class="font-mono text-xs font-bold text-sun">04</span><h3 class="mt-3 text-xl font-extrabold">留下下一步</h3><p class="mt-2 text-sm leading-7 text-paper/80">寫下哪個工具可以繼續用、哪個條件會讓你換工具，以及下一輪只改什麼。</p></li>
-        </ol>
-        <div class="mt-10 border-l-4 border-sun bg-paper/10 px-5 py-4 text-base leading-8 text-paper/85">提交：工具實驗卡、原始輸入、全部候選、修改前後、額度紀錄、來源與權利備註。把失敗版本也放進來，才看得到你比較過什麼。</div>
+        <p class="font-mono text-xs font-bold tracking-[.18em] text-sun">課堂實作作業 / STORYBOARD & CHARACTER SHEET</p>
+        <h2 class="mt-3 text-3xl font-extrabold tracking-[-.05em] sm:text-4xl">這週請完成八格縮圖分鏡與角色三面設定表</h2>
+        <p class="mt-6 max-w-3xl text-lg leading-8 text-paper/85" data-reading>
+          本週的作業是動手落實的關鍵橋樑。請各位同學帶著上週折好的 A4 八格文字腳本，在實體紙張或繪圖軟體中繪製出八格縮圖分鏡稿。每一格不需要細緻的完稿線條，但必須清楚標註「鏡頭視角（平視／俯視／仰視／POV）」、「鏡頭景別（LS／FS／MS／CU／ECU）」以及「文字留白預留區」。同時，請為故事核心主角繪製一份「角色三面設定表」，清楚列出正面、側面、背面三個視角輪廓、不可變更的特徵錨點（如胎記、飾品）與標準色票。
+        </p>
+        <p class="mt-4 max-w-3xl text-lg leading-8 text-paper/85" data-reading>
+          這份三面圖與八格分鏡，將會是下週課堂我們正式開啟 AI 工具對話與生成測試時的「不可退讓基準單」。當工具試圖改變你角色的五官或隨意變換視角時，你手上的這張三面圖就是唯一能判定它合格或不及格的契約依據。
+        </p>
+
+        <div class="mt-10 grid gap-4 md:grid-cols-2">
+          <div class="rounded-xl border border-paper/30 bg-paper/10 p-5">
+            <span class="font-mono text-xs font-bold text-sun">DELIVERABLE 01</span>
+            <h3 class="mt-2 text-xl font-extrabold">八格縮圖分鏡草稿</h3>
+            <p class="mt-2 text-sm leading-7 text-paper/80">
+              包含完整三幕劇起承轉合，標註每格視角、景別與文字預留區，並注意中縫安全邊界。
+            </p>
+          </div>
+          <div class="rounded-xl border border-paper/30 bg-paper/10 p-5">
+            <span class="font-mono text-xs font-bold text-sun">DELIVERABLE 02</span>
+            <h3 class="mt-2 text-xl font-extrabold">角色三面圖與色彩錨點</h3>
+            <p class="mt-2 text-sm leading-7 text-paper/80">
+              正面、側面、背面輪廓與頭身比；至少一處特寫特徵錨點；固定色票色碼規格表。
+            </p>
+          </div>
+        </div>
+
+        <!-- 史實與文獻考證清單 -->
+        <div class="mt-16 rounded-2xl border-2 border-sun/60 bg-[#071f34] p-6 sm:p-8">
+          <div class="flex items-center gap-3">
+            <span class="flex h-7 w-7 items-center justify-center rounded-full bg-sun font-mono text-sm font-bold text-ink">✓</span>
+            <h3 class="text-xl font-extrabold text-paper">本週歷史作品、裝幀與商業數據查核證明</h3>
+          </div>
+          <p class="mt-3 text-sm leading-7 text-paper/75">
+            本課程嚴格杜絕憑空捏造的數據與宣傳話術，頁面提及之歷史出版紀錄、裝幀規格與委託市場行情均經實證文獻查核：
+          </p>
+          <div class="mt-5 space-y-3">
+            {verifiedSources.map((item) => (
+              <div class="flex flex-col gap-1 border-t border-paper/15 pt-3 text-sm sm:flex-row sm:items-baseline sm:justify-between">
+                <span class="text-paper/90">
+                  <span class="font-mono font-bold text-sun">[{item.n}]</span> {item.claim}
+                </span>
+                <a href={item.url} target="_blank" rel="noreferrer" class="shrink-0 font-mono text-xs font-bold text-coral underline decoration-sun underline-offset-4 hover:text-sun">
+                  {item.label} ↗
+                </a>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   </main>

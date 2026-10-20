@@ -31,10 +31,10 @@ export const designEducation: Record<number, DesignEducationLesson> = {
     visualAlt: '透過不同比例與視角視窗，呈現同一故事主體在不同風格下的心理氛圍。',
   },
   5: {
-    concept: '先決定要做什麼，再選工具。',
-    eli5: '你要煮湯、切菜、烤麵包，拿的工具不會一樣；先看工作是哪一段，再決定手上拿什麼。',
+    concept: '文字是發生了什麼，鏡頭與三面圖決定看的人如何感受。',
+    eli5: '同一個角色換個鏡頭就是不同情緒；先畫好正面、側面與背面，AI 生圖才不會每張都換一張臉。',
     visual: '/illustrations/tool-orbit.svg',
-    visualAlt: '工具圍繞著實驗卡，分成生成、編修、組裝、記錄與交付。',
+    visualAlt: '分鏡縮圖與角色三面設定環繞工作流，串接景別鏡頭、圖層拆解與裝幀留白。',
   },
   6: {
     concept: '提示詞不是咒語，是一張畫面說明單。',

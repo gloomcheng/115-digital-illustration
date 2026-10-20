@@ -18,6 +18,7 @@ const PAGES = [
   { page: 'src/pages/weeks/2.astro', data: 'src/data/design-education.ts', key: 2, label: 'W02' },
   { page: 'src/pages/weeks/3.astro', data: 'src/data/design-education.ts', key: 3, label: 'W03' },
   { page: 'src/pages/weeks/4.astro', data: 'src/data/design-education.ts', key: 4, label: 'W04' },
+  { page: 'src/pages/weeks/5.astro', data: 'src/data/design-education.ts', key: 5, label: 'W05' },
 ]
 const STOP_WORDS = new Set(['這個', '這一', '一個', '可以', '不是', '也會', '以及', '下一'])
 const CONNECTIVE_PATTERNS = [
