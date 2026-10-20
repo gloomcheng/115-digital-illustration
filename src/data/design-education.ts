@@ -25,10 +25,10 @@ export const designEducation: Record<number, DesignEducationLesson> = {
     visualAlt: '風格拆解表，把線條、形狀、色彩、材質、空間與用途分開觀察。',
   },
   4: {
-    concept: '同一個畫面換了用途，就要重新安排。',
-    eli5: '雨鞋、球鞋和皮鞋都能穿，但走的路不一樣；畫面要做的事變了，安排也會變。',
+    concept: '同一個故事換了風格與視角，世界觀就徹底翻轉。',
+    eli5: '回到角色的設定：同一段台詞，小學生說和老船長說，聽起來完全是兩件事；畫面上的線條、色彩與頭身比變了，角色給人的感覺也會跟著變。',
     visual: '/illustrations/sky-window.svg',
-    visualAlt: '同一個主體透過不同視窗觀看，提示看的人、媒材與用途會改變畫面。',
+    visualAlt: '透過不同比例與視角視窗，呈現同一故事主體在不同風格下的心理氛圍。',
   },
   5: {
     concept: '先決定要做什麼，再選工具。',

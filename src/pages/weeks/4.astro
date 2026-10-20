@@ -1,0 +1,378 @@
+---
+import SourceNote from '../../components/SourceNote.astro'
+import WorkFigure from '../../components/WorkFigure.astro'
+import { designEducation } from '../../data/design-education'
+import { historicalWorks } from '../../data/historical-works'
+import Layout from '../../layouts/Layout.astro'
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '')
+const designLesson = designEducation[4]
+const work = historicalWorks
+
+interface Footnote {
+  n: number
+  claim: string
+  label: string
+  url: string
+}
+
+const footnotes: Footnote[] = [
+  {
+    n: 1,
+    claim: '達蓋爾銀版攝影術於 1839 年正式公布，畫家保羅·德拉羅什曾感嘆「今日起，繪畫已死」',
+    label: '大都會藝術博物館：達蓋爾攝影術的誕生',
+    url: 'https://www.metmuseum.org/toah/hd/dagu/hd_dagu.htm',
+  },
+  {
+    n: 2,
+    claim: '台灣主流繪本出版社如東方出版社與上誼文化，核心圖畫書堅持真人原創與紙本印刷質感',
+    label: '國家圖書館全國新書資訊網：歡迎來到AI的世界',
+    url: 'https://isbn.ncl.edu.tw/',
+  },
+  {
+    n: 3,
+    claim: '路易斯·卡羅《愛麗絲夢遊仙境》於 1865 年出版，英國版權於 1907 年到期進入公眾領域，引發亞瑟·拉克姆等名家重新繪製',
+    label: '紐約公共圖書館：愛麗絲夢遊仙境版本演進史',
+    url: 'https://www.nypl.org/blog/2015/07/07/alice-wonderland-illustrations',
+  },
+  {
+    n: 4,
+    claim: '工業印刷繪本以 16 頁台（Signature）裝訂，兩台共 32 頁為國際童書標準規格以避免紙張浪費',
+    label: '兒童圖書出版指南：為什麼繪本是 32 頁',
+    url: 'https://www.brookevitale.com/blog/how-many-pages-in-a-picture-book',
+  },
+  {
+    n: 5,
+    claim: '丹·雅卡理諾《最長的一場風暴》（The Longest Storm）獲選 2021 紐約時報最佳童書與出版者週刊年度選書',
+    label: '企鵝蘭登書屋官方書目：The Longest Storm 獲獎紀錄',
+    url: 'https://www.penguinrandomhouse.com/books/673891/the-longest-storm-by-dan-yaccarino/',
+  },
+]
+---
+
+<Layout
+  title="W04 各國插畫的風格取向與應用"
+  description="同樣的故事換了插畫風格與頭身比，世界觀就徹底翻轉：視覺敘事、32 頁結構與 8 頁分鏡實作。"
+>
+  <main class="bg-paper">
+    <section class="relative isolate min-h-[min(720px,calc(100svh-76px))] overflow-hidden bg-ink text-paper">
+      <img
+        src={`${base}/illustrations/storybook-spread.webp`}
+        alt="原創插畫：畫桌上展開的 32 頁繪本跨頁草稿，鉛筆分鏡與色彩稿並列，標記著翻頁節奏與視覺焦點。"
+        class="absolute inset-0 h-full w-full object-cover object-center"
+        width="1672"
+        height="941"
+        fetchpriority="high"
+        loading="eager"
+        decoding="async"
+      />
+      <div class="absolute inset-0 bg-[linear-gradient(90deg,rgba(7,31,52,.96)_0%,rgba(7,31,52,.86)_35%,rgba(7,31,52,.26)_78%,rgba(7,31,52,.08)_100%)]"></div>
+      <div class="relative mx-auto flex min-h-[min(720px,calc(100svh-76px))] max-w-7xl items-end px-5 py-14 sm:px-10 sm:py-20 lg:px-12">
+        <div class="max-w-3xl">
+          <p class="font-mono text-xs font-bold tracking-[.18em] text-sun">W04 / 合授課程</p>
+          <h1 class="mt-5 text-5xl font-extrabold leading-[.98] tracking-[-.07em] sm:text-7xl">各國插畫的風格取向與應用</h1>
+          <p data-reading class="mt-8 max-w-2xl border-l-4 border-coral bg-ink/75 px-5 py-4 text-xl font-bold leading-9 text-paper sm:text-2xl">同樣的文字故事，為什麼換了一種插畫風格和頭身比例，整個世界觀就徹底翻轉？</p>
+          <p data-reading class="mt-6 max-w-2xl text-lg leading-8 text-paper/85">這門課今天跳過單向理論講授，直接進到寫劇本。拿十九世紀照相技術衝擊對照今天的 AI 繪本，看坦尼爾與拉克姆如何用同一場瘋狂茶會畫出完全相反的世界，再拆解標準 32 頁背後的印刷秘密與五個故事零件，最後親手折出一張 8 格文字分鏡。</p>
+        </div>
+      </div>
+    </section>
+
+    <nav class="border-b-2 border-ink bg-[#fff0bf] px-5 py-5 sm:px-10 lg:px-12" aria-label="本週段落">
+      <p class="font-mono text-xs font-bold tracking-[.16em] text-blue">本週段落導覽</p>
+      <ol class="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-sm font-bold text-ink">
+        <li><a class="ink-link" href="#history-contrast">照相術誕生與 AI 繪本衝擊</a></li>
+        <li><a class="ink-link" href="#market-reality">出版現場生態與公版邊界</a></li>
+        <li><a class="ink-link" href="#visual-narrative">坦尼爾 vs 拉克姆的茶會對決</a></li>
+        <li><a class="ink-link" href="#character-proportion">頭身比與空間透視的秘密</a></li>
+        <li><a class="ink-link" href="#picturebook-spec">為什麼繪本偏偏是 32 頁</a></li>
+        <li><a class="ink-link" href="#story-five-parts">故事五零件與三幕劇阻力</a></li>
+        <li><a class="ink-link" href="#workshop">今日課堂實作：8 頁文字分鏡草稿</a></li>
+        <li><a class="ink-link" href="#footnotes">註腳與參考資料</a></li>
+      </ol>
+    </nav>
+
+    <section id="history-contrast" class="mx-auto max-w-6xl px-5 py-16 sm:px-10 lg:px-12 lg:py-24">
+      <div class="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(18rem,.7fr)] lg:items-start">
+        <div>
+          <p class="font-mono text-xs font-bold tracking-[.18em] text-blue">歷史對照</p>
+          <h2 class="mt-4 text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">照相技術誕生時，大家也在問畫家還能做什麼</h2>
+          <p data-reading class="mt-6 text-lg leading-9 text-ink/80">把時間拉回十九世紀初。在照相機發明前，人類想留下長相、記錄重大事件或描繪遠方異國生物，唯一途徑就是聘請畫家用顏料在畫布或紙張上一筆一筆畫出來。當 1839 年法國公布達蓋爾銀版攝影術時，社會大眾陷入極大恐慌：有人迷信照相會把人的靈魂抽走，貴族與教廷更開始質疑，何必再花巨資供養畫家購買昂貴顏料。<SourceNote n={1} /></p>
+          <p data-reading class="mt-4 text-lg leading-9 text-ink/80">但歷史告訴我們，繪畫並未被照片消滅。照片接管了機械式的「客觀寫真記錄」功能，反而逼得畫家放下單純的擬真負擔，催生出印象派、表現主義以及把畫布當成獨立視覺王國的現代插畫。今天生成式 AI 問世引發的恐慌如出一轍，技術替代了像素拼湊的體力活，卻永遠取代不了創作者為作品注入的世界觀、隱喻與敘事靈魂。</p>
+        </div>
+        <aside class="rounded-2xl border-2 border-ink bg-[#ffd7cc] p-6 shadow-[8px_8px_0_rgba(13,94,130,.14)]">
+          <p class="font-mono text-xs font-bold tracking-[.16em] text-blue">歷史的反思</p>
+          <p class="mt-4 text-xl font-extrabold leading-8">新工具從不消滅創作，它只消滅重複的體力勞動，並逼出新形式的敘事價值。</p>
+          <p class="mt-4 border-t border-ink/15 pt-4 text-sm leading-7 text-ink/80">照相機解放了古典寫實，催生出現代藝術；生成式 AI 正在解放算圖製程，逼迫插畫家升級為世界觀架構師。</p>
+        </aside>
+      </div>
+    </section>
+
+    <section id="market-reality" class="bg-night px-5 py-16 text-paper sm:px-10 lg:px-12 lg:py-24">
+      <div class="mx-auto max-w-6xl">
+        <p class="font-mono text-xs font-bold tracking-[.18em] text-sun">出版市場生態</p>
+        <h2 class="mt-3 max-w-4xl text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">主流出版社的堅持，與 AI 繪本的真實界限</h2>
+        <div class="mt-8 grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(20rem,.75fr)] lg:items-start">
+          <div>
+            <p data-reading class="text-lg leading-8 text-paper/85">回到當代台灣圖書出版現場，純 AI 生成的繪本在實體市場其實極為罕見。台灣深耕童書繪本數十年的指標出版社，如東方出版社與上誼文化，核心書系依然堅持與專業繪師合作原創作品。對繪本教育與收藏市場而言，繪本代表著實體印刷的紙質觸感、裝幀工藝與繪者獨一無二的情感溫度，這是單純螢幕算圖無法取代的商業本質。<SourceNote n={2} /></p>
+            <p data-reading class="mt-4 text-lg leading-8 text-paper/85">AI 繪本目前的主要切入點在於極致壓低印製與編修成本，因而在幼兒園常規練習教材或特定短期教案中逐步出現。然而，由於大量生成模型在未經授權下抓取繪師作品訓練，創作者社群對版權爭議反應強烈。如果同學未來想以 AI 輔助詠唱圖像，最安全的素材來源就是十九世紀中期以前進入「公眾領域」（公版）的古典文本，但核心故事與情節骨幹，絕對不能依賴電腦代勞。</p>
+          </div>
+          <div class="space-y-4">
+            <article class="rounded-xl border-2 border-paper/30 bg-paper/10 p-5">
+              <p class="font-mono text-xs font-bold text-sun">主流童書市場</p>
+              <h3 class="mt-2 text-xl font-extrabold">原創溫度與工藝價值</h3>
+              <p class="mt-2 text-sm leading-7 text-paper/80">強調插畫家風格筆觸、實體印刷裝幀與親子共讀的情感連結，拒絕未揭露的機器生成素材。</p>
+            </article>
+            <article class="rounded-xl border-2 border-paper/30 bg-paper/10 p-5">
+              <p class="font-mono text-xs font-bold text-coral">教材與特定教學</p>
+              <h3 class="mt-2 text-xl font-extrabold">低成本與快速迭代</h3>
+              <p class="mt-2 text-sm leading-7 text-paper/80">著重單向認知（認識顏色、蔬果、數字），追求極低製作成本，取代常規練習冊。</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="visual-narrative" class="paper-grid px-5 py-16 sm:px-10 lg:px-12 lg:py-24">
+      <div class="mx-auto max-w-6xl">
+        <p class="font-mono text-xs font-bold tracking-[.18em] text-blue">視覺敘事大師對決</p>
+        <h2 class="mt-3 max-w-4xl text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">同一場瘋狂茶會，兩種截然不同的世界觀</h2>
+        <p data-reading class="mt-6 max-w-3xl text-lg leading-9 text-ink/80">童書繪本在十九世紀中期迎來黃金時代，插畫家開始從文字的附庸轉變為「世界觀架構師」。最具代表性的案例，莫過於 1865 年約翰·坦尼爾（John Tenniel）為路易斯·卡羅《愛麗絲夢遊仙境》創作的經典插圖。1907 年該書在英國進入公眾領域後，著名插畫家亞瑟·拉克姆（Arthur Rackham）隨即推出了風格迥異的全新版本，兩位大師以完全不同的視覺語言演繹了同一場戲。<SourceNote n={3} /></p>
+        <p data-reading class="mt-4 max-w-3xl text-lg leading-9 text-ink/80">翻開書中最著名的第七章「瘋狂茶會（A Mad Tea-Party）」，兩幅畫作展現出截然不同的美學策略。長桌明明只有四個角色（愛麗絲、瘋帽客、三月兔、睡鼠），桌面上卻凌亂擺放了十幾套杯盤。瘋帽客帽子上夾著標價牌「In this style 10/6」，象徵他隨時把商品戴在頭上的荒唐行徑。但在這場混亂中，兩位插畫家對愛麗絲的心理刻畫卻完全走向兩極。</p>
+
+        <div class="mt-10 grid gap-8 lg:grid-cols-2 lg:items-start">
+          <WorkFigure
+            work={work.tennielMadTeaParty}
+            base={base}
+            caption="坦尼爾版（1865）：鋼筆墨線俐落剛勁，人物造型帶有英國《Punch》諷刺漫畫的喜劇誇張感。愛麗絲閉眼抱胸、無奈扭頭，展現小女孩面對瘋狂大人時的抗拒與生悶氣。"
+          />
+          <WorkFigure
+            work={work.rackhamMadTeaParty}
+            base={base}
+            caption="拉克姆版（1907）：古老盤根老樹下的陰暗水彩洗染，線條纖細綿密。愛麗絲身軀緊繃、眉頭深鎖，整場下午茶彷彿籠罩在維多利亞哥德式的神秘與焦慮夢魘中。"
+          />
+        </div>
+
+        <div class="mt-12 overflow-x-auto">
+          <table class="w-full border-collapse border-2 border-ink bg-paper text-left text-sm">
+            <caption class="border-2 border-b-0 border-ink bg-[#fff0bf] p-4 text-base font-extrabold text-ink">
+              兩大插畫名家之視覺要素對照分析表
+            </caption>
+            <thead>
+              <tr class="border-b-2 border-ink bg-sky font-bold">
+                <th class="border-r-2 border-ink p-4">視覺變數</th>
+                <th class="border-r-2 border-ink p-4">約翰·坦尼爾（John Tenniel, 1865）</th>
+                <th class="p-4">亞瑟·拉克姆（Arthur Rackham, 1907）</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y-2 divide-ink">
+              <tr>
+                <td class="border-r-2 border-ink bg-[#ffd7cc]/40 p-4 font-bold">線條質感</td>
+                <td class="border-r-2 border-ink p-4">黑白木刻版畫鋼筆墨線，排線剛勁明快、輪廓硬挺，繼承政治諷刺漫畫傳統。</td>
+                <td class="p-4">極致纖細流暢的工筆細墨線，搭配盤根錯節的樹枝與衣服褶皺，具浪漫奇幻質感。</td>
+              </tr>
+              <tr>
+                <td class="border-r-2 border-ink bg-[#ffd7cc]/40 p-4 font-bold">色彩調性</td>
+                <td class="border-r-2 border-ink p-4">原版為黑白木刻；後期彩色版彩度較高，人物與背景對比強烈清晰。</td>
+                <td class="p-4">低彩度、幽暗深沉的橄欖綠、土褐色與水彩淡墨，營造出黃昏薄霧般的迷離感。</td>
+              </tr>
+              <tr>
+                <td class="border-r-2 border-ink bg-[#ffd7cc]/40 p-4 font-bold">角色情緒</td>
+                <td class="border-r-2 border-ink p-4">幽默諷刺、荒謬滑稽；愛麗絲閉目嘟嘴，流露出「我受夠你們這群瘋子」的稚氣。</td>
+                <td class="p-4">心理壓抑、焦慮與異化感；愛麗絲神情緊繃，彷彿隨時會被詭異的世界吞噬。</td>
+              </tr>
+              <tr>
+                <td class="border-r-2 border-ink bg-[#ffd7cc]/40 p-4 font-bold">角色頭身比</td>
+                <td class="border-r-2 border-ink p-4">約 4 至 5 頭身，符合小學初階學童帶有稚嫩肚腩與短四肢的真實比例。</td>
+                <td class="p-4">拉長至約 7 至 8 頭身，將主角塑造成體態纖細苗條的貴族少女。</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="character-proportion" class="bg-[#fff0bf] px-5 py-16 sm:px-10 lg:px-12 lg:py-24">
+      <div class="mx-auto max-w-6xl">
+        <p class="font-mono text-xs font-bold tracking-[.18em] text-blue">造型法則</p>
+        <h2 class="mt-3 max-w-4xl text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">頭身比如何決定角色的年齡定位與親和力</h2>
+        <div class="mt-8 grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(18rem,.7fr)] lg:items-start">
+          <div>
+            <p data-reading class="text-lg leading-9 text-ink/80">插畫家在建構視覺語言時，核心取決於四大要素：線條、色彩、比例與空間。其中，「頭身比」（頭部垂直高度與全身總高的比例）是決定角色心理年齡與受眾親和力最關鍵的量化指標。現實生活中的成年男性約為 7 到 7.5 頭身，成年女性約為 7 頭身；時尚伸展台服裝畫或美型少年漫畫為了追求極致修長，常刻意將身形拉伸至 9 頭身。</p>
+            <p data-reading class="mt-4 text-lg leading-9 text-ink/80">但當我們觀察商業上最受歡迎的可愛 IP 或吉祥物（如 Hello Kitty、史努比、熊本熊）時，會發現它們的黃金創作公式幾乎都落在 2:1 到 4:1 的「幼態持續（Neoteny）」矮胖身形。坦尼爾筆下的愛麗絲維持 4 到 5 頭身，讓讀者直覺認定她是個還沒長大的好奇小女孩；而拉克姆把愛麗絲拉長到 7 到 8 頭身，整個故事就立刻帶上了少女成長蛻變的苦澀與徬徨。</p>
+          </div>
+          <aside class="rounded-2xl border-2 border-ink bg-paper p-6 shadow-[8px_8px_0_rgba(13,94,130,.14)]">
+            <p class="font-mono text-xs font-bold tracking-[.16em] text-coral">常見頭身比速查</p>
+            <ul class="mt-4 space-y-3 text-sm font-bold leading-7 text-ink">
+              <li class="flex justify-between border-b border-ink/15 pb-2"><span>可愛吉祥物 / Q 版 IP</span><span class="font-mono text-coral">2 ～ 4 頭身</span></li>
+              <li class="flex justify-between border-b border-ink/15 pb-2"><span>坦尼爾版愛麗絲（童書學童）</span><span class="font-mono text-blue">4 ～ 5 頭身</span></li>
+              <li class="flex justify-between border-b border-ink/15 pb-2"><span>現實成人人體標準</span><span class="font-mono text-ink">7 ～ 7.5 頭身</span></li>
+              <li class="flex justify-between border-b border-ink/15 pb-2"><span>拉克姆版愛麗絲（纖細少女）</span><span class="font-mono text-blue">7 ～ 8 頭身</span></li>
+              <li class="flex justify-between"><span>時尚模特兒 / 美型動漫主角</span><span class="font-mono text-ink">9 頭身</span></li>
+            </ul>
+          </aside>
+        </div>
+
+        <div class="mt-10 rounded-2xl border-2 border-ink bg-paper p-6">
+          <p class="font-mono text-xs font-bold tracking-[.16em] text-blue">空間透視的打破與戲劇張力</p>
+          <p class="mt-3 text-base leading-8 text-ink/85">人類大腦看 2D 平面圖形時，會自動依據人體工學常識腦補出 3D 立體深度。正常情況下，畫面中的桌椅、茶壺與角色必須遵循真實空間重力邏輯；唯有在需要製造超現實的戲劇衝突時（例如愛麗絲喝下神奇藥水身體膨脹到頂破天花板，或是縮小成老鼠般掉入自己的眼淚池），插畫家才會主動打破空間與透視常規，讓視覺衝擊直接轉化為情節高潮。</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="picturebook-spec" class="paper-grid px-5 py-16 sm:px-10 lg:px-12 lg:py-24">
+      <div class="mx-auto max-w-6xl">
+        <p class="font-mono text-xs font-bold tracking-[.18em] text-blue">商業與印刷原理</p>
+        <h2 class="mt-3 max-w-4xl text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">為什麼全世界的繪本，偏偏都是 32 頁？</h2>
+        <div class="mt-8 grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(18rem,.7fr)] lg:items-start">
+          <div>
+            <p data-reading class="text-lg leading-9 text-ink/80">同學走進書店或圖書館翻開童書繪本，只要數一下頁碼，會驚訝地發現絕大多數繪本不多不少正好是 32 頁。這不是創作者的浪漫靈感，而是工業印刷背後冷酷的成本計算：現代平版印刷機是將整張巨大全紙送入機器，雙面印刷後經過三次折疊，剛好裁切折疊成一組 16 頁的單位，印刷業稱之為一個「台（Signature）」。<SourceNote n={4} /></p>
+            <p data-reading class="mt-4 text-lg leading-9 text-ink/80">標準的精裝繪本就是由兩個 16 頁台縫合組裝成 32 頁。如果一位創作者任性地畫了 26 頁或 34 頁，印刷廠依然必須走完兩大張全紙的版費與機台工時，多出來的空白頁面全被切掉丟棄，單本印製成本隨之暴增。扣除前後蝴蝶頁、書名扉頁與版權宣告頁，創作者能完整發揮的故事跨頁（Spread）約落在 12 到 14 個，正好完美契合三至八歲孩童 5 到 8 分鐘的專注力上限。</p>
+          </div>
+          <aside class="rounded-2xl border-2 border-ink bg-[#fff0bf] p-6 shadow-[8px_8px_0_rgba(13,94,130,.14)]">
+            <p class="font-mono text-xs font-bold tracking-[.16em] text-blue">繪本常見規格速覽</p>
+            <div class="mt-4 space-y-3 text-sm leading-7">
+              <div class="border-b border-ink/15 pb-2">
+                <p class="font-bold">幼兒啟蒙硬頁書（8 頁）</p>
+                <p class="text-ink/75">針對 1 歲幼兒，厚紙板裱貼抗撕咬，聚焦形狀與顏色認知。</p>
+              </div>
+              <div class="border-b border-ink/15 pb-2">
+                <p class="font-bold">無字繪本（16 頁）</p>
+                <p class="text-ink/75">單一印刷台，完全靠純畫面推動因果關係，考驗分鏡功力。</p>
+              </div>
+              <div class="border-b border-ink/15 pb-2">
+                <p class="font-bold">標準主流繪本（32 頁）</p>
+                <p class="text-ink/75">兩個印刷台（16+16），國際通用經典規格，約 12-14 跨頁。</p>
+              </div>
+              <div>
+                <p class="font-bold">橋樑書 / 圖像小說（64 頁）</p>
+                <p class="text-ink/75">四個印刷台，適合國小中低年級文字量深化、情節複雜的故事。</p>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section id="story-five-parts" class="bg-night px-5 py-16 text-paper sm:px-10 lg:px-12 lg:py-24">
+      <div class="mx-auto max-w-6xl">
+        <p class="font-mono text-xs font-bold tracking-[.18em] text-sun">編劇底層骨幹</p>
+        <h2 class="mt-3 max-w-4xl text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">故事的五個核心零件，與三幕劇的四種阻力</h2>
+        <p data-reading class="mt-6 max-w-3xl text-lg leading-8 text-paper/85">無論是 32 頁繪本、一分鐘動畫短片還是好萊塢電影長片，優秀劇本的底層都由「五個核心零件」推動：第一是主角是誰（Who）、第二是目標是什麼（Goal）、第三是遭遇什麼阻力與危機（Conflict）、第四是採取什麼行動應對（Action）、第五是最終產生了什麼實質改變（Change）。沒有阻力就沒有故事，平鋪直敘的日記成不了劇本。</p>
+        <p data-reading class="mt-4 max-w-3xl text-lg leading-8 text-paper/85">這五個零件在戲劇結構上對應著古典的「三幕劇原則」。第一幕是開端鋪陳，交代主角的日常現狀與行動動機；第二幕是衝突對抗，主角遭遇阻力升級，阻力通常分為四種類型：外在環境阻力（如暴風雨攔路）、內在心理阻力（如自卑與恐懼）、人際關係阻力（如爭奪同個玩具或吃醋爭吵）、以及體制規則阻力（如門禁禁令）；第三幕則是高潮與轉化，主角做出抉擇化解危機，帶著名為「成長」的新姿態繼續面對生活。</p>
+
+        <div class="mt-10 rounded-2xl border-2 border-paper/40 bg-paper/10 p-6 sm:p-8">
+          <p class="font-mono text-xs font-bold tracking-[.16em] text-sun">經典範例拆解：《最長的一場風暴》（The Longest Storm）</p>
+          <p class="mt-2 text-sm text-paper/70">丹·雅卡理諾（Dan Yaccarino）創作，獲選 2021 紐約時報最佳童書、出版者週刊年度最佳繪本。<SourceNote n={5} /></p>
+          <div class="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            <article class="rounded-xl border border-paper/20 bg-paper/5 p-4">
+              <span class="font-mono text-xs font-bold text-sun">01 / 角色與目標</span>
+              <h3 class="mt-2 text-lg font-extrabold">一家四口想維持原本生活</h3>
+              <p class="mt-2 text-xs leading-6 text-paper/80">父親與三個孩子因無止境的奇異大風暴被迫困在密閉屋內，大家想維持各自平時的打鬧與日常步伐。</p>
+            </article>
+            <article class="rounded-xl border border-paper/20 bg-paper/5 p-4">
+              <span class="font-mono text-xs font-bold text-coral">02 / 第一層轉折（人際阻力）</span>
+              <h3 class="mt-2 text-lg font-extrabold">密閉空間摩擦加劇，關係降至冰點</h3>
+              <p class="mt-2 text-xs leading-6 text-paper/80">長期被困在狹窄屋內導致互相看不順眼，言語衝突爆發，每個人各自躲回角落生悶氣，家庭氣氛瀕臨崩潰。</p>
+            </article>
+            <article class="rounded-xl border border-paper/20 bg-paper/5 p-4">
+              <span class="font-mono text-xs font-bold text-coral">03 / 第二層轉折（外在危機）</span>
+              <h3 class="mt-2 text-lg font-extrabold">閃電劈下全屋斷電，畫面全黑</h3>
+              <p class="mt-2 text-xs leading-6 text-paper/80">外在風暴升級，雷電擊毀電力，畫面瞬間陷入純黑與深藍的恐懼陰影中。</p>
+            </article>
+            <article class="rounded-xl border border-paper/20 bg-paper/5 p-4">
+              <span class="font-mono text-xs font-bold text-sky">04 / 關鍵行動（象徵色彩）</span>
+              <h3 class="mt-2 text-lg font-extrabold">父親點燃微弱燭光，破除黑暗</h3>
+              <p class="mt-2 text-xs leading-6 text-paper/80">作者刻意安排父親點亮蠟燭而非手電筒；暖橘黃的微光與陰冷的深藍背景形成強烈對比，一家人圍攏依偎道歉。</p>
+            </article>
+            <article class="rounded-xl border border-paper/20 bg-paper/5 p-4">
+              <span class="font-mono text-xs font-bold text-sun">05 / 最終改變（成長與轉化）</span>
+              <h3 class="mt-2 text-lg font-extrabold">風暴過去，攜手走出戶外重建</h3>
+              <p class="mt-2 text-xs leading-6 text-paper/80">隔日清晨風暴雖未完全停止，但彼此心靈已經重新凝聚；最終風暴散去，全家攜手踏出家門重建生活。</p>
+            </article>
+            <article class="rounded-xl border border-paper/20 bg-paper/5 p-4">
+              <span class="font-mono text-xs font-bold text-sun">06 / 裝幀巧思</span>
+              <h3 class="mt-2 text-lg font-extrabold">封面與封底的首尾呼應</h3>
+              <p class="mt-2 text-xs leading-6 text-paper/80">封面是一家人因暴風雨逃進屋內關閉大門；封底是一家人在陽光下推開大門走出戶外，形成完整的敘事閉環。</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="paper-grid px-5 py-16 sm:px-10 lg:px-12 lg:py-24">
+      <div class="mx-auto max-w-6xl">
+        <div class="grid gap-8 rounded-2xl border-2 border-ink bg-[#ffd7cc] p-7 md:grid-cols-[minmax(0,1fr)_minmax(18rem,.7fr)] md:items-center md:p-10">
+          <div>
+            <p class="font-mono text-xs font-bold tracking-[.16em] text-blue">台灣設計教育 / 先看一件事</p>
+            <h2 class="mt-3 text-3xl font-extrabold tracking-[-.05em] sm:text-4xl">{designLesson.concept.replace(/。$/, '')}</h2>
+            <p data-reading data-reading-source="designLesson.eli5" class="mt-5 text-lg leading-9">{designLesson.eli5}</p>
+            <p data-reading class="mt-4 text-base leading-8">先決定故事裡的衝突與角色身形，畫面的視角和光線才有依據。順序反過來，只會得到一張張精緻卻湊不成故事的孤立圖卡。</p>
+          </div>
+          <figure class="rounded-2xl border-2 border-ink bg-paper p-4">
+            <img
+              src={`${base}${designLesson.visual}`}
+              alt={designLesson.visualAlt}
+              class="h-auto w-full"
+              loading="lazy"
+              decoding="async"
+            />
+            <figcaption class="mt-3 font-mono text-xs leading-6 text-blue">{designLesson.visualAlt}</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section id="workshop" class="bg-[#fff0bf] px-5 py-16 sm:px-10 lg:px-12 lg:py-24">
+      <div class="mx-auto max-w-6xl">
+        <p class="font-mono text-xs font-bold tracking-[.18em] text-blue">今日課堂實作</p>
+        <h2 class="mt-3 max-w-4xl text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">一張 A4 折出 8 頁文字分鏡草稿</h2>
+        <div class="mt-8 grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(18rem,.7fr)] lg:items-start">
+          <div>
+            <p data-reading class="text-lg leading-9 text-ink/80">今天課堂不要求大家直接畫出精美的完稿插畫，所有人的任務只有一個：親自折出一份包含 8 個跨頁進程的「文字分鏡腳本草案」。每位同學領取一張白色 A4 紙，橫向對折三次，攤開後便會得到整齊排列的 8 個方格。這 8 格就是你未來繪本或短片的第一份敘事骨幹，標註好 1 到 8 的順序，把主角的起承轉合一步步填入。</p>
+            <p data-reading class="mt-4 text-lg leading-9 text-ink/80">請務必記住：嚴禁直接把故事骨幹全盤交給 AI 自動生成。生成式語言模型極度擅長吐出千篇一律、毫無稜角的平庸套路童話；而老師必須透過這 8 格手寫草稿，精確觀察每位同學原本的邏輯盲點、幽默感與衝突直覺，才能在後續腳本與分鏡課程給予量身指導。若一時缺乏角色靈感，可以借用古典公版角色（如小紅帽、愛麗絲）進行全新改編。</p>
+          </div>
+          <aside class="rounded-2xl border-2 border-ink bg-paper p-6 shadow-[8px_8px_0_rgba(13,94,130,.14)]">
+            <p class="font-mono text-xs font-bold tracking-[.16em] text-coral">繳交與填寫規範</p>
+            <ol class="mt-4 space-y-3 text-sm font-semibold leading-7 text-ink">
+              <li>1. 紙張右上角清楚寫上學號與姓名。</li>
+              <li>2. 標註 1 至 8 的畫格順序動線。</li>
+              <li>3. 文字必須具體交代：角色外貌、所在環境、現場光線與發生的關鍵事件。</li>
+              <li>4. 禁止只寫兩三個抽象詞彙（例如「小紅帽走在森林」是無效分鏡；必須寫成「身穿破爛紅斗篷的小女孩，提著過重的大籃子吃力踏過滿地泥濘，四周樹影如巨爪遮蔽陽光」）。</li>
+              <li>5. 今天課堂每人或每組至少繳交一份完整草案。</li>
+            </ol>
+          </aside>
+        </div>
+
+        <div class="mt-10 rounded-2xl border-2 border-ink bg-paper p-6">
+          <p class="font-mono text-xs font-bold tracking-[.16em] text-blue">下週接軌</p>
+          <p class="mt-3 text-base leading-8 text-ink/85">把今天這 8 格文字分鏡留好。下週進到 AI 數位繪圖工具時，我們不會漫無目的地隨意算圖，而是會拿著你今天親手寫出的畫面需求單，一格一格測試模型：看 AI 能不能聽懂你的視角指令、能不能維持同一個角色的五官特徵，以及在不同環境下能不能保留你設定的色彩與心理氛圍。</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="footnotes" class="border-t-2 border-ink bg-paper px-5 py-12 sm:px-10 lg:px-12">
+      <div class="mx-auto max-w-6xl">
+        <p class="font-mono text-xs font-bold tracking-[.18em] text-blue">本週資料來源與查證紀錄</p>
+        <p class="mt-2 text-xs leading-6 text-ink/70">正文每個史實年代、版本演進與印刷數據均標註查證編號。點擊數字可跳轉回對應正文。</p>
+        <ol class="mt-4 space-y-3">
+          {footnotes.map((fn) => (
+            <li id={`src-${fn.n}`} class="grid scroll-mt-24 gap-1 text-sm leading-7 sm:grid-cols-[2.5rem_minmax(0,1fr)] sm:gap-3">
+              <span class="font-mono text-xs font-bold text-coral">
+                <a href={`#ref-${fn.n}`} class="underline decoration-1 underline-offset-2 hover:text-blue">{fn.n}</a>
+              </span>
+              <span class="text-ink/85">
+                <span class="font-bold text-ink">{fn.claim}</span>
+                <a href={fn.url} target="_blank" rel="noreferrer" class="ml-1 font-bold text-blue underline decoration-coral decoration-2 underline-offset-4 hover:text-coral">{fn.label} ↗</a>
+              </span>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <nav class="mx-auto grid max-w-5xl gap-5 border-t-2 border-ink px-5 py-10 text-sm font-bold sm:grid-cols-2 sm:px-10 lg:px-12" aria-label="週次導覽">
+      <a href={`${base}/weeks/3`} class="ink-link">← W03 插畫藝術的風格類型</a>
+      <a href={`${base}/weeks/5`} class="ink-link sm:text-right">W05 人工智慧數位繪圖工具 →</a>
+    </nav>
+  </main>
+</Layout>

@@ -119,4 +119,27 @@ export const historicalWorks: Record<string, HistoricalWork> = {
     source:
       'https://commons.wikimedia.org/wiki/File:Albrecht_D%C3%BCrer,_The_Rhinoceros,_1515,_NGA_47903.jpg',
   },
+  tennielMadTeaParty: {
+    file: '/illustrations/work-tenniel-mad-tea-party.webp',
+    description:
+      '約翰·坦尼爾為《愛麗絲夢遊仙境》繪製的「瘋狂茶會」：瘋帽客、三月兔、睡鼠與愛麗絲坐在長桌一角，長桌上排滿未收拾的茶具，瘋帽客帽子上夾著「In this style 10/6」價格標籤。',
+    maker: 'John Tenniel',
+    date: '1865',
+    license: '公有領域',
+    credit:
+      "Lewis Carroll《Alice's Adventures in Wonderland》初版木刻版畫，Wikimedia Commons 標示為公有領域",
+    source: 'https://commons.wikimedia.org/wiki/File:Alice_par_John_Tenniel_25.png',
+  },
+  rackhamMadTeaParty: {
+    file: '/illustrations/work-rackham-mad-tea-party.webp',
+    description:
+      '亞瑟·拉克姆為《愛麗絲夢遊仙境》1907 年版繪製的「瘋狂茶會」：愛麗絲坐在古老盤根大樹下的長桌旁，周圍茶杯凌亂，瘋帽客神情焦躁，色調低沉且帶有盤根錯節的奇幻陰鬱氛圍。',
+    maker: 'Arthur Rackham',
+    date: '1907',
+    license: '公有領域',
+    credit:
+      "William Heinemann 1907 年版《Alice's Adventures in Wonderland》彩色插頁，Wikimedia Commons 標示為公有領域",
+    source:
+      'https://commons.wikimedia.org/wiki/File:Alice_in_Wonderland_by_Arthur_Rackham_-_08_-_A_Mad_Tea-Party.jpg',
+  },
 }

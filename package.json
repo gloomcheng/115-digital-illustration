@@ -25,7 +25,7 @@
     "check:live:e2e": "bun run scripts/live-game-e2e.ts",
     "check:anchors": "node scripts/anchor-audit.mjs",
     "check:measure": "node scripts/measure-audit.mjs",
-    "check:grid": "bun run scripts/grid-check.ts dist/weeks/1/index.html dist/weeks/2/index.html dist/weeks/3/index.html dist/weeks/5/index.html",
+    "check:grid": "bun run scripts/grid-check.ts dist/weeks/1/index.html dist/weeks/2/index.html dist/weeks/3/index.html dist/weeks/4/index.html dist/weeks/5/index.html",
     "check:reading-windows": "node scripts/reading-window-harness.mjs",
     "check:ai-prose": "node scripts/ai-prose-guard.mjs",
     "quality": "npm run check:reading-windows && npm run check:ai-prose && npm run check:anchors && npm run check:measure && npm run typecheck && npm run build"

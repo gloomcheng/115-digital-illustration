@@ -32,7 +32,7 @@ const measured = marketFacts.filter((fact) => !fact.assumed)
           <p class="font-mono text-xs font-bold tracking-[.18em] text-sun">W03 / AI 工具</p>
           <h1 class="mt-5 text-5xl font-extrabold leading-[.98] tracking-[-.07em] sm:text-7xl">插畫藝術的風格類型</h1>
           <p data-reading class="mt-8 max-w-2xl border-l-4 border-coral bg-ink/75 px-5 py-4 text-xl font-bold leading-9 text-paper sm:text-2xl">AI 會出一百張。付錢的是那個決定留下哪三張的人。</p>
-          <p data-reading class="mt-6 max-w-2xl text-lg leading-8 text-paper/85">這一週的每個選擇都有第二個讀法。它看起來是什麼，以及誰在為它付錢、為什麼不找你以外的人做。</p>
+          <p data-reading class="mt-6 max-w-2xl text-lg leading-8 text-paper/85">這一週的每個選擇都有第二個讀法。它看起來是什麼，以及誰在為它付錢、為什麼不找你以外的人做。這一切先從軟體工程與介面設計裡的 UI 與 UX 開始看起。</p>
         </div>
       </div>
     </section>
@@ -40,13 +40,32 @@ const measured = marketFacts.filter((fact) => !fact.assumed)
     <nav class="border-b-2 border-ink bg-[#fff0bf] px-5 py-5 sm:px-10 lg:px-12" aria-label="本週段落">
       <p class="font-mono text-xs font-bold tracking-[.16em] text-blue">快速複習</p>
       <ol class="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-sm font-bold text-ink">
-        <li><a class="ink-link" href="#reality">先看真實世界</a></li>
+        <li><a class="ink-link" href="#ui-ux">UI/UX 與使用者體驗</a></li>
+        <li><a class="ink-link" href="#reality">產業數據與就業現實</a></li>
         <li><a class="ink-link" href="#second-reading">每個選擇有兩個讀法</a></li>
-        <li><a class="ink-link" href="#axes">六個軸，辨識點還是裝飾</a></li>
-        <li><a class="ink-link" href="#game">課堂遊戲</a></li>
+        <li><a class="ink-link" href="#axes">六個軸與微縮辨識點</a></li>
+        <li><a class="ink-link" href="#game">課堂互動與智財權法規</a></li>
         <li><a class="ink-link" href="#evidence">這週要交什麼</a></li>
       </ol>
     </nav>
+
+    <section id="ui-ux" class="border-b-2 border-ink bg-paper px-5 py-16 sm:px-10 lg:px-12 lg:py-24">
+      <div class="mx-auto max-w-6xl">
+        <div class="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(18rem,.7fr)] lg:items-start">
+          <div>
+            <p class="font-mono text-xs font-bold tracking-[.18em] text-blue">軟體思維與介面體驗</p>
+            <h2 class="mt-4 text-4xl font-extrabold tracking-[-.06em] sm:text-5xl">UI 是你看得見的介面，UX 是你不必多做多此一舉的事</h2>
+            <p data-reading class="mt-6 text-lg leading-9 text-ink/80">在程式開發與網頁設計領域，最貼近視覺創作的正是 UI（User Interface，使用者介面）與 UX（User Experience，使用者體驗）。UI 是手機螢幕上排列的按鈕、文字框與繪本封面；UX 則是背後的隱性成本 —— 使用者需要花多少精力理解、點擊幾次才能完成目的，以及過程中會不會感到困惑或沮喪。</p>
+            <p data-reading class="mt-4 text-lg leading-9 text-ink/80">拿童話繪本 App 的 AR 下載流程為例：三本書在畫面上水平滑動，因為 App 商城有單一執行檔或行動網路下載的容量門檻，幾百 MB 的高解析模型無法全部硬塞進初始安裝包，必須點擊後從雲端下載。這時有兩種流程：方案 A 是點了下載跳出彈窗寫「請確認下載」，按確認才開始；方案 B 是點擊後直接出現進度條同步下載。所有人都選方案 B，因為多按一次確認是多此一舉。UX 的核心工作，就是不讓使用者覺得自己像個白痴在多繞路。</p>
+          </div>
+          <aside class="rounded-2xl border-2 border-ink bg-[#fff0bf] p-6 shadow-[8px_8px_0_rgba(13,94,130,.14)]">
+            <p class="font-mono text-xs font-bold tracking-[.16em] text-blue">陶藝家與量產工廠</p>
+            <h3 class="mt-3 text-2xl font-extrabold leading-snug">從排斥到依賴，<br />人性追求效率</h3>
+            <p class="mt-4 text-sm leading-7 text-ink/80">限量陶藝家願意花一個月慢磨一件作品；但量產工廠以量制價，每天都在想如何把繁複步驟工程化、自動化。三年前許多設計師痛批 AI 偷竊作品誓死不用，如今卻廣泛用 AI 快速出草圖自己做後製 —— 人性就是追求效率。不要停在憤世嫉俗，要看清它解決了什麼問題。</p>
+          </aside>
+        </div>
+      </div>
+    </section>
 
     <section id="reality" class="mx-auto max-w-6xl px-5 py-16 sm:px-10 lg:px-12 lg:py-24">
       <div class="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(18rem,.7fr)] lg:items-start">
@@ -161,6 +180,25 @@ const measured = marketFacts.filter((fact) => !fact.assumed)
               </li>
             ))}
           </ol>
+        </div>
+
+        <div class="mt-10 rounded-2xl border-2 border-ink bg-paper p-6 sm:p-8">
+          <p class="font-mono text-xs font-bold tracking-[.16em] text-blue">智財權核心解析 / 法律法規防線</p>
+          <h3 class="mt-3 text-3xl font-extrabold tracking-[-.05em]">受僱 vs. 受聘：這張圖到底能不能拿去賣？</h3>
+          <p data-reading class="mt-5 text-base leading-8 text-ink/80">客戶說「這張圖很好看，我們想自己拿去印商品賣」，設計師能不能答應，取決於身分與契約約定。在台灣《著作權法》體系中，著作權分為永遠無法讓與的「著作人格權」（第 21 條，含公開發表、姓名表示、同一性保持），以及可以授權或買斷的「著作財產權」（第 36 條）。</p>
+          <p data-reading class="mt-4 text-base leading-8 text-ink/80">如果是外包接案（受聘人，依《著作權法》第 12 條），未約定時著作人格權與著作財產權全歸接案設計師所有，出資客戶僅能在「原出資目的範圍內」利用，客戶絕不能私自印成商品販售，否則構成侵害著作財產權罪（第 91 條擅自重製罪、第 92 條擅自公開傳輸罪，重大侵害者甚至轉為非告訴乃論）。若是正職員工（受僱人，依第 11 條），著作人格權歸員工、財產權歸公司，因此公司僱傭合約中必然要求簽署「受僱人承諾不行使著作人格權」，防範日後產品改版或未署名時產生法律糾紛。能說清楚這道權利邊界的人，才是能替企業把關風險的專業工作者。</p>
+          <div class="mt-6 grid gap-4 md:grid-cols-2">
+            <article class="rounded-xl border border-ink/20 bg-[#fff0bf] p-4">
+              <span class="font-mono text-xs font-bold text-coral">著作權法第 11 條 / 職務受僱人</span>
+              <h4 class="mt-2 text-lg font-extrabold">正職員工創作</h4>
+              <p class="mt-2 text-xs leading-6 text-ink/80">未特別約定時，員工為著作人（享有著作人格權），公司享有著作財產權。業界合約必簽「不行使著作人格權」以利後續改版營運。</p>
+            </article>
+            <article class="rounded-xl border border-ink/20 bg-sky p-4">
+              <span class="font-mono text-xs font-bold text-blue">著作權法第 12 條 / 出資受聘人</span>
+              <h4 class="mt-2 text-lg font-extrabold">外包接案創作</h4>
+              <p class="mt-2 text-xs leading-6 text-ink/80">未特別約定時，著作人格權與財產權全歸設計師。客戶出資僅取得特定目的利用權，私自印周邊販售需另外簽署授權與分潤合約。</p>
+            </article>
+          </div>
         </div>
 
         <div class="mt-10 rounded-2xl border-2 border-ink bg-ink p-8 text-paper">
