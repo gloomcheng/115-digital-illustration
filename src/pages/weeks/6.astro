@@ -1,0 +1,207 @@
+---
+import { designEducation } from '../../data/design-education'
+import Layout from '../../layouts/Layout.astro'
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '')
+const designLesson = designEducation[6]
+
+interface SourceEvidence {
+  n: number
+  claim: string
+  label: string
+  url: string
+}
+
+const verifiedSources: SourceEvidence[] = [
+  {
+    n: 1,
+    claim:
+      '影像生成核心機制：擴散模型由正向馬可夫鏈加噪與反向去噪雕刻組成；自迴歸模型採離散視覺 Token 光柵預測',
+    label: '3Blue1Brown x Welch Labs: But how do AI images and videos actually work?',
+    url: 'https://www.youtube.com/watch?v=iv-5mZ_9CPY',
+  },
+  {
+    n: 2,
+    claim:
+      'Anthropic 官方教育平台（Claude Academy）提出 4D 架構（Delegation, Description, Discernment, Diligence）與雙層嵌套循環',
+    label: 'Anthropic Claude Academy: AI Fluency: Framework and Foundations',
+    url: 'https://academy.claude.com',
+  },
+  {
+    n: 3,
+    claim:
+      'Anthropic 推出 Claude Design，打破單圖生成黑盒子，確立「設計系統優先（Design System Ingestion）」與雙欄即時協作畫布',
+    label: 'Anthropic: Introducing Claude Design by Anthropic Labs',
+    url: 'https://www.anthropic.com/news/claude-design-anthropic-labs',
+  },
+  {
+    n: 4,
+    claim:
+      'ChatGPT 圖像編輯與一致性維護官方指南：區分對話式全圖調整與內建選取筆刷（Inpainting），強調以增量描述修訂局部',
+    label: 'OpenAI Developers & Help Center: Images & Vision Guides',
+    url: 'https://developers.openai.com/api/docs/guides/images-vision',
+  },
+]
+---
+
+<Layout title="W06 數位繪圖應用：生成原理、4D 架構與角色一致性實務" description="從高斯擴散與視覺代碼接龍拆解 AI 物理極限；掌握 Anthropic 2026 最新 4D 設計思維，揚棄盲目抽卡，建立結構化規格書與局部筆刷一致性工作流。">
+  <main class="bg-paper">
+    <section class="relative isolate min-h-[min(720px,calc(100svh-76px))] overflow-hidden bg-ink text-paper">
+      <img src={`${base}/illustrations/prompt-window.svg`} alt="原創插畫：螢幕上並排著結構化角色規格書、高斯去噪軌跡與局部重繪選取筆刷的工作畫布。" class="absolute inset-0 h-full w-full object-cover object-center opacity-30" width="1672" height="941" fetchpriority="high" loading="eager" decoding="async" />
+      <div class="absolute inset-0 bg-[linear-gradient(90deg,rgba(7,31,52,.96)_0%,rgba(7,31,52,.86)_35%,rgba(7,31,52,.24)_78%,rgba(7,31,52,.08)_100%)]"></div>
+      <div class="relative mx-auto flex min-h-[min(720px,calc(100svh-76px))] max-w-7xl items-end px-5 py-14 sm:px-10 sm:py-20 lg:px-12">
+        <div class="max-w-3xl">
+          <p class="font-mono text-xs font-bold tracking-[.18em] text-sun">W06 / AI 工具與設計思維</p>
+          <h1 class="mt-5 text-4xl font-extrabold leading-[1.05] tracking-[-.06em] sm:text-6xl">生成原理、4D 架構與角色一致性實務</h1>
+          <p class="mt-8 max-w-2xl border-l-4 border-coral bg-ink/75 px-5 py-4 text-xl font-bold leading-9 text-paper sm:text-2xl">提示詞不是碰運氣的咒語，是一張精密的工程規格單。</p>
+          <p class="mt-6 max-w-2xl text-lg leading-8 text-paper/85">上週大家完成了八格縮圖分鏡與角色三面圖。今天正式打開 AI 工具：為什麼隨手輸入一句「畫個小男孩」只會換來每次長相都不同的災難？影像生成的底層機制到底是什麼？前沿模型商又是如何將「設計」拆解為可控的工程規格？</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Reading Window 01 & 02: 影像生成底層機制 -->
+    <section class="mx-auto max-w-6xl px-5 py-16 sm:px-10 lg:px-12 lg:py-24">
+      <div class="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(18rem,.7fr)] lg:items-start">
+        <div>
+          <p class="font-mono text-xs font-bold tracking-[.18em] text-blue">01 / 影像生成的物理本質</p>
+          <h2 class="mt-4 text-3xl font-extrabold tracking-[-.05em] sm:text-4xl">大理石雕刻 vs. 拼圖接龍：直面角色漂移的根本原因</h2>
+          <p class="mt-6 text-lg leading-9 text-ink/80" data-reading>
+            許多初學者接觸 AI 繪圖時，常誤以為模型像人類畫家一樣在一張純白畫布上勾線、填色；然而當前主流的擴散模型（如 Midjourney、Stable Diffusion、DALL·E 3）本質上更像是在進行一場大理石雕刻。電腦在學習階段，看過幾千萬張清晰照片被一步步灑上高斯白噪點直到成為電視機雪花的過程；生成時，畫布的起點正是一張純隨機的雪花雜訊，神經網路（U-Net 或 DiT）倒過來執行「反向去噪」，一步步把不屬於目標畫面的雜質刮除。你的文字提示詞，只是在高維潛空間中充當導引指南針，輕輕將像素推向特定風格的機率分佈區。
+          </p>
+          <p class="mt-4 text-lg leading-9 text-ink/80" data-reading>
+            這種去噪機制直接揭示了為什麼繪本創作者會遭遇致命的「角色漂移」：每次生成時，系統採樣的隨機種子（Seed）完全不同，這意味著去噪的雪花起點每次都被打亂重組。即使輸入完全一模一樣的文字，神經網路削出來的五官骨架與毛髮走向也必然重新生長；而另一流派的自迴歸視覺模型（如 Google Parti），雖將圖像切成網格狀的視覺代碼（Visual Tokens）如同接龍般逐一預測，具備前後文記憶，卻也面臨長序列上下文誤差累積的挑戰。明白這個物理極限，設計師就不會把時間浪費在無止境的抽卡碰運氣上，而是必須學會用系統規格來鎖定特徵。
+          </p>
+          <div class="mt-8 grid gap-4 sm:grid-cols-2">
+            <div class="rounded-xl border-2 border-ink bg-sky p-5">
+              <p class="font-mono text-xs font-bold text-blue">擴散模型（Diffusion）</p>
+              <h3 class="mt-2 text-xl font-extrabold">雪花去噪雕刻</h3>
+              <p class="mt-2 text-sm leading-7 text-ink/80">全圖像素並行計算，從隨機高斯噪點中剔除雜訊。換了 Seed 就換了去噪起點，全臉五官必然重新洗牌。</p>
+            </div>
+            <div class="rounded-xl border-2 border-ink bg-[#fff0bf] p-5">
+              <p class="font-mono text-xs font-bold text-blue">自迴歸模型（Autoregressive）</p>
+              <h3 class="mt-2 text-xl font-extrabold">視覺代碼接龍</h3>
+              <p class="mt-2 text-sm leading-7 text-ink/80">將圖片切成 256 或 1024 個代碼，由左上至右下循序預測。雖有上下文視窗可回看，但極度消耗顯存且有累積誤差。</p>
+            </div>
+          </div>
+        </div>
+        <figure class="rounded-2xl border-2 border-ink bg-[#ffd7cc] p-5 shadow-[8px_8px_0_rgba(13,94,130,.14)]">
+          <img src={`${base}${designLesson.visual}`} alt={designLesson.visualAlt} class="h-auto w-full" loading="lazy" decoding="async" />
+          <figcaption class="mt-4 font-mono text-xs leading-6 text-blue">{designLesson.eli5}</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Reading Window 03 & 04: Anthropic 2026 最新 4D 設計思維 -->
+    <section class="bg-night px-5 py-16 text-paper sm:px-10 lg:px-12 lg:py-24">
+      <div class="mx-auto max-w-6xl">
+        <p class="font-mono text-xs font-bold tracking-[.18em] text-sun">02 / 前沿模型商的設計哲學</p>
+        <h2 class="mt-3 max-w-4xl text-3xl font-extrabold tracking-[-.05em] sm:text-4xl">Anthropic 2026「4D 框架」：掌控雙層嵌套循環的藝術總監</h2>
+        <p class="mt-6 max-w-3xl text-lg leading-8 text-paper/85" data-reading>
+          面對工具隨機性的挑戰，前沿模型商在 2026 年徹底淘汰了「背詠唱咒語」的初級教學，Anthropic 官方教育平台（Claude Academy）攜手藝術設計學院教授推出的「AI Fluency 4D 框架」確立了人機協同的專業標準。4D 框架由兩組相互嵌套的循環構成：外層循環是「Delegation（任務委派）」與「Diligence（終端責任）」，要求創作者在動手前清楚界定何者交給 AI 輔助發想、何者由人類親手把關，並對作品最終的美學與法律邊界負起全部責任；如果欠缺外層的責任意識，所有的生成嘗試都只是毫無意義的代幣消耗。
+        </p>
+        <p class="mt-4 max-w-3xl text-lg leading-8 text-paper/85" data-reading>
+          內層循環則是創作現場的核心引擎：「Description（規格描述）」與「Discernment（批判審查）」。專業設計師不再對著聊天框書寫「一個很孤單的小女孩」這類充滿歧義的抒情散文，而是撰寫具備景別、光影、透視與不可變錨點的規格書；當模型吐出畫面後，創作者更必須啟動挑剔的審查眼光，比對角色特徵有無遺漏、閱讀視線是否流暢、是否存在肢體畸形。這套雙層循環宣告了隨機抽卡時代的終結，將創作主導權重新收回人類的專業判斷之中。
+        </p>
+        <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div class="rounded-xl border border-paper/20 bg-ink/60 p-6">
+            <span class="font-mono text-2xl font-black text-coral">01</span>
+            <h3 class="mt-2 text-xl font-bold">Delegation 委派</h3>
+            <p class="mt-3 text-sm leading-7 text-paper/75">依據問題目標切分邊界：背景氛圍可委派發想，角色靈魂與文化隱喻由人類牢牢掌控。</p>
+          </div>
+          <div class="rounded-xl border border-paper/20 bg-ink/60 p-6">
+            <span class="font-mono text-2xl font-black text-sun">02</span>
+            <h3 class="mt-2 text-xl font-bold">Description 描述</h3>
+            <p class="mt-3 text-sm leading-7 text-paper/75">把提示詞當工程規格單：定義主體、鏡頭焦段、光影色調、用途約束與明確邊界。</p>
+          </div>
+          <div class="rounded-xl border border-paper/20 bg-ink/60 p-6">
+            <span class="font-mono text-2xl font-black text-sky">03</span>
+            <h3 class="mt-2 text-xl font-bold">Discernment 辨識</h3>
+            <p class="mt-3 text-sm leading-7 text-paper/75">以專業眼光進行批判性審查：檢驗五官錨點、視線動線、翻頁呼吸與潛在圖像幻覺。</p>
+          </div>
+          <div class="rounded-xl border border-paper/20 bg-ink/60 p-6">
+            <span class="font-mono text-2xl font-black text-coral">04</span>
+            <h3 class="mt-2 text-xl font-bold">Diligence 嚴謹</h3>
+            <p class="mt-3 text-sm leading-7 text-paper/75">承擔署名作者的終極責任：進行手工修繪完稿、版權源頭查驗，絕不直接裸出未驗證圖檔。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Reading Window 05 & 06: 工具分界與角色一致性工業流水線 -->
+    <section class="mx-auto max-w-6xl px-5 py-16 sm:px-10 lg:px-12 lg:py-24">
+      <div>
+        <p class="font-mono text-xs font-bold tracking-[.18em] text-blue">03 / 業界一致性流水線</p>
+        <h2 class="mt-4 text-3xl font-extrabold tracking-[-.05em] sm:text-4xl">文字層與像素層分工：解密 2026 商業繪本防漂移工作流</h2>
+        <p class="mt-6 text-lg leading-9 text-ink/80" data-reading>
+          理解了 4D 框架後，學生最常犯的下一個錯誤是把文字工具與像素繪製混為一談。Anthropic 在最新文檔中極力推崇使用語意化 XML 標籤（如 &lt;character_bible&gt; 與 &lt;scene&gt;），其真正的用途是在「文字規劃層」中約束大語言模型，防止多輪對話時情節角色互相污染；但若直接把 XML 貼進 Midjourney 或 Flux，繪圖模型只會將標籤當作一般英文字元，根本無法直接鎖死像素。真正的商業一致性，依賴的是文字大腦與視覺引擎的分工協同。
+        </p>
+        <p class="mt-4 text-lg leading-9 text-ink/80" data-reading>
+          在實際的繪本製作中，工業級一致性主要由三大技術支撐：首先是「影像參考參數」，在 Midjourney 透過確認第一張完美基準正面圖，並於後續每一頁分鏡帶入 --cref 參數與 --cw 權重鎖死面部特徵；其次是「局部選取重繪（Inpainting）」，正如 OpenAI 與 Claude Design 官方所規範，當畫面的構圖與神態正確但服裝顏色偏差時，嚴禁按下重新生成，而是用筆刷遮罩塗抹局部進行增量修訂；最後則是動畫與出版團隊常採用的「專屬 LoRA 微調」，以少量多角度原畫訓練輕量權重，確保全書 32 頁角色如同出自同一繪師之手。
+        </p>
+      </div>
+
+      <div class="mt-12 rounded-2xl border-2 border-ink bg-white p-6 shadow-[8px_8px_0_rgba(13,94,130,.14)] sm:p-8">
+        <h3 class="text-2xl font-extrabold text-ink">課堂實戰：角色規格書（Character Bible）模板</h3>
+        <p class="mt-2 text-sm text-ink/70">請同學在生成任何分鏡前，先在對話視窗建立這份不可變的結構化規格書：</p>
+        <pre class="mt-4 overflow-x-auto rounded-xl border border-ink/20 bg-paper p-5 font-mono text-xs leading-6 text-ink sm:text-sm"><code>&lt;character_bible&gt;
+  &lt;character id="主角Lumi"&gt;
+    &lt;immutable_traits&gt;
+      &lt;hair&gt;薑黃色蓬鬆捲短髮，頭頂有一撮永遠翹起的呆毛&lt;/hair&gt;
+      &lt;clothing&gt;深海軍藍吊帶工作褲，內搭紅白橫條紋長袖 T-shirt&lt;/clothing&gt;
+      &lt;accessory&gt;胸前掛著一個直徑 5 公分的復古黃銅指南針&lt;/accessory&gt;
+    &lt;/immutable_traits&gt;
+    &lt;art_style&gt;
+      細石墨鉛筆輪廓線、溫暖扁平手繪水彩、無複雜漸層陰影
+    &lt;/art_style&gt;
+  &lt;/character&gt;
+&lt;/character_bible&gt;</code></pre>
+      </div>
+
+      <div class="mt-12 grid gap-6 sm:grid-cols-3">
+        <div class="rounded-xl border-2 border-ink bg-sky/30 p-5">
+          <h4 class="font-bold text-ink">步驟 1：產出基準圖（Master Image）</h4>
+          <p class="mt-2 text-sm leading-6 text-ink/80">結合規格書生成一張滿意的正面站姿圖，作為全書視覺錨點，取得圖片 URL 或保留種子碼。</p>
+        </div>
+        <div class="rounded-xl border-2 border-ink bg-sky/30 p-5">
+          <h4 class="font-bold text-ink">步驟 2：特徵注入（--cref / LoRA）</h4>
+          <p class="mt-2 text-sm leading-6 text-ink/80">在分鏡提示詞中掛載基準圖向量（--cref URL --cw 100），強迫模型將特徵轉移至新動作中。</p>
+        </div>
+        <div class="rounded-xl border-2 border-ink bg-sky/30 p-5">
+          <h4 class="font-bold text-ink">步驟 3：筆刷修訂（Inpainting）</h4>
+          <p class="mt-2 text-sm leading-6 text-ink/80">拒絕全圖重新抽卡！塗抹局部瑕疵（如遺漏的指南針），以增量指令替換，保留既有滿意構圖。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Source Audit / 考證來源區 -->
+    <section class="border-t-2 border-ink bg-paper px-5 py-16 sm:px-10 lg:px-12 lg:py-20" id="w06-sources">
+      <div class="mx-auto max-w-6xl">
+        <p class="font-mono text-xs font-bold tracking-[.18em] text-blue">04 / 實證文獻與技術考證</p>
+        <h2 class="mt-3 text-3xl font-extrabold tracking-[-.05em]">教學文獻與前沿模型商技術考證紀錄</h2>
+        <div class="mt-8 grid gap-4 sm:grid-cols-2">
+          {verifiedSources.map((item) => (
+            <div class="rounded-xl border-2 border-ink bg-white p-5 shadow-[4px_4px_0_rgba(13,94,130,.12)]">
+              <span class="font-mono text-xs font-bold text-coral">REF 0{item.n}</span>
+              <p class="mt-2 text-sm font-bold text-ink">{item.claim}</p>
+              <a href={item.url} target="_blank" rel="noopener noreferrer" class="mt-3 inline-block font-mono text-xs text-blue underline hover:text-coral">
+                {item.label} →
+              </a>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- 週次導覽 -->
+    <section class="mx-auto max-w-6xl px-5 py-12 sm:px-10 lg:px-12">
+      <nav class="grid gap-5 border-t-2 border-ink pt-7 text-sm font-bold sm:grid-cols-2" aria-label="週次導覽">
+        <div>
+          <a href={`${base}/weeks/5`} class="ink-link">← W05 故事圖像化、分鏡鏡頭與角色設定實務</a>
+        </div>
+        <div class="sm:text-right">
+          <a href={`${base}/weeks/7`} class="ink-link">W07 數位繪圖：AI 生成圖像的視角應用 →</a>
+        </div>
+      </nav>
+    </section>
+  </main>
+</Layout>
