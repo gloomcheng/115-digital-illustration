@@ -29,6 +29,11 @@ jobs:
         run: bun run lint
       - name: Run AI prose guard
         run: bun run check:ai-prose
+      # Shared content and UI standards. The rule pack lives in the user's
+      # shared agent directory, so on a runner without it the check reports
+      # itself as skipped and the job continues. It never blocks a build yet.
+      - name: Run Content & UI Standards Check
+        run: bun run content:check
       - name: Run Astro typecheck
         run: bun run typecheck
 

@@ -12,6 +12,7 @@
     "build": "astro build",
     "typecheck": "astro check",
     "lint": "biome check .",
+    "content:check": "sh scripts/content-standards.sh .",
     "live": "bun run scripts/live-game.ts",
     "shop": "bun run scripts/shop-sim/server.ts",
     "shop:sprites": "python3 scripts/shop-sim/make-sprites.py",

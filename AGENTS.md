@@ -147,3 +147,28 @@ week rather than a glob.
 ## Change boundary
 
 Do not publish, create a remote repository, purchase credits, or send student data to a third-party tool unless the user explicitly requests that action. Keep the local repository independently buildable before proposing publication.
+
+---
+
+## Content and UI Standards
+
+The shared content and UI standards apply to every document and interface in
+this repository: course prose, UI copy, labels and error messages. The rules
+live in `~/.agents/rules/05-content-and-ui-standards.md` and the
+`content-standards` skill. This repository keeps no second copy of them.
+
+Run the check before you call a deliverable done:
+
+```bash
+bun run content:check
+```
+
+It runs in the CI quality job as well, reports findings, and never blocks a
+build. Read a finding as a question about the sentence or the interface, not
+as a style preference. `.content-standards.json` holds this project's own
+vocabulary, which is the local equivalent of the ASD-STE100 dictionary: the
+approved names for our tools, products and institutions.
+
+For a course, the sentence budget matters twice over: a student reads the
+screen and then reads the transcript. A step that starts with a verb is a step
+a student can follow.
