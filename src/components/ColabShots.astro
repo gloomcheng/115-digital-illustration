@@ -1,0 +1,60 @@
+---
+// 真實螢幕截圖：2026-11-03 取自課程的 Colab notebook（colab-animated-picturebook.ipynb）。
+// 右上角帳號區已裁掉，圖上不含姓名或頭像。
+const base = import.meta.env.BASE_URL.replace(/\/$/, '')
+
+const shots = [
+  {
+    src: `${base}/illustrations/colab/01-toolbar.png`,
+    alt: 'Colab 視窗上方：檔名在左，選單列依序是檔案、編輯、檢視畫面、插入、執行階段、工具、說明；右上角是連線按鈕與 T4 標示。',
+    title: '選單列與連線按鈕',
+    note: '「執行階段」在「插入」右邊。右上角「連線」按下去，Google 才會配一台機器給你。',
+    width: 1360,
+    height: 96,
+  },
+  {
+    src: `${base}/illustrations/colab/02-runtime-menu.png`,
+    alt: '點開執行階段後的下拉選單：最上面是全部執行，中間有中斷執行與重新啟動工作階段，下方是變更執行階段類型。',
+    title: '執行階段選單',
+    note: '「全部執行」在選單最上面；換顯卡是下面的「變更執行階段類型」。',
+    width: 520,
+    height: 480,
+  },
+  {
+    src: `${base}/illustrations/colab/03-runtime-type.png`,
+    alt: '變更執行階段類型對話框：執行階段類型是 Python 3，硬體加速器列出 CPU、G4 GPU、A100 GPU、L4 GPU、T4 GPU、H100 GPU 與 v6e-1 TPU 等選項，目前選取 T4 GPU。',
+    title: '把硬體加速器換成 T4 GPU',
+    note: '選 T4 GPU 再按右下「儲存」。Colab 會重新連線一次，剛剛跑過的內容會清空。',
+    width: 590,
+    height: 585,
+  },
+  {
+    src: `${base}/illustrations/colab/04-cells.png`,
+    alt: 'notebook 畫面：最左邊是圖示列，中間是儲存格，儲存格左側的方括號是空的。',
+    title: '儲存格與執行編號',
+    note: '儲存格左邊的方括號空著，代表這一格還沒跑；跑過之後會出現 [1]、[2]。',
+    width: 720,
+    height: 520,
+  },
+]
+---
+
+<div class="grid gap-4">
+  {shots.map((shot) => (
+    <figure class="rounded-xl border-2 border-ink bg-paper p-3">
+      <img
+        src={shot.src}
+        alt={shot.alt}
+        width={shot.width}
+        height={shot.height}
+        loading="lazy"
+        decoding="async"
+        class="h-auto w-full rounded border border-ink/20"
+      />
+      <figcaption class="mt-3">
+        <p class="text-sm font-bold leading-7">{shot.title}</p>
+        <p class="mt-1 text-sm leading-7 text-ink/75">{shot.note}</p>
+      </figcaption>
+    </figure>
+  ))}
+</div>

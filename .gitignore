@@ -17,3 +17,8 @@ scripts/shop-sim/chars-*.png
 *.sqlite
 *.sqlite-wal
 *.sqlite-shm
+
+# 動態繪本試點：ComfyUI 安裝與產生的影片不進版控
+pilot/ComfyUI/
+pilot/.venv/
+pilot/out/

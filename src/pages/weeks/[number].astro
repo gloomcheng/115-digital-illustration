@@ -1,5 +1,18 @@
 ---
 import { designEducation } from '../../data/design-education'
+import { fieldLessons } from '../../data/field-track'
+import {
+  checkedAt,
+  glossary,
+  languageNote,
+  measurements,
+  pitfalls,
+  promptPairs,
+  recipe,
+  sources,
+  toolLessons,
+  worked,
+} from '../../data/tool-track'
 import { weeks } from '../../data/weeks'
 import Layout from '../../layouts/Layout.astro'
 
@@ -12,6 +25,8 @@ export function getStaticPaths() {
 
 const { week } = Astro.props
 const designLesson = designEducation[week.number]
+const lesson = toolLessons.find((item) => item.week === week.number)
+const fieldLesson = fieldLessons.find((item) => item.week === week.number)
 const base = import.meta.env.BASE_URL.replace(/\/$/, '')
 const rasterAssets = [
   'hero-sky',
@@ -80,6 +95,265 @@ const imagePath = `${base}/illustrations/${illustration}.webp`
           <p class="mt-4 text-lg font-bold leading-8">{week.owner}</p>
         </article>
       </div>
+
+      {lesson && (
+        <section class="mt-14 border-t-2 border-ink/15 pt-12">
+          <p class="font-mono text-xs font-bold tracking-[.16em] text-blue">這一週的工具操作</p>
+          <h2 class="mt-3 text-3xl font-extrabold tracking-[-.05em] sm:text-4xl">{lesson.title}</h2>
+          <p class="mt-5 max-w-3xl text-lg leading-9 text-ink/80">{lesson.intro}</p>
+
+          {lesson.mapping && (
+            <div class="mt-8 overflow-hidden rounded-xl border-2 border-ink">
+              <div class="hidden grid-cols-3 gap-5 border-b-2 border-ink bg-sun px-5 py-3 font-mono text-xs font-bold tracking-[.12em] md:grid">
+                <span>需求單的這一欄</span>
+                <span>提示詞裡寫成什麼</span>
+                <span>漏寫會怎樣</span>
+              </div>
+              {lesson.mapping.map((field) => (
+                <div class="grid gap-2 border-b border-ink/15 bg-paper px-5 py-4 last:border-0 md:grid-cols-3 md:gap-5">
+                  <p class="text-sm font-bold leading-7">{field.source}</p>
+                  <p class="text-sm leading-7 text-ink/80">{field.prompt}</p>
+                  <p class="text-sm leading-7 text-[#a8402c]">{field.missing}</p>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {lesson.recipe && (
+            <div class="mt-10">
+              <h3 class="text-xl font-extrabold">把一格分鏡換成繁中六欄描繪給 Flow</h3>
+              <p class="mt-2 text-sm leading-7 text-ink/75">Google Flow 原生懂繁體中文，不必寫英文咒語。核心口訣：「不要寫感受，只寫攝影機拍得到的東西（誰、穿什麼、做什麼動作、站哪裡、光從哪來、用什麼媒材畫）」。下面是把一格分鏡拆成六欄、餵給 Flow 兩段式提示詞的固定動作。</p>
+              <ol class="mt-4 grid gap-2">
+                {recipe.map((step, index) => (
+                  <li class="flex gap-3 rounded-xl border-2 border-ink bg-[#fff0bf] px-4 py-3 text-sm leading-7">
+                    <span class="font-mono font-bold text-blue">0{index + 1}</span>
+                    <span>{step}</span>
+                  </li>
+                ))}
+              </ol>
+
+              <div class="mt-6 rounded-xl border-2 border-ink bg-paper p-5">
+                <p class="font-mono text-xs font-bold text-blue">示範：第 2 頁那一格</p>
+                <p class="mt-3 text-base font-bold leading-8">{worked.panel}</p>
+                <p class="mt-2 text-sm leading-7 text-ink/80">拆成六欄需求單：{worked.demand}</p>
+                <p class="mt-4 font-mono text-xs font-bold text-blue">拼成兩段式提示詞</p>
+                <p class="mt-1 font-mono text-sm leading-7">{worked.prompt}</p>
+                <ul class="mt-4 grid gap-1 border-t border-ink/15 pt-3">
+                  {worked.notes.map((note) => (
+                    <li class="text-sm leading-7 text-ink/80">・{note}</li>
+                  ))}
+                </ul>
+              </div>
+
+              <div class="mt-6 overflow-hidden rounded-xl border-2 border-ink">
+                <div class="grid grid-cols-2 gap-4 border-b-2 border-ink bg-sun px-4 py-3 font-mono text-xs font-bold tracking-[.12em]">
+                  <span>描繪欄位</span>
+                  <span>可觀測關鍵字（中/英對照）</span>
+                </div>
+                {glossary.map((group) => (
+                  <div class="grid gap-1 border-b border-ink/15 bg-paper px-4 py-3 last:border-0 sm:grid-cols-2 sm:gap-4">
+                    <div>
+                      <p class="text-sm font-bold leading-7">{group.field}</p>
+                      <p class="text-xs leading-6 text-ink/70">{group.zh}</p>
+                    </div>
+                    <p class="font-mono text-xs leading-6 text-blue">{group.en.join('、')}</p>
+                  </div>
+                ))}
+              </div>
+
+              <div class="mt-6 rounded-xl border-2 border-ink bg-sky p-5">
+                <p class="text-sm font-bold leading-8">為什麼現在用繁中六欄描繪？</p>
+                <p class="mt-2 text-sm leading-8 text-ink/85">{languageNote.why}</p>
+                <p class="mt-2 text-sm leading-8 text-ink/85">{languageNote.practice}</p>
+                <p class="mt-2 text-sm leading-8 text-ink/85">{languageNote.limits}</p>
+              </div>
+            </div>
+          )}
+
+          {lesson.promptPairs && (
+            <div class="mt-10">
+              <h3 class="text-xl font-extrabold">三個實際例子：一行提示詞生出什麼圖</h3>
+              <p class="mt-2 text-sm leading-7 text-ink/75">三個例子的圖都是那一輪實際跑出來的，取自影片第一幀。它們不是照順序排好的範例：第 2 頁的風格段放錯位置，第 3 頁的景別寫了兩次。每段提示詞標出它負責哪一欄；要微調，改那一段就好。</p>
+              <div class="mt-4 grid gap-4">
+                {promptPairs.map((pair) => (
+                  <article class="grid gap-5 rounded-xl border-2 border-ink bg-paper p-4 md:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] md:items-start">
+                    <figure>
+                      <img src={`${base}${pair.image}`} alt={pair.alt} width="720" height="396" loading="lazy" decoding="async" class="h-auto w-full rounded border border-ink/20" />
+                      <figcaption class="mt-2 font-mono text-xs text-blue">{pair.page}／生成結果</figcaption>
+                    </figure>
+                    <div>
+                      <p class="font-mono text-xs font-bold text-blue">提示詞</p>
+                      <p class="mt-2 font-mono text-sm leading-7">{pair.segments.map((segment) => segment.text).join(', ')}</p>
+                      <ul class="mt-3 grid gap-1">
+                        {pair.segments.map((segment) => (
+                          <li class="text-xs leading-6 text-ink/70"><span class="font-bold text-blue">{segment.field}：</span>{segment.text}</li>
+                        ))}
+                      </ul>
+                      <p class="mt-4 text-sm leading-8"><span class="font-bold">看到的：</span>{pair.observed}</p>
+                      <p class="mt-3 border-t border-ink/15 pt-3 text-sm leading-8"><span class="font-bold text-blue">微調要改哪一段：</span>{pair.tweak}</p>
+                      <p class="mt-2 text-sm leading-8 text-ink/80"><span class="font-bold">預期影響：</span>{pair.expect}</p>
+                    </div>
+                  </article>
+                ))}
+              </div>
+              <p class="mt-5 rounded-xl border-2 border-ink bg-sky px-5 py-4 text-sm font-bold leading-8">微調的順序固定：一次只改一段，改完把前後兩張並排。一次改兩段，就看不出是哪一段造成改變。要把兩張比乾淨，得先固定種子；種子是決定起始雜訊的號碼，同一個號碼加同一組設定才會重現同一張，第 12 週會教你固定它。</p>
+            </div>
+          )}
+
+          {lesson.numbers && (
+            <div class="mt-10">
+              <h3 class="text-xl font-extrabold">這一週要用的數字</h3>
+              <p class="mt-2 text-sm leading-7 text-ink/75">實測來自 115-1 的課堂試點（免費版 T4、2026-10-29；插畫 1280×704、30 步，動態 49 幀、20 步）。你的機器與網路不同，比例還有用，秒數只能當參考。Flow/Comfy Cloud 數字以 2026-11-24 查核為準，實際使用前請再次確認官方頁面。</p>
+              <div class="mt-4 grid gap-2 sm:grid-cols-2">
+                {measurements.filter((item) => !item.weeks || item.weeks.includes(week.number)).map((item) => (
+                  <div class="rounded-xl border-2 border-ink bg-paper px-4 py-3">
+                    <div class="flex items-baseline justify-between gap-3">
+                      <p class="text-sm font-bold leading-7">{item.label}</p>
+                      <span class:list={['shrink-0 rounded-full border px-2 py-0.5 font-mono text-xs font-bold', item.kind === '實測' ? 'border-blue text-blue' : item.kind === '設想' ? 'border-dashed border-coral text-coral' : item.kind === '教學建構' ? 'border-coral text-coral' : 'border-coral text-coral']}>{item.kind}</span>
+                    </div>
+                    <p class="mt-1 font-mono text-sm font-bold text-blue">{item.value}</p>
+                    <p class="mt-1 text-xs leading-6 text-ink/70">{item.note}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <h3 class="mt-10 text-xl font-extrabold">照順序做完這幾步</h3>
+          {lesson.steps.some((step) => step.shot || step.shots?.length) && (
+            <p class="mt-2 text-sm leading-7 text-ink/70">手機上截圖會維持可讀的大小，比螢幕寬時在圖框裡左右滑動。</p>
+          )}
+          <ol class="mt-4 grid gap-3">
+            {lesson.steps.map((step) => (
+              <li class="grid gap-2 rounded-xl border-2 border-ink bg-paper p-5 sm:grid-cols-[52px_1fr]">
+                <span class="font-mono text-sm font-bold text-blue">{step.n}</span>
+                <div class="min-w-0">
+                  <h4 class="text-lg font-extrabold leading-8">{step.title}</h4>
+                  <p class="mt-2 break-words text-base leading-8 text-ink/80">{step.action}</p>
+                  <p class="mt-3 border-t border-ink/15 pt-3 text-sm font-bold leading-7 text-blue">檢查：{step.check}</p>
+                  {[...(step.shot ? [step.shot] : []), ...(step.shots ?? [])].map((shot) => (
+                    <figure class="mt-4 overflow-x-auto rounded-lg border border-ink/25 bg-sky/40 p-3">
+                      <img src={`${base}${shot.src}`} alt={shot.alt} width={shot.width} height={shot.height} loading="lazy" decoding="async" data-shot-min={shot.minWidth ? `${shot.minWidth}px` : undefined} style={[shot.maxWidth ? `max-width:${shot.maxWidth}px` : '', shot.minWidth ? `--shot-min:${shot.minWidth}px` : ''].filter(Boolean).join(';') || undefined} class="h-auto w-full rounded border border-ink/20" />
+                      <figcaption class="mt-2 text-xs leading-6 text-ink/75">{shot.caption}</figcaption>
+                    </figure>
+                  ))}
+                </div>
+              </li>
+            ))}
+          </ol>
+
+          {lesson.table && (
+            <figure class="mt-10">
+              <h3 class="text-xl font-extrabold">{lesson.table.title}</h3>
+              <p class="mt-2 font-mono text-xs font-bold tracking-[.12em] text-blue">{lesson.table.kind}</p>
+              <p class="mt-3 max-w-3xl text-sm leading-7 text-ink/80">{lesson.table.intro}</p>
+              <div class="mt-4 overflow-x-auto rounded-xl border-2 border-ink">
+                <table class="w-full min-w-[46rem] border-collapse text-left">
+                  <thead>
+                    <tr class="bg-sun">
+                      {lesson.table.columns.map((column) => (
+                        <th scope="col" class="border-b-2 border-ink px-4 py-3 font-mono text-xs font-bold tracking-[.12em]">{column}</th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {lesson.table.rows.map((row, rowIndex) => (
+                      <tr class={rowIndex % 2 ? 'bg-sky/40' : 'bg-paper'}>
+                        {row.map((cell, cellIndex) => (
+                          <td class={`border-b border-ink/15 px-4 py-3 align-top text-sm leading-7 [overflow-wrap:anywhere] ${cellIndex === 0 ? 'whitespace-nowrap' : ''}`}>{cell}</td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <figcaption class="mt-2 text-xs leading-6 text-ink/70">表格可以左右滑動。</figcaption>
+            </figure>
+          )}
+
+          <p class="mt-6 rounded-xl border-2 border-ink bg-sky px-5 py-4 text-base font-bold leading-8">做完要留下：{lesson.deliverable}</p>
+
+          {lesson.pitfalls && (
+            <div class="mt-12">
+              <h3 class="text-xl font-extrabold">卡住的時候先查這張表</h3>
+              <p class="mt-2 text-sm leading-7 text-ink/75">左欄是你看到的，中間是實際原因，右欄是當場要做的事。</p>
+              <div class="mt-4 overflow-hidden rounded-xl border-2 border-ink">
+                {pitfalls.map((item) => (
+                  <div class="grid gap-2 border-b border-ink/15 bg-paper px-5 py-4 last:border-0 md:grid-cols-[1.05fr_1.1fr_1.2fr] md:gap-5">
+                    <p class="text-sm font-bold leading-7">{item.symptom}</p>
+                    <p class="text-sm leading-7 text-ink/75">{item.cause}</p>
+                    <p class="text-sm font-bold leading-7 text-blue">{item.action}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {(lesson.numbers || lesson.pitfalls || lesson.sources) && (
+            <div class="mt-8 border-t border-ink/15 pt-5">
+              <p class="font-mono text-xs font-bold text-blue">條款與數字會變，使用前再看一次 / 最後核對 {checkedAt}</p>
+              <ul class="mt-3 grid gap-2">
+                {sources.map((source) => (
+                  <li class="text-xs leading-6 text-ink/75">
+                    <a href={source.url} target="_blank" rel="noreferrer" class="font-mono font-bold text-blue underline decoration-coral decoration-2 underline-offset-4 hover:text-coral">{source.label} ↗</a>
+                    <span class="mt-1 block">{source.supports}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </section>
+      )}
+
+      {fieldLesson && (
+        <section class="mt-14 border-t-2 border-ink/15 pt-12">
+          <p class="font-mono text-xs font-bold tracking-[.16em] text-blue">{fieldLesson.heading}</p>
+          <h2 class="mt-3 text-3xl font-extrabold tracking-[-.05em] sm:text-4xl">{fieldLesson.title}</h2>
+          <p class="mt-5 max-w-3xl text-lg leading-9 text-ink/80">{fieldLesson.intro}</p>
+
+          <ol class="mt-6 grid gap-3">
+            {fieldLesson.steps.map((step) => (
+              <li class="grid gap-2 rounded-xl border-2 border-ink bg-paper p-5 sm:grid-cols-[52px_1fr]">
+                <span class="font-mono text-sm font-bold text-blue">{step.n}</span>
+                <div class="min-w-0">
+                  <h3 class="text-lg font-extrabold leading-8">{step.title}</h3>
+                  <p class="mt-2 break-words text-base leading-8 text-ink/80">{step.action}</p>
+                  <p class="mt-3 border-t border-ink/15 pt-3 text-sm font-bold leading-7 text-blue">檢查：{step.check}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+
+          <figure class="mt-10">
+            <h3 class="text-xl font-extrabold">{fieldLesson.record.title}</h3>
+            <p class="mt-2 font-mono text-xs font-bold tracking-[.12em] text-blue">{fieldLesson.record.kind}</p>
+            <p class="mt-3 max-w-3xl text-sm leading-7 text-ink/80">{fieldLesson.record.intro}</p>
+            <div class="mt-4 overflow-x-auto rounded-xl border-2 border-ink">
+              <table class="w-full min-w-[46rem] border-collapse text-left">
+                <thead>
+                  <tr class="bg-sun">
+                    {fieldLesson.record.columns.map((column) => (
+                      <th scope="col" class="border-b-2 border-ink px-4 py-3 font-mono text-xs font-bold tracking-[.12em]">{column}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {fieldLesson.record.rows.map((row, rowIndex) => (
+                    <tr class={rowIndex % 2 ? 'bg-sky/40' : 'bg-paper'}>
+                      {row.map((cell) => (
+                        <td class="border-b border-ink/15 px-4 py-3 align-top text-sm leading-7 [overflow-wrap:anywhere]">{cell}</td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <figcaption class="mt-2 text-xs leading-6 text-ink/70">表格可以左右滑動。欄位的順序就是交件時要用的順序。</figcaption>
+          </figure>
+
+          <p class="mt-6 rounded-xl border-2 border-ink bg-sky px-5 py-4 text-base font-bold leading-8">做完要留下：{fieldLesson.deliverable}</p>
+        </section>
+      )}
 
       <section class="mt-14 grid gap-8 rounded-2xl border-2 border-ink bg-[#ffd7cc] p-7 md:grid-cols-[minmax(0,1fr)_minmax(18rem,.7fr)] md:items-center md:p-10">
         <div>

@@ -25,6 +25,14 @@ html {
   scroll-behavior: smooth;
 }
 
+/* 步驟截圖在窄螢幕不縮到看不見：低於 40rem 時維持可讀的最小寬度，
+   圖框已有 overflow-x-auto，學生可以左右滑動。桌機不受影響。 */
+@media (max-width: 40rem) {
+  img[data-shot-min] {
+    min-width: var(--shot-min);
+  }
+}
+
 body {
   margin: 0;
   min-width: 320px;

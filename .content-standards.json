@@ -1,5 +1,18 @@
 {
   "paths": ["src", "reference", "README.md", "AGENTS.md", "CLAUDE.md", "GEMINI.md"],
   "exclude": ["dist/"],
-  "acronym_whitelist": ["DALL", "DPI", "ECU", "EXIF", "FIFO", "OTA", "POV", "PPI", "SDXL", "UNESCO"]
+  "acronym_whitelist": [
+    "DALL",
+    "DPI",
+    "ECU",
+    "EXIF",
+    "FIFO",
+    "OTA",
+    "POV",
+    "PPI",
+    "RAIL",
+    "SDXL",
+    "TPU",
+    "UNESCO"
+  ]
 }
