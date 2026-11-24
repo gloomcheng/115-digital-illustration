@@ -1,0 +1,179 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 680" width="1120" height="680" role="img" aria-labelledby="title desc">
+  <title id="title">圖解 ComfyUI 與 Comfy Cloud：從全自動咖啡機到 5 個方框的透明流水線</title>
+  <desc id="desc">上半部對照 Google Flow 全自動膠囊咖啡機與 Comfy 透明流水線；下半部從左到右說明 5 個核心節點方框：選畫師、寫需求、裁紙張、畫圖機器 KSampler 與洗照片存檔，底部標示純手繪草圖載入入口。</desc>
+
+  <defs>
+    <style>
+      .font { font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", system-ui, sans-serif; }
+      .mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+    </style>
+    <filter id="cardShadow" x="-4%" y="-4%" width="108%" height="112%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#0F2A44" flood-opacity="0.08"/>
+    </filter>
+    <marker id="arrowBlue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 1 1.5 L 8.5 5 L 1 8.5 z" fill="#1E5B94"/>
+    </marker>
+    <marker id="arrowInk" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 1 1.5 L 8.5 5 L 1 8.5 z" fill="#0F2A44"/>
+    </marker>
+    <marker id="arrowCoral" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 1 1.5 L 8.5 5 L 1 8.5 z" fill="#E86A4A"/>
+    </marker>
+  </defs>
+
+  <!-- Warm paper background -->
+  <rect width="1120" height="680" rx="18" fill="#FAF7F0"/>
+  <rect x="10" y="10" width="1100" height="660" rx="14" fill="none" stroke="#0F2A44" stroke-width="2" stroke-opacity="0.16"/>
+
+  <!-- Header (Book style) -->
+  <rect x="36" y="28" width="96" height="36" rx="8" fill="#E86A4A"/>
+  <text x="84" y="52" text-anchor="middle" class="font" font-size="17" font-weight="800" fill="#FFFDF8">圖解 01</text>
+  <text x="148" y="52" class="font" font-size="24" font-weight="800" fill="#0F2A44">Comfy 到底在做什麼？把咖啡機蓋子掀開就懂了</text>
+  <text x="148" y="76" class="font" font-size="14" fill="#3B556E">別被滿畫面連線嚇到——不論多複雜，生一張圖的主線永遠只有從左到右 5 個方框。</text>
+
+  <!-- TOP COMPARISON ROW -->
+  <!-- Left card: Capsule coffee machine -->
+  <g filter="url(#cardShadow)">
+    <rect x="36" y="96" width="504" height="156" rx="14" fill="#FFFDF8" stroke="#0F2A44" stroke-width="2"/>
+  </g>
+  <rect x="36" y="96" width="504" height="38" rx="14" fill="#F2ECE1"/>
+  <rect x="36" y="120" width="504" height="14" fill="#F2ECE1"/>
+  <line x1="36" y1="134" x2="540" y2="134" stroke="#0F2A44" stroke-width="1.5" stroke-opacity="0.2"/>
+  <text x="56" y="121" class="font" font-size="16" font-weight="800" fill="#0F2A44">A. 全自動膠囊機（Google Flow / ChatGPT）</text>
+
+  <!-- Simple coffee-machine / black-box flow -->
+  <rect x="56" y="152" width="118" height="44" rx="8" fill="#DCEEFB" stroke="#1E5B94" stroke-width="1.5"/>
+  <text x="115" y="179" text-anchor="middle" class="font" font-size="14" font-weight="700" fill="#0F2A44">輸入一句話</text>
+
+  <line x1="174" y1="174" x2="212" y2="174" stroke="#0F2A44" stroke-width="2" marker-end="url(#arrowInk)"/>
+
+  <rect x="218" y="148" width="140" height="52" rx="10" fill="#0F2A44"/>
+  <text x="288" y="172" text-anchor="middle" class="font" font-size="15" font-weight="800" fill="#FFE07D">黑箱配方</text>
+  <text x="288" y="191" text-anchor="middle" class="font" font-size="12" fill="#DCEEFB">步驟全蓋起來</text>
+
+  <line x1="358" y1="174" x2="396" y2="174" stroke="#0F2A44" stroke-width="2" marker-end="url(#arrowInk)"/>
+
+  <rect x="402" y="152" width="116" height="44" rx="8" fill="#FFE07D" stroke="#0F2A44" stroke-width="1.5"/>
+  <text x="460" y="179" text-anchor="middle" class="font" font-size="14" font-weight="800" fill="#0F2A44">直接出圖</text>
+
+  <text x="56" y="222" class="font" font-size="13.5" fill="#2A4259">✓ 優點：超快、免學參數，適合發想與寫故事分鏡。</text>
+  <text x="56" y="242" class="font" font-size="13.5" fill="#A8402C">△ 限制：想只改一個細節時，AI 常順手把其他地方也改掉。</text>
+
+  <!-- Right card: Transparent pipeline -->
+  <g filter="url(#cardShadow)">
+    <rect x="580" y="96" width="504" height="156" rx="14" fill="#FFFDF8" stroke="#1E5B94" stroke-width="2.5"/>
+  </g>
+  <rect x="580" y="96" width="504" height="38" rx="14" fill="#DCEEFB"/>
+  <rect x="580" y="120" width="504" height="14" fill="#DCEEFB"/>
+  <line x1="580" y1="134" x2="1084" y2="134" stroke="#1E5B94" stroke-width="1.5" stroke-opacity="0.35"/>
+  <text x="600" y="121" class="font" font-size="16" font-weight="800" fill="#0F2A44">B. 透明流水線（ComfyUI / Comfy Cloud）</text>
+
+  <!-- Mini 5-step transparent pills -->
+  <rect x="598" y="154" width="76" height="38" rx="7" fill="#FFFDF8" stroke="#1E5B94" stroke-width="1.5"/>
+  <text x="636" y="178" text-anchor="middle" class="font" font-size="13" font-weight="700" fill="#0F2A44">①畫師</text>
+  <line x1="674" y1="173" x2="690" y2="173" stroke="#1E5B94" stroke-width="2"/>
+  <rect x="692" y="154" width="76" height="38" rx="7" fill="#FFFDF8" stroke="#1E5B94" stroke-width="1.5"/>
+  <text x="730" y="178" text-anchor="middle" class="font" font-size="13" font-weight="700" fill="#0F2A44">②需求</text>
+  <line x1="768" y1="173" x2="784" y2="173" stroke="#1E5B94" stroke-width="2"/>
+  <rect x="786" y="154" width="76" height="38" rx="7" fill="#FFFDF8" stroke="#1E5B94" stroke-width="1.5"/>
+  <text x="824" y="178" text-anchor="middle" class="font" font-size="13" font-weight="700" fill="#0F2A44">③尺寸</text>
+  <line x1="862" y1="173" x2="878" y2="173" stroke="#1E5B94" stroke-width="2"/>
+  <rect x="880" y="154" width="84" height="38" rx="7" fill="#FFE07D" stroke="#0F2A44" stroke-width="1.5"/>
+  <text x="922" y="178" text-anchor="middle" class="font" font-size="13" font-weight="800" fill="#0F2A44">④算圖</text>
+  <line x1="964" y1="173" x2="980" y2="173" stroke="#1E5B94" stroke-width="2"/>
+  <rect x="982" y="154" width="82" height="38" rx="7" fill="#DCEEFB" stroke="#1E5B94" stroke-width="1.5"/>
+  <text x="1023" y="178" text-anchor="middle" class="font" font-size="13" font-weight="800" fill="#0F2A44">⑤存檔</text>
+
+  <text x="600" y="222" class="font" font-size="13.5" fill="#1E5B94" font-weight="700">✓ 優點：每個步驟看得見、一次只改一個變因、可存成連結交接。</text>
+  <text x="600" y="242" class="font" font-size="13.5" fill="#2A4259">→ 業界遊戲與動畫公司拿它來控風格與穩定重現。</text>
+
+  <!-- MIDDLE MAIN PIPELINE PANEL -->
+  <rect x="36" y="274" width="1048" height="288" rx="16" fill="#EEF6FC" stroke="#1E5B94" stroke-width="2"/>
+  <text x="58" y="304" class="font" font-size="17" font-weight="800" fill="#0F2A44">掀開蓋子看主線：從左到右認得這 5 個方框，就看懂 80%</text>
+
+  <!-- Node 1 -->
+  <g filter="url(#cardShadow)">
+    <rect x="58" y="324" width="290" height="66" rx="10" fill="#FFFDF8" stroke="#0F2A44" stroke-width="2"/>
+  </g>
+  <rect x="58" y="324" width="38" height="66" rx="10" fill="#1E5B94"/>
+  <rect x="82" y="324" width="14" height="66" fill="#1E5B94"/>
+  <text x="77" y="364" text-anchor="middle" class="font" font-size="20" font-weight="800" fill="#FFFDF8">1</text>
+  <text x="110" y="350" class="font" font-size="15.5" font-weight="800" fill="#0F2A44">選畫師（載入模型）</text>
+  <text x="110" y="374" class="font" font-size="12.5" fill="#3B556E">決定畫風底子，如 Z-Image-Turbo</text>
+  <circle cx="348" cy="357" r="6" fill="#1E5B94" stroke="#FFFDF8" stroke-width="2"/>
+
+  <!-- Node 2 -->
+  <g filter="url(#cardShadow)">
+    <rect x="58" y="402" width="290" height="66" rx="10" fill="#FFFDF8" stroke="#E86A4A" stroke-width="2.2"/>
+  </g>
+  <rect x="58" y="402" width="38" height="66" rx="10" fill="#E86A4A"/>
+  <rect x="82" y="402" width="14" height="66" fill="#E86A4A"/>
+  <text x="77" y="442" text-anchor="middle" class="font" font-size="20" font-weight="800" fill="#FFFDF8">2</text>
+  <text x="110" y="428" class="font" font-size="15.5" font-weight="800" fill="#0F2A44">寫需求（提示詞）★常改</text>
+  <text x="110" y="452" class="font" font-size="12.5" fill="#3B556E">上格寫「要什麼」、下格寫「不要什麼」</text>
+  <circle cx="348" cy="435" r="6" fill="#E86A4A" stroke="#FFFDF8" stroke-width="2"/>
+
+  <!-- Node 3 -->
+  <g filter="url(#cardShadow)">
+    <rect x="58" y="480" width="290" height="66" rx="10" fill="#FFFDF8" stroke="#0F2A44" stroke-width="2"/>
+  </g>
+  <rect x="58" y="480" width="38" height="66" rx="10" fill="#3B6E9C"/>
+  <rect x="82" y="480" width="14" height="66" fill="#3B6E9C"/>
+  <text x="77" y="520" text-anchor="middle" class="font" font-size="20" font-weight="800" fill="#FFFDF8">3</text>
+  <text x="110" y="506" class="font" font-size="15.5" font-weight="800" fill="#0F2A44">裁紙張（空白畫布）</text>
+  <text x="110" y="530" class="font" font-size="12.5" fill="#3B556E">設定圖的寬度 × 高度（如 1024×1024）</text>
+  <circle cx="348" cy="513" r="6" fill="#3B6E9C" stroke="#FFFDF8" stroke-width="2"/>
+
+  <!-- Curved wires from 1,2,3 to 4 -->
+  <path d="M 354 357 C 392 357, 392 395, 434 395" fill="none" stroke="#1E5B94" stroke-width="3" marker-end="url(#arrowBlue)"/>
+  <path d="M 354 435 C 390 435, 396 435, 434 435" fill="none" stroke="#E86A4A" stroke-width="3.2" marker-end="url(#arrowCoral)"/>
+  <path d="M 354 513 C 392 513, 392 475, 434 475" fill="none" stroke="#3B6E9C" stroke-width="3" marker-end="url(#arrowBlue)"/>
+
+  <!-- Node 4: KSampler (Hero engine) -->
+  <g filter="url(#cardShadow)">
+    <rect x="442" y="346" width="296" height="176" rx="14" fill="#FFFDF8" stroke="#0F2A44" stroke-width="2.5"/>
+  </g>
+  <rect x="442" y="346" width="296" height="44" rx="14" fill="#FFE07D"/>
+  <rect x="442" y="376" width="296" height="14" fill="#FFE07D"/>
+  <line x1="442" y1="390" x2="738" y2="390" stroke="#0F2A44" stroke-width="2"/>
+  <text x="462" y="375" class="font" font-size="17" font-weight="800" fill="#0F2A44">④ 畫圖機器（KSampler）</text>
+
+  <text x="462" y="416" class="font" font-size="13.5" fill="#2A4259">把「畫師＋需求＋紙張」合體動筆算圖。</text>
+  <rect x="460" y="430" width="260" height="74" rx="10" fill="#FFF4D1" stroke="#D49500" stroke-width="1.8"/>
+  <text x="476" y="455" class="font" font-size="14.5" font-weight="800" fill="#0F2A44">★ 唯一必懂旋鈕：種子（Seed）</text>
+  <text x="476" y="476" class="font" font-size="12.5" fill="#3B556E">隨機 ＝ 每次重抽全新構圖</text>
+  <text x="476" y="494" class="font" font-size="12.5" fill="#3B556E">固定 ＝ 鎖住起點，只看改詞後的變化</text>
+
+  <circle cx="442" cy="395" r="5" fill="#1E5B94"/>
+  <circle cx="442" cy="435" r="5" fill="#E86A4A"/>
+  <circle cx="442" cy="475" r="5" fill="#3B6E9C"/>
+  <circle cx="738" cy="435" r="6" fill="#0F2A44" stroke="#FFFDF8" stroke-width="2"/>
+
+  <!-- Wire from 4 to 5 -->
+  <path d="M 744 435 L 806 435" fill="none" stroke="#0F2A44" stroke-width="3.2" marker-end="url(#arrowInk)"/>
+
+  <!-- Node 5: VAE + Save -->
+  <g filter="url(#cardShadow)">
+    <rect x="814" y="356" width="248" height="156" rx="14" fill="#FFFDF8" stroke="#0F2A44" stroke-width="2"/>
+  </g>
+  <rect x="814" y="356" width="248" height="42" rx="14" fill="#0F2A44"/>
+  <rect x="814" y="384" width="248" height="14" fill="#0F2A44"/>
+  <text x="834" y="383" class="font" font-size="16" font-weight="800" fill="#FFFDF8">⑤ 洗照片存檔</text>
+
+  <!-- Mini photo icon -->
+  <rect x="836" y="414" width="54" height="44" rx="6" fill="#DCEEFB" stroke="#1E5B94" stroke-width="1.8"/>
+  <circle cx="852" cy="429" r="5" fill="#FFE07D"/>
+  <path d="M 840 454 L 858 436 L 870 446 L 878 440 L 887 454 Z" fill="#1E5B94"/>
+
+  <text x="904" y="432" class="font" font-size="13.5" font-weight="700" fill="#0F2A44">VAE 解碼 → Save</text>
+  <text x="904" y="452" class="font" font-size="12.5" fill="#3B556E">轉成看得見的 PNG</text>
+  <text x="834" y="482" class="font" font-size="12.5" fill="#2A4259">跑完直接出現在預覽區</text>
+  <text x="834" y="500" class="font" font-size="12.5" fill="#1E5B94" font-weight="700">點右上角「作業佇列」下載</text>
+
+  <!-- BOTTOM HAND-DRAWN SKETCH ENTRY -->
+  <rect x="36" y="580" width="1048" height="72" rx="12" fill="#FFF5F1" stroke="#E86A4A" stroke-width="2" stroke-dasharray="8 5"/>
+  <rect x="54" y="598" width="154" height="36" rx="8" fill="#E86A4A"/>
+  <text x="131" y="622" text-anchor="middle" class="font" font-size="14.5" font-weight="800" fill="#FFFDF8">＋ 純手繪借力入口</text>
+  <text x="226" y="613" class="font" font-size="14.5" font-weight="700" fill="#0F2A44">想讓 AI 乖乖照你的手繪線稿上色？</text>
+  <text x="226" y="636" class="font" font-size="13.5" fill="#3B556E">只要在左邊多插一格「載入圖片（Load Image）」接進 ④，就能把你的手繪草圖當骨架，AI 只負責試光影與材質。</text>
+</svg>

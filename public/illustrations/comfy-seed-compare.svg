@@ -1,0 +1,150 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 560" width="1120" height="560" role="img" aria-labelledby="title desc">
+  <title id="title">圖解種子 Seed：隨機抽卡 vs. 固定鎖點只改一個詞</title>
+  <desc id="desc">左欄呈現種子設為隨機時，相同提示詞仍會每次重抽不同構圖與姿勢；右欄呈現種子固定為 42 時，只把晴天改成雨天，角色與校門位置維持不變；底部總結點開模板只改兩格的四步驟。</desc>
+
+  <defs>
+    <style>
+      .font { font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", system-ui, sans-serif; }
+      .mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+    </style>
+    <filter id="cardShadow2" x="-4%" y="-4%" width="108%" height="112%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#0F2A44" flood-opacity="0.08"/>
+    </filter>
+    <marker id="arrowDark" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 1 1.5 L 8.5 5 L 1 8.5 z" fill="#0F2A44"/>
+    </marker>
+  </defs>
+
+  <!-- Warm paper background -->
+  <rect width="1120" height="560" rx="18" fill="#FAF7F0"/>
+  <rect x="10" y="10" width="1100" height="540" rx="14" fill="none" stroke="#0F2A44" stroke-width="2" stroke-opacity="0.16"/>
+
+  <!-- Header -->
+  <rect x="36" y="26" width="96" height="36" rx="8" fill="#1E5B94"/>
+  <text x="84" y="50" text-anchor="middle" class="font" font-size="17" font-weight="800" fill="#FFFDF8">圖解 02</text>
+  <text x="148" y="50" class="font" font-size="24" font-weight="800" fill="#0F2A44">種子（Seed）是什麼？把它想成這張圖的「樂透號碼」</text>
+  <text x="148" y="74" class="font" font-size="14" fill="#3B556E">看懂「隨機 vs. 固定」，就知道為什麼 Comfy 可以精準控制變因、不怕整張圖跑掉。</text>
+
+  <!-- LEFT PANEL: RANDOMIZE -->
+  <g filter="url(#cardShadow2)">
+    <rect x="36" y="96" width="504" height="346" rx="14" fill="#FFFDF8" stroke="#0F2A44" stroke-width="2"/>
+  </g>
+  <rect x="36" y="96" width="504" height="44" rx="14" fill="#FFE5DC"/>
+  <rect x="36" y="126" width="504" height="14" fill="#FFE5DC"/>
+  <line x1="36" y1="140" x2="540" y2="140" stroke="#E86A4A" stroke-width="1.5" stroke-opacity="0.45"/>
+  <text x="56" y="124" class="font" font-size="16.5" font-weight="800" fill="#0F2A44">隨機（randomize）＝ 每次重抽一張新構圖</text>
+
+  <text x="56" y="166" class="font" font-size="13.5" fill="#3B556E">提示詞完全相同：「黃雨衣小孩站在校門口」</text>
+
+  <!-- Mini frame 1: #1042 -->
+  <rect x="56" y="182" width="144" height="156" rx="10" fill="#DCEEFB" stroke="#0F2A44" stroke-width="1.8"/>
+  <rect x="56" y="182" width="144" height="28" rx="10" fill="#0F2A44"/>
+  <rect x="56" y="198" width="144" height="12" fill="#0F2A44"/>
+  <text x="128" y="201" text-anchor="middle" class="mono" font-size="12.5" font-weight="700" fill="#FFE07D">Seed #1042</text>
+  <!-- Scene 1: kid left, tree right -->
+  <rect x="58" y="294" width="140" height="42" fill="#E9E2D2"/>
+  <circle cx="164" cy="252" r="20" fill="#7BA886" stroke="#0F2A44" stroke-width="1.5"/>
+  <rect x="160" y="270" width="8" height="28" fill="#8C6239"/>
+  <!-- Kid on left -->
+  <circle cx="96" cy="256" r="11" fill="#FDE2C4" stroke="#0F2A44" stroke-width="1.5"/>
+  <path d="M 82 298 L 88 267 L 104 267 L 110 298 Z" fill="#FFE07D" stroke="#0F2A44" stroke-width="1.5"/>
+  <text x="128" y="328" text-anchor="middle" class="font" font-size="12" font-weight="700" fill="#0F2A44">人站左邊・遠景</text>
+
+  <!-- Mini frame 2: #8831 -->
+  <rect x="216" y="182" width="144" height="156" rx="10" fill="#DCEEFB" stroke="#0F2A44" stroke-width="1.8"/>
+  <rect x="216" y="182" width="144" height="28" rx="10" fill="#0F2A44"/>
+  <rect x="216" y="198" width="144" height="12" fill="#0F2A44"/>
+  <text x="288" y="201" text-anchor="middle" class="mono" font-size="12.5" font-weight="700" fill="#FFE07D">Seed #8831</text>
+  <!-- Scene 2: close-up centered -->
+  <circle cx="288" cy="256" r="24" fill="#FDE2C4" stroke="#0F2A44" stroke-width="1.8"/>
+  <path d="M 258 254 C 258 228, 318 228, 318 254" fill="#FFE07D" stroke="#0F2A44" stroke-width="1.8"/>
+  <circle cx="280" cy="256" r="2.5" fill="#0F2A44"/>
+  <circle cx="296" cy="256" r="2.5" fill="#0F2A44"/>
+  <path d="M 250 310 L 264 278 L 312 278 L 326 310 Z" fill="#FFE07D" stroke="#0F2A44" stroke-width="1.8"/>
+  <text x="288" y="328" text-anchor="middle" class="font" font-size="12" font-weight="700" fill="#0F2A44">變正面大頭特寫</text>
+
+  <!-- Mini frame 3: #5590 -->
+  <rect x="376" y="182" width="144" height="156" rx="10" fill="#DCEEFB" stroke="#0F2A44" stroke-width="1.8"/>
+  <rect x="376" y="182" width="144" height="28" rx="10" fill="#0F2A44"/>
+  <rect x="376" y="198" width="144" height="12" fill="#0F2A44"/>
+  <text x="448" y="201" text-anchor="middle" class="mono" font-size="12.5" font-weight="700" fill="#FFE07D">Seed #5590</text>
+  <!-- Scene 3: kid right with umbrella -->
+  <rect x="378" y="294" width="140" height="42" fill="#E9E2D2"/>
+  <path d="M 426 244 A 28 22 0 0 1 482 244 Z" fill="#E86A4A" stroke="#0F2A44" stroke-width="1.6"/>
+  <line x1="454" y1="244" x2="454" y2="274" stroke="#0F2A44" stroke-width="1.8"/>
+  <circle cx="468" cy="260" r="10" fill="#FDE2C4" stroke="#0F2A44" stroke-width="1.5"/>
+  <path d="M 455 298 L 461 270 L 475 270 L 481 298 Z" fill="#FFE07D" stroke="#0F2A44" stroke-width="1.5"/>
+  <text x="448" y="328" text-anchor="middle" class="font" font-size="12" font-weight="700" fill="#0F2A44">多出雨傘・站右邊</text>
+
+  <rect x="56" y="356" width="464" height="68" rx="10" fill="#FAF7F0" stroke="#0F2A44" stroke-width="1.2" stroke-opacity="0.25"/>
+  <text x="72" y="382" class="font" font-size="14" font-weight="800" fill="#0F2A44">什麼時候用「隨機」？</text>
+  <text x="72" y="406" class="font" font-size="13.5" fill="#3B556E">一開始找靈感、想一次看 3 種不同構圖提案時（抽候選）。</text>
+
+  <!-- RIGHT PANEL: FIXED -->
+  <g filter="url(#cardShadow2)">
+    <rect x="580" y="96" width="504" height="346" rx="14" fill="#FFFDF8" stroke="#1E5B94" stroke-width="2.5"/>
+  </g>
+  <rect x="580" y="96" width="504" height="44" rx="14" fill="#FFE07D"/>
+  <rect x="580" y="126" width="504" height="14" fill="#FFE07D"/>
+  <line x1="580" y1="140" x2="1084" y2="140" stroke="#0F2A44" stroke-width="1.8"/>
+  <text x="600" y="124" class="font" font-size="16.5" font-weight="800" fill="#0F2A44">固定（fixed：#42）＝ 鎖住起點，只改一個變因</text>
+
+  <text x="600" y="166" class="font" font-size="13.5" fill="#1E5B94" font-weight="700">號碼鎖死 #42，只把提示詞裡的「晴天」改成「雨天」</text>
+
+  <!-- Frame A: Sunny #42 -->
+  <rect x="600" y="182" width="196" height="156" rx="10" fill="#D8F0FF" stroke="#1E5B94" stroke-width="2"/>
+  <rect x="600" y="182" width="196" height="28" rx="10" fill="#1E5B94"/>
+  <rect x="600" y="198" width="196" height="12" fill="#1E5B94"/>
+  <text x="698" y="201" text-anchor="middle" class="mono" font-size="12.5" font-weight="700" fill="#FFFDF8">Seed #42 ｜ 晴天</text>
+  <!-- Sun -->
+  <circle cx="764" cy="232" r="14" fill="#FFE07D" stroke="#D49500" stroke-width="1.5"/>
+  <!-- Gate (exact same coords offset 0) -->
+  <rect x="602" y="294" width="192" height="42" fill="#EFE7D6"/>
+  <rect x="620" y="246" width="12" height="50" fill="#B8C4CF" stroke="#0F2A44" stroke-width="1.4"/>
+  <rect x="752" y="246" width="12" height="50" fill="#B8C4CF" stroke="#0F2A44" stroke-width="1.4"/>
+  <line x1="632" y1="258" x2="752" y2="258" stroke="#0F2A44" stroke-width="1.5"/>
+  <line x1="632" y1="274" x2="752" y2="274" stroke="#0F2A44" stroke-width="1.5"/>
+  <!-- Kid (exact same position: x=698) -->
+  <circle cx="698" cy="258" r="11" fill="#FDE2C4" stroke="#0F2A44" stroke-width="1.6"/>
+  <path d="M 684 298 L 690 269 L 706 269 L 712 298 Z" fill="#FFE07D" stroke="#0F2A44" stroke-width="1.6"/>
+  <text x="698" y="328" text-anchor="middle" class="font" font-size="12" font-weight="700" fill="#0F2A44">原構圖（暖陽晴天）</text>
+
+  <!-- Center Arrow -->
+  <rect x="802" y="232" width="60" height="32" rx="6" fill="#E86A4A"/>
+  <text x="832" y="253" text-anchor="middle" class="font" font-size="12" font-weight="800" fill="#FFFDF8">改 1 詞</text>
+  <line x1="806" y1="276" x2="858" y2="276" stroke="#0F2A44" stroke-width="2.5" marker-end="url(#arrowDark)"/>
+
+  <!-- Frame B: Rainy #42 -->
+  <rect x="868" y="182" width="196" height="156" rx="10" fill="#B7CBE0" stroke="#1E5B94" stroke-width="2"/>
+  <rect x="868" y="182" width="196" height="28" rx="10" fill="#1E5B94"/>
+  <rect x="868" y="198" width="196" height="12" fill="#1E5B94"/>
+  <text x="966" y="201" text-anchor="middle" class="mono" font-size="12.5" font-weight="700" fill="#FFE07D">Seed #42 ｜ 雨天</text>
+  <!-- Clouds & rain -->
+  <path d="M 896 234 C 896 222, 916 220, 922 226 C 930 218, 952 222, 952 234 Z" fill="#6F8AA6"/>
+  <path d="M 986 236 C 986 224, 1006 222, 1012 228 C 1020 220, 1042 224, 1042 236 Z" fill="#6F8AA6"/>
+  <g stroke="#1E5B94" stroke-width="1.5" stroke-linecap="round">
+    <line x1="900" y1="242" x2="894" y2="256"/>
+    <line x1="932" y1="240" x2="926" y2="254"/>
+    <line x1="998" y1="242" x2="992" y2="256"/>
+    <line x1="1032" y1="244" x2="1026" y2="258"/>
+  </g>
+  <!-- Exact same Gate (+268px) -->
+  <rect x="870" y="294" width="192" height="42" fill="#C7D3DF"/>
+  <rect x="888" y="246" width="12" height="50" fill="#95A5B5" stroke="#0F2A44" stroke-width="1.4"/>
+  <rect x="1020" y="246" width="12" height="50" fill="#95A5B5" stroke="#0F2A44" stroke-width="1.4"/>
+  <line x1="900" y1="258" x2="1020" y2="258" stroke="#0F2A44" stroke-width="1.5"/>
+  <line x1="900" y1="274" x2="1020" y2="274" stroke="#0F2A44" stroke-width="1.5"/>
+  <!-- Exact same Kid (+268px: x=966) -->
+  <circle cx="966" cy="258" r="11" fill="#FDE2C4" stroke="#0F2A44" stroke-width="1.6"/>
+  <path d="M 952 298 L 958 269 L 974 269 L 980 298 Z" fill="#FFE07D" stroke="#0F2A44" stroke-width="1.6"/>
+  <text x="966" y="328" text-anchor="middle" class="font" font-size="12" font-weight="700" fill="#0F2A44">角色校門不動・只變雨天</text>
+
+  <rect x="600" y="356" width="464" height="68" rx="10" fill="#EEF6FC" stroke="#1E5B94" stroke-width="1.5"/>
+  <text x="616" y="382" class="font" font-size="14" font-weight="800" fill="#0F2A44">什麼時候用「固定」？</text>
+  <text x="616" y="406" class="font" font-size="13.5" fill="#1E5B94">構圖已經滿意，只想微調天氣、光線、景別或做作業對照表時。</text>
+
+  <!-- BOTTOM 4-STEP ACTION BANNER -->
+  <rect x="36" y="460" width="1048" height="74" rx="14" fill="#0F2A44"/>
+  <text x="58" y="492" class="font" font-size="16" font-weight="800" fill="#FFE07D">不用從零拉線！日常只要這 4 步：</text>
+  <text x="58" y="518" class="font" font-size="14" fill="#FFFDF8">① 點開老師分享連結（線已接好）  →  ② 只改 2 格：提示詞＋種子  →  ③ 按右上角藍色「執行」  →  ④ 去「作業佇列」存 PNG</text>
+</svg>
